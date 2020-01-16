@@ -1,5 +1,37 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const Table = () => <div>StarWars Datatable with Filters</div>;
+import { connect } from 'react-redux';
 
-export default Table;
+import { fetchPlanets } from '../actions';
+
+class Table extends Component {
+  componentDidMount() {
+    const { getPlanets } = this.props;
+
+    getPlanets();
+  }
+
+  render() {
+    const { planets } = this.props;
+    console.log(planets)
+    return (
+    <div>
+        StarWARS
+    </div>
+    );
+  };
+}
+
+const mapDispatchToProps = (dispatch) => ({
+  getPlanets: () => dispatch(fetchPlanets())
+})
+
+const mapStateToProps = ({
+  planets,
+}) => (
+    {
+      planets,
+    }
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(Table);
