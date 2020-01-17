@@ -35,17 +35,6 @@ class Table extends Component {
   }
 
   render() {
-    const list = [
-      'Name',
-      'Rotation Period',
-      'Orbital Period',
-      'Diameter',
-      'Climate',
-      'Gravity',
-      'Terrain',
-      'Surface_water',
-      'Population',
-    ];
     const {
       name,
       rotation_period,
@@ -57,15 +46,17 @@ class Table extends Component {
       surface_water,
       population,
     } = this.props;
+    const dateOfHeader = Object.keys(this.props);
+    dateOfHeader.pop();
     return (
       <div>
         <h1>StarWars Datatable with Filters</h1>
         <table>
           <tbody>
             <tr>
-              {list.map((headersOdTable) => (
-                <th>
-                  <strong>{headersOdTable}</strong>
+              {dateOfHeader.map((dataTable) => (
+                <th key={dataTable}>
+                  <strong>{dataTable}</strong>
                 </th>
               ))}
             </tr>

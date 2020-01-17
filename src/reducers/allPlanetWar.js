@@ -7,7 +7,7 @@ const allPlanetWar = (state = {}, action) => {
         ...state,
         name: action.name,
         rotation_period: action.rotation_period,
-        orbital_period: action.orital_period,
+        orbital_period: action.orbital_period,
         diameter: action.diameter,
         climate: action.climate,
         gravity: action.gravity,
