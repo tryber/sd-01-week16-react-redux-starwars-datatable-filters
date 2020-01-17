@@ -36,16 +36,18 @@ class Table extends Component {
 
   render() {
     const list = [
-      'rotation_period',
-      'orbital_period',
-      'diameter',
-      'climate',
-      'gravity',
-      'terrain',
-      'surface_water',
-      'population',
+      'Name',
+      'Rotation Period',
+      'Orbital Period',
+      'Diameter',
+      'Climate',
+      'Gravity',
+      'Terrain',
+      'Surface_water',
+      'Population',
     ];
     const {
+      name,
       rotation_period,
       orbital_period,
       diameter,
@@ -56,36 +58,38 @@ class Table extends Component {
       population,
     } = this.props;
     return (
-      <table>
-        <tbody>
-          <tr>
-            <th>{list[0]}</th>
-            <th>{list[1]}</th>
-            <th>{list[2]}</th>
-            <th>{list[3]}</th>
-            <th>{list[4]}</th>
-            <th>{list[5]}</th>
-            <th>{list[6]}</th>
-            <th>{list[7]}</th>
-          </tr>
-          <tr>
-            <td>{rotation_period}</td>
-            <td>{orbital_period}</td>
-            <td>{diameter}</td>
-            <td>{climate}</td>
-            <td>{gravity}</td>
-            <td>{terrain}</td>
-            <td>{surface_water}</td>
-            <td>{population}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div>
+        <h1>StarWars Datatable with Filters</h1>
+        <table>
+          <tbody>
+            <tr>
+              {list.map((headersOdTable) => (
+                <th>
+                  <strong>{headersOdTable}</strong>
+                </th>
+              ))}
+            </tr>
+            <tr>
+              <td>{name}</td>
+              <td>{rotation_period}</td>
+              <td>{orbital_period}</td>
+              <td>{diameter}</td>
+              <td>{climate}</td>
+              <td>{gravity}</td>
+              <td>{terrain}</td>
+              <td>{surface_water}</td>
+              <td>{population}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     );
   }
 }
 
 const mapStateToProps = ({
   allPlanetWar: {
+    name,
     rotation_period,
     orbital_period,
     diameter,
@@ -96,6 +100,7 @@ const mapStateToProps = ({
     population,
   },
 }) => ({
+  name,
   rotation_period,
   orbital_period,
   diameter,
@@ -107,7 +112,7 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getPlanetFilter: () => dispatch(planetOfStarWar),
+  getPlanetFilter: () => dispatch(planetOfStarWar()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

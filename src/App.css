@@ -26,4 +26,6 @@
 
 table, th, td {
   border: 1px solid whitesmoke;
+  padding: 3px;
+  border-radius: 3px;
 }
