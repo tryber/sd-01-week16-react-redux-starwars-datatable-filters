@@ -5,12 +5,12 @@ import FilterName from './FilterName';
 
 const renderHeadColumns = () => {
   const columnsProperties = [
-    'name',
-    'population',
-    'orbital_period',
-    'diameter',
-    'rotation_period',
-    'surface_water'
+    'Name',
+    'Population',
+    'Orbital Period',
+    'Diameter',
+    'Rotation Period',
+    'Surface Water'
   ]
   return (
     <tr>
