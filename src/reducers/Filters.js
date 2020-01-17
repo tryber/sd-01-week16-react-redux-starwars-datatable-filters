@@ -1,8 +1,9 @@
 import {
-  ADD_FILTER
+  ADD_FILTER,
 } from '../actions';
 
-const INITIAL_FILTER = {}
+
+const INITIAL_FILTER = []
 
 const filters = (state = INITIAL_FILTER, action) => {
   switch (action.type) {

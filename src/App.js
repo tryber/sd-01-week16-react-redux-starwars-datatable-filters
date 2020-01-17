@@ -3,14 +3,14 @@ import './App.css';
 
 import Table from './components/Table';
 import Filters from './components/Filters';
+import Header from './components/Header';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <Filters />
-        <Table />
-      </header>
+      <Header />
+      <Filters />
+      <Table />
     </div>
   );
 }

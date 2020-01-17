@@ -10,7 +10,7 @@ const requestPlanets = () => ({
 
 const receivePlanetsSuccess = ({ results }) => ({
   type: RECEIVE_PLANETS_SUCCESS,
-  planets: results,
+  data: results,
 })
 
 const receivePlanetsFailure = (error) => ({
@@ -19,7 +19,7 @@ const receivePlanetsFailure = (error) => ({
 })
 
 export function fetchPlanets() {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(requestPlanets());
     return getStarWarsPlanets()
       .then(
@@ -30,10 +30,19 @@ export function fetchPlanets() {
 }
 
 
-export const ADD_FILTER = 'ADD_FILTER';
+export const ADD_FILTER_NAME = 'ADD_FILTER_NAME';
 
 
-const addFilter = (value) => ({
+export const addFilterName = (value) => {
+  return ({
+  type: ADD_FILTER_NAME,
+  value,
+})};
+
+
+export const ADD_FILTER = 'ADD_FILTER'; 
+
+export const addFilter = (value) => ({
   type: ADD_FILTER,
   value,
 });

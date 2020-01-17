@@ -8,7 +8,7 @@ const INITIAL_PLANETS = {
   isFetching: false,  
 }
 
-const planets = (state = INITIAL_PLANETS, action) => {
+const data = (state = INITIAL_PLANETS, action) => {
   switch (action.type) {
     case REQUEST_PLANETS:
       return {
@@ -18,7 +18,7 @@ const planets = (state = INITIAL_PLANETS, action) => {
     case RECEIVE_PLANETS_SUCCESS:
       return {
         ...state,
-        planets: action.planets,
+        data: action.data,
         isFetching: false,
       }
     case RECEIVE_PLANETS_FAILURE:
@@ -32,4 +32,4 @@ const planets = (state = INITIAL_PLANETS, action) => {
   }
 }
 
-export default planets;
+export default data;
