@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import CreateFilterNumber from './CreateFilterNumber';
 import { connect } from 'react-redux';
+import CreateFilterNumber from './CreateFilterNumber';
 
 class FilterNumbers extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       column: '',
       comparison: '',
@@ -25,7 +25,7 @@ class FilterNumbers extends Component {
   }
 
   changeValue(value) {
-    this.setState({ value: value });
+    this.setState({ value });
   }
 
   render() {
@@ -33,17 +33,17 @@ class FilterNumbers extends Component {
     return (
       <div>
         <CreateFilterNumber
-          changeValue={(value) => this.changeValue(value)}
-          changeComparison={(value) => this.changeComparison(value)}
-          changeColumn={(value) => this.changeColumn(value)}
+          changeValue={(newValue) => this.changeValue(newValue)}
+          changeComparison={(newComparison) => this.changeComparison(newComparison)}
+          changeColumn={(newColumn) => this.changeColumn(newColumn)}
           column={column}
           comparison={comparison}
           value={value}
         />
       </div>
     );
-  };
-};
+  }
+}
 
 const mapStateToProps = ({ planets }) => ({ planets });
 
