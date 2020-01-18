@@ -40,10 +40,8 @@ const renderInputNumber = (value, changeValue) => (
 );
 
 
-const sendFilter = (valueFilters, sendValues) => {
-  const { column, comparison } = valueFilters;
+const sendFilter = ({ column, comparison }, sendValues) => {
   if (column !== '' && comparison !== '') return sendValues(valueFilters);
-  return;
 };
 
 const renderButtonAdd = (column, value, comparison, sendValues) => {
