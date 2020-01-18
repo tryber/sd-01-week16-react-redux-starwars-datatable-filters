@@ -2,14 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { addFilter } from '../actions';
 
-const renderSelectFilter = (value, changeColumn) => {
+const renderSelectFilter = (changeColumn, filters) => {
+  const hideFilters = filters.map(filter=>filter.column)
   return (
-    <select value={value} onChange={(e)=>changeColumn(e.target.value)}>
-      <option value="population">Population</option>
-      <option value="orbital_period">Orbital Period</option>
-      <option value="diameter">Diameter</option>
-      <option value="rotation_period">Rotation Period</option>
-      <option value="surface_water">Surface Water</option>
+    <select onChange={(e)=>changeColumn(e.target.value)}>
+      <option value=""></option>
+      {hideFilters.includes('population') || <option value="population">Population</option>}
+      {hideFilters.includes('orbital_period') || <option value="orbital_period">Orbital Period</option>}
+      {hideFilters.includes('diameter') || <option value="diameter">Diameter</option>}
+      {hideFilters.includes('rotation_period') || <option value="rotation_period">Rotation Period</option>}
+      {hideFilters.includes('surface_water') || <option value="surface_water">Surface Water</option>}
     </select>
   )
 }
@@ -47,11 +49,12 @@ const renderButtonAdd = (column, value, comparison, sendValues) => {
   )
 }
 
-const CreateFilterNumber = ({ column, comparison, value, changeValue, changeComparison, changeColumn, sendValues }) => {
+const CreateFilterNumber = ({ column, comparison, value, changeValue, changeComparison, changeColumn, sendValues, filters }) => {
+  if(filters.length===5) return (<div><h2>Todos os Filtros já foram selecionados</h2></div>)
   return (
     <div>
       <div>
-        {renderSelectFilter(column, changeColumn)}
+        {renderSelectFilter(changeColumn, filters)}
         {renderRadioButton(comparison, changeComparison)}
         {renderInputNumber(value, changeValue)}
         {renderButtonAdd(column, value, comparison, sendValues)}
@@ -64,4 +67,13 @@ const mapDispatchToProps = (dispatch) => ({
   sendValues: (value) => dispatch(addFilter(value))
 })
 
-export default connect(null, mapDispatchToProps)(CreateFilterNumber);
+const mapStateToProps = ({
+  filters,
+}) => (
+    {
+      filters,
+    }
+  );
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateFilterNumber);
