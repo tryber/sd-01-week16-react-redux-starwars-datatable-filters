@@ -6,17 +6,17 @@ export const REQUEST_PLANETS = 'REQUEST_PLANETS';
 
 const requestPlanets = () => ({
   type: REQUEST_PLANETS,
-})
+});
 
 const receivePlanetsSuccess = ({ results }) => ({
   type: RECEIVE_PLANETS_SUCCESS,
   data: results,
-})
+});
 
-const receivePlanetsFailure = (error) => ({
+const receivePlanetsFailure = error => ({
   type: RECEIVE_PLANETS_FAILURE,
   error,
-})
+});
 
 export function fetchPlanets() {
   return dispatch => {
@@ -30,25 +30,26 @@ export function fetchPlanets() {
 }
 
 
-export const ADD_FILTER_NAME = 'ADD_FILTER_NAME';
+export const ADD_FILTER_NAME = "ADD_FILTER_NAME";
 
 
-export const addFilterName = (value) => {
+export const addFilterName = value => {
   return ({
-  type: ADD_FILTER_NAME,
-  value,
-})};
+    type: ADD_FILTER_NAME,
+    value,
+  });
+};
 
 
-export const ADD_FILTER = 'ADD_FILTER'; 
-export const REMOVE_FILTER = 'REMOVE_FILTER'; 
+export const ADD_FILTER = "ADD_FILTER";
+export const REMOVE_FILTER = "REMOVE_FILTER";
 
-export const addFilter = (value) => ({
+export const addFilter = value => ({
   type: ADD_FILTER,
   value,
 });
 
-export const removeFilter = (pos) => ({
+export const removeFilter = pos => ({
   type: REMOVE_FILTER,
   pos,
 });
