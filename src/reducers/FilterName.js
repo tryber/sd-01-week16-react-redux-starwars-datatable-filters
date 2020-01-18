@@ -9,11 +9,10 @@ const filtersName = (state = INITIAL_FILTER, action) => {
     case ADD_FILTER_NAME:
       return {
         ...state, filters: action.value,
-      }
+      };
     default:
       return state;
-    
-  }
-}
+  };
+};
 
 export default filtersName;

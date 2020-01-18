@@ -15,7 +15,6 @@ const FilterName = ({ changeFilterName, filters }) => (
   </div>
 );
 
-
 const mapDispatchToProps = (dispatch) => ({
   changeFilterName: (value) => dispatch(addFilterName(value)),
 });

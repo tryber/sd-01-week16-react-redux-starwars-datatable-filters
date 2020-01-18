@@ -5,8 +5,8 @@ import {
 } from '../actions';
 
 const INITIAL_PLANETS = {
-  isFetching: false,  
-}
+  isFetching: false,
+};
 
 const data = (state = INITIAL_PLANETS, action) => {
   switch (action.type) {
@@ -14,22 +14,22 @@ const data = (state = INITIAL_PLANETS, action) => {
       return {
         ...state,
         isFetching: true,
-      }
+      };
     case RECEIVE_PLANETS_SUCCESS:
       return {
         ...state,
         data: action.data,
         isFetching: false,
-      }
+      };
     case RECEIVE_PLANETS_FAILURE:
       return {
         ...state,
         error: action.error,
         isFetching: false,
-      }
+      };
     default:
       return state;
-  }
-}
+  };
+};
 
 export default data;
