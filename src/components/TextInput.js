@@ -9,9 +9,9 @@ class TextInput extends React.Component {
         <input
           type="text"
           onChange={e => this.props.changeNameInFilter(e.target.value)}
-          placeholder="nome"
+          placeholder="Nome"
         />
-        <p>{this.props.filter}</p>
+        <p>{this.props.filters}</p>
       </div>
     );
   }
@@ -19,13 +19,13 @@ class TextInput extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    filter: state.textFilterReducer.filter
+    filters: state.textFilterReducer.filters
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    changeNameInFilter: () => dispatch(textFilter())
+    changeNameInFilter: value => dispatch(textFilter(value))
   };
 };
 

@@ -8,30 +8,44 @@ class Table extends React.Component {
     this.props.loadData();
   }
 
+  filterByName(data, nameFilter) {
+    console.log(nameFilter);
+    if (nameFilter) {
+      return this.generateTableHead(
+        data.filter(planet => planet.name.includes(nameFilter))
+      );
+    }
+    return this.generateTableHead(data);
+  }
+
   generateTableHead(data) {
-    const arrayOfTags = Object.entries(data[0])
-      .map(tag => tag[0])
-      .filter(name => name !== "residents");
-    return (
-      <table>
-        <thead>
-          <tr>
-            {arrayOfTags.map(tag => {
-              return <th key={tag}>{tag}</th>;
-            })}
-          </tr>
-        </thead>
-        <tbody>{this.generateTableBody(data, arrayOfTags)}</tbody>
-      </table>
-    );
+    if (data.length > 0) {
+      const arrayOfTags = Object.entries(data[0])
+        .map(tag => tag[0])
+        .filter(name => name !== "residents");
+      return (
+        <table>
+          <thead>
+            <tr>
+              {arrayOfTags.map(tag => {
+                return <th key={`${tag}1`}>{tag}</th>;
+              })}
+            </tr>
+          </thead>
+          <tbody>{this.generateTableBody(data, arrayOfTags)}</tbody>
+        </table>
+      );
+    } else {
+      return <p>Planeta não encontrado</p>;
+    }
   }
 
   generateTableBody(data, arrayOfTags) {
     return data.map(planet => {
       return (
-        <tr key={planet}>
+        <tr key={planet.diameter}>
           {arrayOfTags.map(tag => {
-            return <td key={planet[tag]}>{planet[tag]}</td>;
+            return <td key={tag}>{planet[tag]}</td>;
           })}
         </tr>
       );
@@ -43,7 +57,7 @@ class Table extends React.Component {
       return <p>LOADING...</p>;
     }
     if (this.props.sucess) {
-      return this.generateTableHead(this.props.data.results);
+      return this.filterByName(this.props.data.results, this.props.nameFilter);
     }
     return <div>teste</div>;
   }
@@ -53,7 +67,8 @@ const mapStateToProps = state => {
   return {
     data: state.apiServiceReducer.data,
     isFetching: state.apiServiceReducer.isFetching,
-    sucess: state.apiServiceReducer.sucess
+    sucess: state.apiServiceReducer.sucess,
+    nameFilter: state.textFilterReducer.filters
   };
 };
 
