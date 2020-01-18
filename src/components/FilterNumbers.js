@@ -8,23 +8,23 @@ class FilterNumbers extends Component {
     this.state = {
       column: '',
       comparison: '',
-      value:0,
-    }
+      value: 0,
+    };
 
-    this.changeColumn = this.changeColumn.bind(this)
-    this.changeComparison = this.changeComparison.bind(this)
-    this.changeValue = this.changeValue.bind(this)
+    this.changeColumn = this.changeColumn.bind(this);
+    this.changeComparison = this.changeComparison.bind(this);
+    this.changeValue = this.changeValue.bind(this);
   }
 
-  changeColumn = (value) => {
+  changeColumn(value) {
     this.setState({ column: value });
   }
 
-  changeComparison = (value) => {
+  changeComparison(value) {
     this.setState({ comparison: value });
   }
 
-  changeValue = (value) => {
+  changeValue(value) {
     this.setState({ value: value });
   }
 
@@ -41,9 +41,9 @@ class FilterNumbers extends Component {
           value={value}
         />
       </div>
-    )
-  }
-}
+    );
+  };
+};
 
 const mapStateToProps = ({ planets }) => ({ planets });
 
