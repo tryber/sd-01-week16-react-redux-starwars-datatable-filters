@@ -4,11 +4,14 @@ import { textFilter } from "../actions/textFilter";
 
 class TextInput extends React.Component {
   render() {
-    //   console.log(this.props)
     return (
       <div>
-        <input type="text" onChange={(e) => this.props.changeNameInFilter(e.target.value)} placeholder="nome"/>
-    <p>{this.props.filter}</p>
+        <input
+          type="text"
+          onChange={e => this.props.changeNameInFilter(e.target.value)}
+          placeholder="nome"
+        />
+        <p>{this.props.filter}</p>
       </div>
     );
   }

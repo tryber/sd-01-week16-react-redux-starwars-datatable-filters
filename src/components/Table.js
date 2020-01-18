@@ -14,12 +14,14 @@ class Table extends React.Component {
       .filter(name => name !== "residents");
     return (
       <table>
-        <tr>
-          {arrayOfTags.map(tag => {
-            return <th>{tag}</th>;
-          })}
-        </tr>
-        {this.generateTableBody(data, arrayOfTags)}
+        <thead>
+          <tr>
+            {arrayOfTags.map(tag => {
+              return <th key={tag}>{tag}</th>;
+            })}
+          </tr>
+        </thead>
+        <tbody>{this.generateTableBody(data, arrayOfTags)}</tbody>
       </table>
     );
   }
@@ -27,18 +29,18 @@ class Table extends React.Component {
   generateTableBody(data, arrayOfTags) {
     return data.map(planet => {
       return (
-        <tr>
+        <tr key={planet}>
           {arrayOfTags.map(tag => {
-            return <td>{planet[tag]}</td>;
+            return <td key={planet[tag]}>{planet[tag]}</td>;
           })}
         </tr>
       );
     });
   }
-  
+
   render() {
-    if(this.props.isFetching) {
-        return <p>LOADING...</p>
+    if (this.props.isFetching) {
+      return <p>LOADING...</p>;
     }
     if (this.props.sucess) {
       return this.generateTableHead(this.props.data.results);
