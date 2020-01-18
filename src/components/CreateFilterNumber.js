@@ -2,19 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { addFilter } from '../actions';
 
-const renderSelectFilter = (changeColumn, filters) => {
-  const hideFilters = filters.map((filter) => filter.column);
-  return (
-    <select onChange={(e) => changeColumn(e.target.value)}>
-      <option value="" />
-      {hideFilters.includes('population') || <option value="population">Populaçao</option>}
-      {hideFilters.includes('orbital_period') || <option value="orbital_period">Duração da Orbita</option>}
-      {hideFilters.includes('diameter') || <option value="diameter">Diametro</option>}
-      {hideFilters.includes('rotation_period') || <option value="rotation_period">Duração da Rotação</option>}
-      {hideFilters.includes('surface_water') || <option value="surface_water">Superficie de Água</option>}
-    </select>
-  );
-};
+const renderSelectFilter = (changeColumn, hideFilters) => (
+  <select onChange={(e) => changeColumn(e.target.value)}>
+    <option value="" />
+    {hideFilters.includes('population') || <option value="population">Populaçao</option>}
+    {hideFilters.includes('orbital_period') || <option value="orbital_period">Duração da Orbita</option>}
+    {hideFilters.includes('diameter') || <option value="diameter">Diametro</option>}
+    {hideFilters.includes('rotation_period') || <option value="rotation_period">Duração da Rotação</option>}
+    {hideFilters.includes('surface_water') || <option value="surface_water">Superficie de Água</option>}
+  </select>
+);
+
 
 const renderRadioButton = (value, changeComparison) => (
   <div>
@@ -40,19 +38,20 @@ const renderInputNumber = (value, changeValue) => (
 );
 
 
-const sendFilter = ({ column, comparison }, sendValues) => {
-  const valueFilters = { column, comparison }
-  if (column !== '' && comparison !== '') return sendValues(valueFilters);
+const sendFilter = ({ column, value, comparison }, sendValues, hideFilters) => {
+  const valueFilters = { column, value, comparison };
+  const verify = hideFilters.includes(column);
+  if (column !== '' && comparison !== '' && !verify) return sendValues(valueFilters);
   return '';
 };
 
-const renderButtonAdd = (column, value, comparison, sendValues) => {
+const renderButtonAdd = (column, value, comparison, sendValues, hideFilters) => {
   const obj = { column, value, comparison };
   return (
     <input id="inputNumber"
       type="button"
       value="Adicionar Filtro"
-      onClick={() => sendFilter(obj, sendValues)}
+      onClick={() => sendFilter(obj, sendValues, hideFilters)}
     />
   );
 };
@@ -67,13 +66,14 @@ const CreateFilterNumber = ({
   sendValues,
   filters }) => {
   if (filters.length === 5) return (<div><h2>Todos os Filtros já foram selecionados</h2></div>);
+  const hideFilters = filters.map((filter) => filter.column);
   return (
     <div>
       <div>
-        {renderSelectFilter(changeColumn, filters)}
+        {renderSelectFilter(changeColumn, hideFilters)}
         {renderRadioButton(comparison, changeComparison)}
         {renderInputNumber(value, changeValue)}
-        {renderButtonAdd(column, value, comparison, sendValues)}
+        {renderButtonAdd(column, value, comparison, sendValues, hideFilters)}
       </div>
     </div>
   );
