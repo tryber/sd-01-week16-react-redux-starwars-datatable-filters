@@ -41,7 +41,7 @@ const renderInputNumber = (value, changeValue) => (
 
 
 const sendFilter = ({ column, comparison }, sendValues) => {
-  const valueFilters = {column, comparison}
+  const valueFilters = { column, comparison }
   if (column !== '' && comparison !== '') return sendValues(valueFilters);
   return '';
 };

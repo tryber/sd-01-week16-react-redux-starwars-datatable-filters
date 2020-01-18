@@ -7,20 +7,19 @@ import { fetchPlanets } from '../actions';
 class Header extends Component {
   componentDidMount() {
     const { getPlanets } = this.props;
-    
     getPlanets();
   }
   render() {
     return (
-    <h1>
+      <h1>
         PLANETAS DO STAR WARS SHOW
-    </h1>
-    );
-  };
+      </h1>
+    )
+  }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  getPlanets: () => dispatch(fetchPlanets())
-})
+  getPlanets: () => dispatch(fetchPlanets()),
+});
 
 export default connect(null, mapDispatchToProps)(Header);
