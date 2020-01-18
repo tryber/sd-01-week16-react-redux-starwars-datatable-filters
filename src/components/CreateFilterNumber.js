@@ -13,7 +13,6 @@ const renderSelectFilter = (changeColumn, hideFilters) => (
   </select>
 );
 
-
 const renderRadioButton = (value, changeComparison) => (
   <div>
     <input type="radio" checked={value === 'Maior que'} name="comparison" value="Maior que" onClick={(e) => changeComparison(e.target.value)} /> Maior que
@@ -21,7 +20,6 @@ const renderRadioButton = (value, changeComparison) => (
       <input type="radio" checked={value === 'Igual a'} name="comparison" value="Igual a" onClick={(e) => changeComparison(e.target.value)} /> Igual a
     </div>
 );
-
 
 const renderInputNumber = (value, changeValue) => (
   <div>
@@ -37,7 +35,6 @@ const renderInputNumber = (value, changeValue) => (
   </div>
 );
 
-
 const sendFilter = ({ column, value, comparison }, sendValues, hideFilters) => {
   const valueFilters = { column, value, comparison };
   const verify = hideFilters.includes(column);
@@ -48,7 +45,8 @@ const sendFilter = ({ column, value, comparison }, sendValues, hideFilters) => {
 const renderButtonAdd = (column, value, comparison, sendValues, hideFilters) => {
   const obj = { column, value, comparison };
   return (
-    <input id="inputNumber"
+    <input
+      id="inputNumber"
       type="button"
       value="Adicionar Filtro"
       onClick={() => sendFilter(obj, sendValues, hideFilters)}
@@ -84,6 +82,5 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = ({ filters }) => ({ filters });
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateFilterNumber);

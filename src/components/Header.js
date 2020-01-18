@@ -14,7 +14,7 @@ class Header extends Component {
       <h1>
         PLANETAS DO STAR WARS SHOW
       </h1>
-    )
+    );
   }
 }
 
