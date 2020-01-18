@@ -1,29 +1,25 @@
 import React from 'react';
-
 import { connect } from 'react-redux';
 import { addFilterName } from '../actions';
 
-const FilterName = ({ changeFilterName, filters }) => {
+const FilterName = ({ changeFilterName, filters }) => (
+  <div>
+    <label htmlFor="filter-name">
+      <input
+        id="filter-name"
+        type="text"
+        value={filters}
+        onChange={(e) => changeFilterName(e.target.value)}
+      />
+    </label>
+  </div>
+);
 
-  return (
-    <div>
-      <label htmlFor="filter-name">
-        <input id="filter-name" type="text" value={filters} onChange={(e)=>changeFilterName(e.target.value)}/>
-      </label>
-    </div>
-  )
-}
 
 const mapDispatchToProps = (dispatch) => ({
-  changeFilterName: (value) => dispatch(addFilterName(value))
-})
+  changeFilterName: (value) => dispatch(addFilterName(value)),
+});
 
-const mapStateToProps = ({
-  filtersName:{ filters },
-}) => (
-    {
-      filters,
-    }
-  );
+const mapStateToProps = ({ filtersName: { filters }, }) => ({ filters });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilterName);

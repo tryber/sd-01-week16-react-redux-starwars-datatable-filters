@@ -6,7 +6,7 @@ const renderSelectFilter = (changeColumn, filters) => {
   const hideFilters = filters.map((filter) => filter.column);
   return (
     <select onChange={(e) => changeColumn(e.target.value)}>
-      <option value=""></option>
+      <option value="" />
       {hideFilters.includes('population') || <option value="population">Populaçao</option>}
       {hideFilters.includes('orbital_period') || <option value="orbital_period">Duração da Orbita</option>}
       {hideFilters.includes('diameter') || <option value="diameter">Diametro</option>}
@@ -29,7 +29,8 @@ const renderInputNumber = (value, changeValue) => (
   <div>
     <label htmlFor="inputNumber">
       Números:
-        <input id="inputNumber"
+      <input
+        id="inputNumber"
         value={value}
         type="number"
         onChange={(e) => changeValue(e.target.value)}
@@ -42,6 +43,7 @@ const renderInputNumber = (value, changeValue) => (
 const sendFilter = (valueFilters, sendValues) => {
   const { column, comparison } = valueFilters;
   if (column !== '' && comparison !== '') return sendValues(valueFilters);
+  return;
 };
 
 const renderButtonAdd = (column, value, comparison, sendValues) => {
@@ -78,7 +80,7 @@ const CreateFilterNumber = ({
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  sendValues: (value) => dispatch(addFilter(value))
+  sendValues: (value) => dispatch(addFilter(value)),
 });
 
 const mapStateToProps = ({ filters }) => ({ filters });
