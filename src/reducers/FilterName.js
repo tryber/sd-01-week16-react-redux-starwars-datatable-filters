@@ -12,7 +12,7 @@ const filtersName = (state = INITIAL_FILTER, action) => {
       };
     default:
       return state;
-  };
+  }
 };
 
 export default filtersName;

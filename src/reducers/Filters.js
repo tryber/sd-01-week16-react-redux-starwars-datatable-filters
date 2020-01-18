@@ -14,7 +14,7 @@ const filters = (state = INITIAL_FILTER, action) => {
       return [...state.filter((filter, index) => (index !== action.pos))];
     default:
       return state;
-  };
+  }
 };
 
 export default filters;

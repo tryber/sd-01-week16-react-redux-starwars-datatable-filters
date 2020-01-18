@@ -7,6 +7,6 @@ const rootReducer = combineReducers({
   data,
   filters,
   filtersName,
-})
+});
 
 export default rootReducer;

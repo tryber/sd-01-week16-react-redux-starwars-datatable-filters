@@ -29,7 +29,7 @@ const data = (state = INITIAL_PLANETS, action) => {
       };
     default:
       return state;
-  };
+  }
 };
 
 export default data;
