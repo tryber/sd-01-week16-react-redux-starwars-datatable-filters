@@ -25,25 +25,6 @@ class Table extends React.Component {
   }
 
   generateTableBody(data, arrayOfTags) {
-    // for (let i = 0; i < arrayOfTags; i += 1) {
-    //   return (
-    //     <tr>
-    //       {data[arrayOfTags[i]].map(prop => {
-    //         return <td>{prop}</td>;
-    //       })}
-    //     </tr>
-    //   );
-    // }
-
-    // return arrayOfTags.map(tag => {
-    //   return (
-    //     <tr>
-    //       {data[tag].map(prop => {
-    //         return <td>{prop}</td>;
-    //       })}
-    //     </tr>
-    //   );
-    // });
     return data.map(planet => {
       return (
         <tr>
@@ -54,7 +35,11 @@ class Table extends React.Component {
       );
     });
   }
+  
   render() {
+    if(this.props.isFetching) {
+        return <p>LOADING...</p>
+    }
     if (this.props.sucess) {
       return this.generateTableHead(this.props.data.results);
     }
@@ -64,9 +49,9 @@ class Table extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    data: state.data,
-    isFetching: state.isFetching,
-    sucess: state.sucess
+    data: state.apiServiceReducer.data,
+    isFetching: state.apiServiceReducer.isFetching,
+    sucess: state.apiServiceReducer.sucess
   };
 };
 

@@ -2,12 +2,14 @@ th,
 td {
   border: 1px solid black;
   padding: 1em;
+  /* max-width: 4em; */
 }
 table {
   border-collapse: collapse;
   width: 80%;
   text-align: center;
   margin: 0 auto;
+  font-size: 0.8em;
 }
 tr {
   width: 100%;
