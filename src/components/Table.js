@@ -11,11 +11,11 @@ const renderHeadColumns = () => {
     'Gravidade',
     'Solo',
     'Duração Rotação',
-    'Superficie de Água'
+    'Superficie de Água',
   ];
   return (
     <tr>
-      {columnsProperties.map(property => <th key={property}>{property}</th>)}
+      {columnsProperties.map((property) => <th key={property}>{property}</th>)}
     </tr>
   );
 };
@@ -27,17 +27,18 @@ const filterByName = (data, filtersName) => {
   return data;
 };
 
-const allFilters = (data, filters) => {
-  return filters.reduce((acc, filter, index) => {
+const allFilters = (data, filters) => (
+  filters.reduce((acc, filter, index) => {
     const array = (index === 0) ? data : acc;
     const obj = {
       'Maior que': array.filter((planet) => Number(planet[filter.column]) > filter.value),
       'Menor que': array.filter((planet) => Number(planet[filter.column]) < filter.value),
       'Igual a': array.filter((planet) => Number(planet[filter.column]) === filter.value),
     };
-    return obj[filter.comparison]
-  }, [])
-};
+    return obj[filter.comparison];
+  }, [],
+  )
+);
 
 const numericFilters = (data, filters) => {
   if (filters.length !== 0) return allFilters(data, filters);
@@ -72,7 +73,7 @@ const Table = ({ data, filters, filtersName }) => {
       <table>
         <tbody>
           {(planetsFiltered) && renderHeadColumns()}
-          {(planetsFiltered) && planetsFiltered.map(planet => createRow(planet))}
+          {(planetsFiltered) && planetsFiltered.map((planet) => createRow(planet))}
         </tbody>
       </table>
       {(planetsFiltered === undefined) && <h3>Planeta não encontrado</h3>}

@@ -1,4 +1,4 @@
-import { getStarWarsPlanets } from '../services/starWarsApi';
+import getStarWarsPlanets from '../services/starWarsApi';
 
 export const RECEIVE_PLANETS_SUCCESS = 'RECEIVE_PLANETS_SUCCESS';
 export const RECEIVE_PLANETS_FAILURE = 'RECEIVE_PLANETS_FAILURE';
