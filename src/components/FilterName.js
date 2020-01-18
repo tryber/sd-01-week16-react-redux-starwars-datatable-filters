@@ -7,7 +7,7 @@ const FilterName = ({ changeFilterName, filters }) => {
 
   return (
     <div>
-      <label for="filter-name">
+      <label htmlFor="filter-name">
         <input id="filter-name" type="text" value={filters} onChange={(e)=>changeFilterName(e.target.value)}/>
       </label>
     </div>

@@ -1,7 +1,5 @@
 import React from 'react';
-
 import { connect } from 'react-redux';
-import FilterName from './FilterName';
 
 const renderHeadColumns = () => {
   const columnsProperties = [
@@ -9,94 +7,79 @@ const renderHeadColumns = () => {
     'Population',
     'Orbital Period',
     'Diameter',
+    'Climate',
+    'Gravity',
+    'Terrain',
     'Rotation Period',
     'Surface Water'
   ]
   return (
     <tr>
-      {columnsProperties.map(Property => <th>{Property}</th>)}
+      {columnsProperties.map(property => <th key={property}>{property}</th>)}
     </tr>
   )
 }
 
 const filterByName = (data, filtersName) => {
-  console.log(data,'filterByName')
   if (filtersName) {
-    console.log('filterByName','true',filtersName)
-    console.log(data.filter(planet => planet.name.includes(filtersName)))
     return data.filter(({ name }) => name.includes(filtersName));
   } else {
-    console.log('filterByName','false')
     return data;
   }
 }
 
-const filterColumnPopulation = (data, comparison, value) => {
-  console.log(data,'filterColumnPopulation')
-  const obj = {
-    'Maior que': (() => data.filter(({ population }) => population !== "unknown" && population > value)),
-    'Menor que': (() => data.filter(({ population }) => population !== "unknown" && population < value)),
-    'Igual a': (() => data.filter(({ population }) => population !== "unknown" && population === value)),
-  }
-  return obj[comparison];
-}
-
-const filterComparison = (data, { column, comparison, value }) => {
-  console.log(data,'filterComparison')
-  if (column === 'population') return filterColumnPopulation((data, comparison, value));
-  const obj = {
-    'Maior que': (() => data.filter(planet => planet[column] > value)),
-    'Menor que': (() => data.filter(planet => planet[column] < value)),
-    'Igual a': (() => data.filter(planet => planet[column] === value)),
-  }
-  return obj[comparison];
-}
-
 const allFilters = (data, filters) => {
-  console.log(data,'allFilters')
-  return filters.reduce((acc, filter) => {
-    let arr = acc || data;
-    return filterComparison(arr, filter)
+  return filters.reduce((acc, filter, index) => {
+    const array = (index===0) ? data : acc;
+    const obj = {
+      'Maior que': array.filter(planet => Number(planet[filter.column]) > filter.value),
+      'Menor que': array.filter(planet => Number(planet[filter.column]) < filter.value),
+      'Igual a': array.filter(planet => Number(planet[filter.column]) === filter.value),
+    }
+    return obj[filter.comparison]
   }, [])
 }
 
 const numericFilters = (data, filters) => {
   if (filters.length !== 0) {
-    console.log(data,'numericFilters')
     return allFilters(data, filters);
   } else {
-    console.log(data,'numericFilters diferente')
     return data;
   }
 }
 
 const returnFilterList = (data, filters, filtersName) => {
-  console.log('returnFilterList',data)
   const arrayData = filterByName(data, filtersName);
-  return numericFilters(arrayData, filters);
+  const result = numericFilters(arrayData, filters)
+  return result;
 }
 
-const createRow = ({name,population,orbital_period,diameter,rotation_period,surface_water}) => ((
-  <tr>
-    <td>{name}</td>
-    <td>{population}</td>
-    <td>{orbital_period}</td>
-    <td>{diameter}</td>
-    <td>{rotation_period}</td>
-    <td>{surface_water}</td>
+const createRow = (planet) => ((
+  <tr key={planet.name}>
+    <td>{`${planet.name}`}</td>
+    <td>{`${planet.population}`}</td>
+    <td>{`${planet.orbital_period} Hours`}</td>
+    <td>{`${planet.diameter} KM`}</td>
+    <td>{`${planet.climate}`}</td>
+    <td>{`${planet.gravity}`}</td>
+    <td>{`${planet.terrain}`}</td>
+    <td>{`${planet.rotation_period} Hours`}</td>
+    <td>{`${planet.surface_water} %`}</td>
   </tr>
-)) 
+))
 
 const Table = ({ data, filters, filtersName }) => {
-  const searchName = filtersName.filters
-  const planetsFiltered = returnFilterList(data, filters, searchName);
+  const searchName = filtersName.filters;
+  const planetsFiltered = (data) ? returnFilterList(data, filters, searchName) : false;
   return (
     <div>
       <table>
-        {planetsFiltered && renderHeadColumns()}
-        {planetsFiltered && planetsFiltered.map(planet=>createRow(planet))}
+        <tbody>
+          {(planetsFiltered) && renderHeadColumns()}
+          {(planetsFiltered) && planetsFiltered.map(planet => createRow(planet))}
+        </tbody>
       </table>
-      {!planetsFiltered && <h3>NOT FOUND</h3>}
+      {(planetsFiltered === undefined) && <h3>NOT FOUND</h3>}
     </div>
   );
 };

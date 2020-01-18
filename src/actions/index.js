@@ -41,8 +41,15 @@ export const addFilterName = (value) => {
 
 
 export const ADD_FILTER = 'ADD_FILTER'; 
+export const REMOVE_FILTER = 'REMOVE_FILTER'; 
 
 export const addFilter = (value) => ({
   type: ADD_FILTER,
   value,
 });
+
+export const removeFilter = (pos) => ({
+  type: REMOVE_FILTER,
+  pos,
+});
+

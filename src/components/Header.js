@@ -7,7 +7,7 @@ import { fetchPlanets } from '../actions';
 class Header extends Component {
   componentDidMount() {
     const { getPlanets } = this.props;
-
+    
     getPlanets();
   }
   render() {

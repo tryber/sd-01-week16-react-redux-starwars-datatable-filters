@@ -1,60 +1,50 @@
 import React, { Component } from 'react';
-
+import CreateFilterNumber from './CreateFilterNumber';
 import { connect } from 'react-redux';
 
-import { fetchPlanets } from '../actions';
+class FilterNumbers extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      column: '',
+      comparison: '',
+      value:0,
+    }
 
+    this.changeColumn = this.changeColumn.bind(this)
+    this.changeComparison = this.changeComparison.bind(this)
+    this.changeValue = this.changeValue.bind(this)
+  }
 
-const renderSelectFilter = () => {
-  return (
-    <select>
-      <option value="population">Population</option>
-      <option value="orbital_period">Orbital Period</option>
-      <option value="diameter">Diameter</option>
-      <option value="rotation_period">Rotation Period</option>
-      <option value="surface_water">Surface Water</option>
-    </select>
-  )
-}
+  changeColumn = (value) => {
+    this.setState({ column: value });
+  }
 
+  changeComparison = (value) => {
+    this.setState({ comparison: value });
+  }
 
-const renderRadioButton = () => {
-  return (
-    <div>
-      <input type="radio" name="comparison" value="Maior que" /> Maior que
-      <input type="radio" name="comparison" value="Menor que" /> Menor que
-      <input type="radio" name="comparison" value="Igual a" /> Igual a
-    </div>
-  )
-}
+  changeValue = (value) => {
+    this.setState({ value: value });
+  }
 
-const renderInputNumber = () => {
-  return (
-    <div>
-      <label for="inputNumber">
-        Numeros:
-        <input id="inputNumber" type="number" />
-      </label>
-    </div>
-  )
-}
-
-const FilterNumbers = () => {
-  return (
-    <div>
+  render() {
+    const { column, comparison, value } = this.state;
+    return (
       <div>
-        {renderSelectFilter()}
-        {renderRadioButton()}
-        {renderInputNumber()}
+        <CreateFilterNumber
+          changeValue={(value) => this.changeValue(value)}
+          changeComparison={(value) => this.changeComparison(value)}
+          changeColumn={(value) => this.changeColumn(value)}
+          column={column}
+          comparison={comparison}
+          value={value}
+        />
       </div>
-    </div>
-  )
+    )
+  }
 }
-
-const mapDispatchToProps = (dispatch) => ({
-  getPlanets: () => dispatch(fetchPlanets())
-})
 
 const mapStateToProps = ({ planets }) => ({ planets });
 
-export default connect(mapStateToProps, mapDispatchToProps)(FilterNumbers);
+export default connect(mapStateToProps)(FilterNumbers);

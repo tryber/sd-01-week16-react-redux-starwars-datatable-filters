@@ -1,7 +1,6 @@
 const STARWARS_API = 'https://swapi.co/api/planets/';
 
 export const getStarWarsPlanets = () => {
-  console.log('foi')
   return(
   fetch(`${STARWARS_API}`)
     .then((response) => (

@@ -2,6 +2,7 @@ import React from 'react';
 
 import FilterNumbers from './FilterNumbers';
 import FilterName from './FilterName';
+import FiltersActive from './FiltersActive';
 
 const Filters = () => {
   return (
@@ -10,6 +11,7 @@ const Filters = () => {
       <FilterName />
       <h4>Filters Numbers</h4>
       <FilterNumbers />
+      <FiltersActive />
     </div>
   )
 }
