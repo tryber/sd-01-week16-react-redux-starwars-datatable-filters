@@ -3,15 +3,15 @@ import { connect } from 'react-redux';
 
 const renderHeadColumns = () => {
   const columnsProperties = [
-    'Name',
-    'Population',
-    'Orbital Period',
-    'Diameter',
-    'Climate',
-    'Gravity',
-    'Terrain',
-    'Rotation Period',
-    'Surface Water'
+    'Nome',
+    'População',
+    'Duração Orbita',
+    'Diametro',
+    'Clima',
+    'Gravidade',
+    'Solo',
+    'Duração Rotação',
+    'Superficie de Água'
   ]
   return (
     <tr>
@@ -79,7 +79,7 @@ const Table = ({ data, filters, filtersName }) => {
           {(planetsFiltered) && planetsFiltered.map(planet => createRow(planet))}
         </tbody>
       </table>
-      {(planetsFiltered === undefined) && <h3>NOT FOUND</h3>}
+      {(planetsFiltered === undefined) && <h3>Planeta não encontrado</h3>}
     </div>
   );
 };

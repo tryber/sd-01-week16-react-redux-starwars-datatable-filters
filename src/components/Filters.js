@@ -7,11 +7,11 @@ import FiltersActive from './FiltersActive';
 const Filters = () => {
   return (
     <div>
-      <h2>Filter</h2>
+      <h2>Nome:</h2>
       <FilterName />
-      <h4>Filters Numbers</h4>
-      <FilterNumbers />
+      <h4>Filtros</h4>
       <FiltersActive />
+      <FilterNumbers />
     </div>
   )
 }

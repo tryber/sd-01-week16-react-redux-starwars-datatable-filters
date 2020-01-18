@@ -6,11 +6,11 @@ import { removeFilter } from '../actions';
 
 const saveFilter = ({ column, comparison, value }, index, removeFilter) => {
   const columnsProperties = {
-    'population': 'Population',
-    'orbital_period': 'Orbital Period',
-    'diameter': 'Diameter',
-    'rotation_period': 'Rotation Period',
-    'surface_water': 'Surface Water',
+    'population': 'Populção',
+    'orbital_period': 'Periodo de Orbita',
+    'diameter': 'Diametro',
+    'rotation_period': 'Periodo de Rotação',
+    'surface_water': 'Superficie de Água',
   }
 
   return (

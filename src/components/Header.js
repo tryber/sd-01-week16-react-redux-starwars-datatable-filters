@@ -13,7 +13,7 @@ class Header extends Component {
   render() {
     return (
     <h1>
-        PLANETS OF STAR WARS SHOW
+        PLANETAS DO STAR WARS SHOW
     </h1>
     );
   };
