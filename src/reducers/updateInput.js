@@ -1,6 +1,7 @@
 import UPDATE_INPUT from '../actions/apiAndRequests';
 
-const reducer = (state = { input: {} }, action) => {
+const intialState = { inputValue: '' };
+const reducer = (state = intialState, action) => {
   switch (action.type) {
     case UPDATE_INPUT:
       return { ...state, input: action.charge };

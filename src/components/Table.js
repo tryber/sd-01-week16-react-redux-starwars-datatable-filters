@@ -63,8 +63,7 @@ class Table extends Component {
     return (
       <div>
         <h1>StarWars Datatable with Filters</h1>
-        <Filter />
-        <h4>{`Text Length ${len}`}</h4>
+        <Filter inputValue="Douglas" />
         <table>
           <thead>{this.headColumns()}</thead>
           <tbody>{data && data.map((value) => this.bodyTableRow(value))}</tbody>

@@ -1,7 +1,6 @@
 {
   "extends": "airbnb",
   "rules": {
-    "linebreak-style": ["error", "windows"],
     "no-console": "off",
     "no-alert": "off",
     "prefer-arrow-callback": "off",
@@ -26,4 +25,3 @@
     "jest": true
   }
 }
-// "linebreak-style": ["error", "windows"]
