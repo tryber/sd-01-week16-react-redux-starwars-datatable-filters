@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchPlanets } from '../actions/apiAndRequests';
-
 import Filter from './Filter';
 
 class Table extends Component {
