@@ -18,13 +18,13 @@ const allPlanetWar = (state = INITIAL_STATE_PLANETS, action) => {
     case PLANET_OF_STAR_WAR_FAILURE:
       return {
         ...state,
-        data: action.data,
+        error: action.error,
         isFetching: false,
       };
     case PLANET_OF_STAR_WAR_SUCCESS:
       return {
         ...state,
-        error: action.error,
+        data: action.data,
         isFetching: false,
       };
     default:

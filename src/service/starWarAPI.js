@@ -1,7 +1,18 @@
-const endpoint = 'https://swapi.co/api/planets/';
+const endPoint = 'https://swapi.co/api/planets/';
 
-export const getPlanetFetch = () => {
-  fetch(`${endpoint}`).then((response) => response.json().then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json))));
-};
+const getPlanetFetch = () => fetch(`${endPoint}`).then((response) => response.json().then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json))));
 
 export default getPlanetFetch;
+
+// const ISS_BASE_API = 'http://api.open-notify.org';
+
+// export const getCurrentISSLocation = () => (
+//   fetch(`${ISS_BASE_API}/iss-now.json`)
+//     .then((response) => (
+//       response
+//         .json()
+//         .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json)))
+//     ))
+// );
+
+// export default getCurrentISSLocation;

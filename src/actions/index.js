@@ -1,4 +1,4 @@
-import { getPlanetFetch } from '../service/starWarAPI';
+import getPlanetFetch from '../service/starWarAPI';
 
 export const STAR_WAR_REQUEST = 'STAR_WAR_REQUEST';
 export const PLANET_OF_STAR_WAR_SUCCESS = 'PLANET_OF_STAR_WAR_SUCCESS';

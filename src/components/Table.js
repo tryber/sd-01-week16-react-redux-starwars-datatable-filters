@@ -7,33 +7,70 @@ class Table extends Component {
     const { getPlanetFetch } = this.props;
     getPlanetFetch();
   }
-  // dateOfHeader.map((dataTable) => (
-  //   <th key={dataTable}>
-  //     <strong>{dataTable}</strong>
-  //   </th>
-  // ))
+
+  headColumns() {
+    const textColumns = [
+      'Nome',
+      'População',
+      'Duração Orbita',
+      'Diametro',
+      'Clima',
+      'Gravidade',
+      'Solo',
+      'Duração Rotação',
+      'Superficie de Água',
+    ];
+    return (
+      <tr>
+        {textColumns.map((textName) => (
+          <th key={textName}>{textName}</th>
+        ))}
+      </tr>
+    );
+  }
+
+  bobyTableRow(planets) {
+    return (
+      <tr key={planets.name}>
+        <td>{planets.name}</td>
+        <td>{planets.population}</td>
+        <td>
+          {planets.orbital_period}
+          {' '}
+        </td>
+        <td>
+          {planets.diameter}
+          {' '}
+        </td>
+        <td>{planets.climate}</td>
+        <td>{planets.gravity}</td>
+        <td>{planets.terrain}</td>
+        <td>
+          {planets.rotation_period}
+          {' '}
+        </td>
+        <td>
+          {planets.surface_water}
+          {' '}
+        </td>
+      </tr>
+    );
+  }
 
   render() {
     const { data, isFetching, error } = this.props;
+    console.log(data);
     return (
       <div>
         <h1>StarWars Datatable with Filters</h1>
+
         <table>
           <tbody>
-            <tr>{}</tr>
-            <tr>
-              {/* <td>{name}</td>
-              <td>{rotation_period}</td>
-              <td>{orbital_period}</td>
-              <td>{diameter}</td>
-              <td>{climate}</td>
-              <td>{gravity}</td>
-              <td>{terrain}</td>
-              <td>{surface_water}</td>
-              <td>{population}</td> */}
-            </tr>
+            {planetsFiltered && renderHeadColumns()}
+            {planetsFiltered && planetsFiltered.map((planet) => createRow(planet))}
           </tbody>
         </table>
+        {planetsFiltered === undefined && <h3>Planeta não encontrado</h3>}
       </div>
     );
   }
