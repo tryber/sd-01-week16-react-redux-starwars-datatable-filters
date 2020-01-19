@@ -1,19 +1,31 @@
-import { PLANET_OF_STAR_WAR } from '../actions';
+import {
+  STAR_WAR_REQUEST,
+  PLANET_OF_STAR_WAR_FAILURE,
+  PLANET_OF_STAR_WAR_SUCCESS,
+} from '../actions';
 
-const allPlanetWar = (state = {}, action) => {
+const INITIAL_STATE_PLANETS = {
+  isFetching: false,
+};
+
+const allPlanetWar = (state = INITIAL_STATE_PLANETS, action) => {
   switch (action.type) {
-    case PLANET_OF_STAR_WAR:
+    case STAR_WAR_REQUEST:
       return {
         ...state,
-        name: action.name,
-        rotation_period: action.rotation_period,
-        orbital_period: action.orbital_period,
-        diameter: action.diameter,
-        climate: action.climate,
-        gravity: action.gravity,
-        terrain: action.terrain,
-        surface_water: action.surface_water,
-        population: action.population,
+        isFetching: true,
+      };
+    case PLANET_OF_STAR_WAR_FAILURE:
+      return {
+        ...state,
+        data: action.data,
+        isFetching: false,
+      };
+    case PLANET_OF_STAR_WAR_SUCCESS:
+      return {
+        ...state,
+        error: action.error,
+        isFetching: false,
       };
     default:
       return state;

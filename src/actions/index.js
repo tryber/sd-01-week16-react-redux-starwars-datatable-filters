@@ -1,14 +1,29 @@
-export const PLANET_OF_STAR_WAR = 'PLANET_OF_STAR_WAR';
+import { getPlanetFetch } from '../service/starWarAPI';
 
-export const planetOfStarWar = () => ({
-  type: PLANET_OF_STAR_WAR,
-  name: 'Alderaan',
-  rotation_period: '24',
-  orbital_period: '364',
-  diameter: '12500',
-  climate: 'temperate',
-  gravity: '1 standard',
-  terrain: 'grasslands, mountains',
-  surface_water: '40',
-  population: '2000000000',
+export const STAR_WAR_REQUEST = 'STAR_WAR_REQUEST';
+export const PLANET_OF_STAR_WAR_SUCCESS = 'PLANET_OF_STAR_WAR_SUCCESS';
+export const PLANET_OF_STAR_WAR_FAILURE = 'PLANET_OF_STAR_WAR_FAILURE';
+
+const starWarRequest = () => ({
+  type: STAR_WAR_REQUEST,
 });
+
+const planetOfStarWarSuccess = ({ results }) => ({
+  type: PLANET_OF_STAR_WAR_SUCCESS,
+  data: results,
+});
+
+const planetOfStarWarFailure = (error) => ({
+  type: PLANET_OF_STAR_WAR_FAILURE,
+  error,
+});
+
+export function fetchPlanets() {
+  return (dispatch) => {
+    dispatch(starWarRequest());
+    return getPlanetFetch().then(
+      (planets) => dispatch(planetOfStarWarSuccess(planets)),
+      (error) => dispatch(planetOfStarWarFailure(error.message)),
+    );
+  };
+}
