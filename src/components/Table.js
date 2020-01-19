@@ -55,7 +55,18 @@ class Table extends Component {
   }
 
   render() {
-    const { data, inputValue } = this.props;
+    const { data, inputValue, isFetching } = this.props;
+    if (isFetching) {
+      return (
+        <section>
+          <h1>LOADING...</h1>
+          <img
+            src="https://media.giphy.com/media/FvKe8DbAMnOda/giphy.gif"
+            alt="gif terra com a lua girando"
+          />
+        </section>
+      );
+    }
     console.log('→→→', inputValue);
     return (
       <div>
