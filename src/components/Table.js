@@ -55,11 +55,13 @@ class Table extends Component {
   }
 
   render() {
-    const { isFetching, data, error } = this.props;
+    const { data, inputValue } = this.props;
+    console.log('→→→', inputValue);
     return (
       <div>
         <h1>StarWars Datatable with Filters</h1>
         <Filter />
+
         <table>
           <thead>{this.headColumns()}</thead>
           <tbody>{data && data.map((value) => this.bodyTableRow(value))}</tbody>
@@ -69,10 +71,14 @@ class Table extends Component {
   }
 }
 
-const mapStateToProps = ({ allPlanetWar: { isFetching, data, error } }) => ({
+const mapStateToProps = ({
+  allPlanetWar: { isFetching, data, error },
+  updateInput: { inputValue },
+}) => ({
   isFetching,
   data,
   error,
+  inputValue,
 });
 
 const mapDispatchToProps = (dispatch) => ({
