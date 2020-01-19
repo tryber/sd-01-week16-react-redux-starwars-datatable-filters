@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 class Filter extends Component {
   constructor(props) {
@@ -15,14 +16,14 @@ class Filter extends Component {
 
   render() {
     const {
-      filters: { name },
+      input: { txt = '' },
     } = this.props;
     return (
       <div>
-        <textarea value={name} onChange={this.handleChange} />
+        <textarea value={txt} onChange={this.handleChange} />
       </div>
     );
   }
 }
 
-export default Filter;
+export default connect(mapStateToProps, mapDispatchToProps)(Filter);

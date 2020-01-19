@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchPlanets } from '../actions';
+import { fetchPlanets } from '../actions/apiAndRequests';
 import Filter from './Filter';
 // import PropTypes from 'prop-types';
 
@@ -56,11 +56,15 @@ class Table extends Component {
   }
 
   render() {
+    const {
+      input: { len = 0 },
+    } = this.props;
     const { isFetching, data, error } = this.props;
     return (
       <div>
         <h1>StarWars Datatable with Filters</h1>
         <Filter />
+        <h4>{`Text Length ${len}`}</h4>
         <table>
           <thead>{this.headColumns()}</thead>
           <tbody>{data && data.map((value) => this.bodyTableRow(value))}</tbody>
@@ -70,7 +74,11 @@ class Table extends Component {
   }
 }
 
-const mapStateToProps = ({ allPlanetWar: { isFetching, data, error } }) => ({
+const mapStateToProps = (
+  { allPlanetWar: { isFetching, data, error } },
+  { updateInput: { charge } },
+) => ({
+  charge,
   isFetching,
   data,
   error,

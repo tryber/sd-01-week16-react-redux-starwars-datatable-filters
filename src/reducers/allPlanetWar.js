@@ -2,7 +2,7 @@ import {
   STAR_WAR_REQUEST,
   PLANET_OF_STAR_WAR_FAILURE,
   PLANET_OF_STAR_WAR_SUCCESS,
-} from '../actions';
+} from '../actions/apiAndRequests';
 
 const INITIAL_STATE_PLANETS = {
   isFetching: false,
