@@ -8,49 +8,6 @@ class Table extends React.Component {
     this.props.loadData();
   }
 
-  filterByName(data, nameFilter) {
-    if (nameFilter) {
-      return this.filterByValues(
-        data.filter(planet => planet.name.includes(nameFilter))
-      );
-    }
-    return this.filterByValues(data);
-  }
-
-  findComparisons({ column, comparison, value }, data) {
-    switch (comparison) {
-      case "Maior":
-        return data.filter(
-          planet =>
-            planet[column] > Number(value) && planet[column] !== "unknown"
-        );
-      case "Menor":
-        return data.filter(
-          planet =>
-            planet[column] < Number(value) && planet[column] !== "unknown"
-        );
-      case "Igual":
-        return data.filter(
-          planet =>
-            planet[column] === Number(value) && planet[column] !== "unknown"
-        );
-      default:
-        return false;
-    }
-  }
-
-  filterByValues(data) {
-    const { valueFilter } = this.props;
-    if (
-      valueFilter.numeric_values &&
-      valueFilter.numeric_values.value.length > 0
-    ) {
-      const result = this.findComparisons(valueFilter.numeric_values, data);
-      return this.generateTableHead(result);
-    }
-    return this.generateTableHead(data);
-  }
-
   generateTableHead(data) {
     if (data.length > 0) {
       const arrayOfTags = Object.entries(data[0])
@@ -90,19 +47,21 @@ class Table extends React.Component {
       return <p>LOADING...</p>;
     }
     if (this.props.sucess) {
-      return this.filterByName(this.props.data.results, this.props.nameFilter);
+      if(this.props.finalData) {
+        return this.generateTableHead(this.props.finalData)
+      }
+      return this.generateTableHead(this.props.initialData.results);
     }
-    return <div>teste</div>;
+    return <div>ERROR</div>;
   }
 }
 
 const mapStateToProps = state => {
   return {
-    data: state.apiServiceReducer.data,
+    finalData: state.finalFilterReducer.data,
+    initialData: state.apiServiceReducer.data,
     isFetching: state.apiServiceReducer.isFetching,
-    sucess: state.apiServiceReducer.sucess,
-    nameFilter: state.textFilterReducer.filters,
-    valueFilter: state.valueFilterReducer.filters
+    sucess: state.apiServiceReducer.sucess
   };
 };
 

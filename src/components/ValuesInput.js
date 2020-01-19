@@ -13,13 +13,15 @@ class ValuesInput extends React.Component {
   }
 
   arrayOfColumns() {
-    return [
+    const completeColumns = [
       "population",
       "orbital_period",
       "diameter",
       "rotation_period",
       "surface_water"
     ];
+    // const filteredColumns = completeColumns.filter(column => !this.props.columns.includes(column));
+    return completeColumns;
   }
 
   generateColumnOptions() {
@@ -34,14 +36,16 @@ class ValuesInput extends React.Component {
 
   updateStore(state) {
     const { column, comparison, value } = state;
-    const obj = {
-      numeric_values: {
-        column,
-        comparison,
-        value
-      }
-    };
-    this.props.updateValues(obj);
+      const obj = {
+          numeric_values: {
+          column,
+          comparison,
+          value
+        }
+      };
+      const formatFilter = {column, comparison, value};
+      const newFilter = [...this.props.columns, formatFilter];
+   return this.props.updateValues(obj, newFilter);
   }
 
   changeState(event, id) {
@@ -50,10 +54,9 @@ class ValuesInput extends React.Component {
     });
   }
 
-  render() {
+  generateValuesInput() {
     return (
       <div>
-        Choose the column to filter:
         <label>
           <select onChange={e => this.changeState(e, "column")} id="column">
             {this.generateColumnOptions()}
@@ -79,17 +82,27 @@ class ValuesInput extends React.Component {
       </div>
     );
   }
+
+  render() {
+    return (
+      <div>
+        Choose the column to filter:
+        <div>{this.generateValuesInput()}</div>
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = state => {
   return {
-    filters: state.valueFilterReducer.filters
+    filters: state.valueFilterReducer.filters,
+    columns: state.valueFilterReducer.columns
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateValues: obj => dispatch(updatingValuesFilter(obj))
+    updateValues: (obj, columns) => dispatch(updatingValuesFilter(obj, columns))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ValuesInput);
