@@ -5,6 +5,7 @@ import {
 } from '../actions/APIFetching';
 
 const InitialState = {
+  data: null,
   isFetching: false,
 };
 

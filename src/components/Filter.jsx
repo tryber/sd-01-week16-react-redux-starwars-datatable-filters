@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import filterPlanets from '../actions/FilterContent';
+import filterPlanets from '../actions/FilterText';
+import FilterNum from './FilterNum';
 
 class Filter extends Component {
   render() {
     return (
-      <input type="text" onChange={(e) => this.props.filter(e.target.value)}>
-      </input>
+      <div>
+        <input type="text" onChange={(e) => this.props.filterText(e.target.value)}>
+        </input>
+        <FilterNum />
+      </div>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  filter: (text) => dispatch(filterPlanets(text)),
+  filterText: (text) => dispatch(filterPlanets(text)),
 });
 
 export default connect(null, mapDispatchToProps)(Filter);

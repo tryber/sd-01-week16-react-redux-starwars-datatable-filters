@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import fetchPlanets from '../actions/APIFetching';
+import filterText from '../actions/APIFetching';
 
 class Table extends Component {
 
@@ -10,8 +10,8 @@ class Table extends Component {
   }
 
   filterData() {
-    const { data, filter } = this.props;
-    if (filter !== '') return data.results.filter(planet => planet.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase()));
+    const { data, text } = this.props;
+    if (text !== '') return data.results.filter(planet => planet.name.toLocaleLowerCase().includes(text.toLocaleLowerCase()));
     return data.results;
   }
 
@@ -71,20 +71,27 @@ const mapStateToProps = ({
     isFetching,
     data,
   },
-  filterPlanets : {
-    filter,
+  filterPlanets: {
+    filters: { text,
+      numericValues: { column,
+        comparison,
+        value }
+    }
   }
 }) => (
     {
       error,
       isFetching,
       data,
-      filter,
+      text,
+      column,
+      comparison,
+      value,
     }
   );
 
 const mapDispatchToProps = (dispatch) => ({
-  getPlanets: () => dispatch(fetchPlanets()),
+  getPlanets: () => dispatch(filterText()),
 });
 
 Table.propTypes = {
