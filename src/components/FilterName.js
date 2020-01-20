@@ -25,10 +25,10 @@ const mapStateToProps = ({ filtersName: { filters } }) => ({ filters });
 FilterName.propTypes = {
   changeFilterName: PropTypes.func.isRequired,
   filters: PropTypes.string,
-}
+};
 
 FilterName.defaultProps = {
   filters: '',
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilterName);

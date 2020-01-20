@@ -40,10 +40,13 @@ const mapStateToProps = ({ filters }) => ({ filters });
 
 FiltersActive.propTypes = {
   filters: filtersType.isRequired,
-  value: PropTypes.number,
-  column: PropTypes.string,
-  comparison: PropTypes.string,
   removesFilter: PropTypes.func.isRequired,
+};
+
+saveFilter.propTypes = {
+  value: PropTypes.number.isRequired,
+  column: PropTypes.string.isRequired,
+  comparison: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FiltersActive);
