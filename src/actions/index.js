@@ -13,9 +13,9 @@ const receivePlanetsSuccess = ({ results }) => ({
   data: results,
 });
 
-const receivePlanetsFailure = () => ({
+const receivePlanetsFailure = (error) => ({
   type: RECEIVE_PLANETS_FAILURE,
-  error: 'deuruim',
+  error,
 });
 
 export function fetchPlanets() {

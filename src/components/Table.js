@@ -13,12 +13,12 @@ function createRows(planet) {
       <td>{`${planet.climate}`}</td>
       <td>{`${planet.gravity}`}</td>
       <td>{`${planet.terrain}`}</td>
-      <td>{`${planet.rotation_period} Hours`}</td>
-      <td>{`${planet.surface_water} %`}</td>
+      <td>{`${planet.rotation_period}`}</td>
+      <td>{`${planet.surface_water}`}</td>
       <td>{planet.films.map((film) => <div key={film}>{film}</div>)}</td>
       <td>{`${planet.created}`}</td>
-      <td>{`${planet.edited} %`}</td>
-      <td>{`${planet.url} %`}</td>
+      <td>{`${planet.edited}`}</td>
+      <td>{`${planet.url}`}</td>
     </tr>
   );
 }
