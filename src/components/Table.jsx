@@ -11,7 +11,7 @@ class Table extends Component {
 
   filterDataText() {
     const { data, text } = this.props;
-    if (text !== '') return data.results.filter(planet => planet.name.toLocaleLowerCase().includes(text.toLocaleLowerCase()));
+    if (text !== '') return data.results.filter((planet) => planet.name.toLocaleLowerCase().includes(text.toLocaleLowerCase()));
     return data.results;
   }
 
@@ -130,6 +130,7 @@ Table.propTypes = {
     next: PropTypes.string.isRequired,
     results: PropTypes.array.isRequired,
   }),
+  getPlanets: PropTypes.func.isRequired,
 };
 
 Table.defaultProps = {

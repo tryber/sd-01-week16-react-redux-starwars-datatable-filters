@@ -8,6 +8,11 @@ import {
   from '../actions/FilterNumber';
 
 class FilterNum extends Component {
+  constructor(props) {
+    super(props);
+    this.handleOnClick = this.handleOnClick.bind(this);
+  }
+  
   renderInputNumber() {
     if (this.props.column && this.props.column !== 'none' && this.props.comparison && this.props.comparison !== 'none') {
       return (
@@ -32,6 +37,12 @@ class FilterNum extends Component {
     this.props.filterNum(null, filterNumberComparison);
   }
 
+  handleOnClick() {
+    this.props.filterNum(null, filterNumberColumn);
+    this.props.filterNum(null, filterNumberComparison);
+    this.props.filterNum(null, filterNumberValue);
+  }
+
   render() {
     return (
       <div>
@@ -41,11 +52,7 @@ class FilterNum extends Component {
         </select>
         {this.renderComparisson()}
         {this.renderInputNumber()}
-        <button onClick={() => {
-          this.props.filterNum(null, filterNumberColumn);
-          this.props.filterNum(null, filterNumberComparison);
-          this.props.filterNum(null, filterNumberValue);
-        }}>X</button>
+        <button onClick={this.handleOnClick}>X</button>
       </div>
     );
   }
@@ -60,16 +67,14 @@ const mapStateToProps = ({
         value,
       },
       categorys,
-    }
-  }
-}) => (
-    {
-      column,
-      comparison,
-      value,
-      categorys,
-    }
-  );
+    },
+  },
+}) => ({
+  column,
+  comparison,
+  value,
+  categorys,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   filterNum: (content, callback) => dispatch(callback(content)),
