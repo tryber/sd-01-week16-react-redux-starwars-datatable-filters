@@ -9,8 +9,14 @@ class Table extends Component {
     this.props.getPlanets();
   }
 
+  filterData() {
+    const { data, filter } = this.props;
+    if (filter !== '') return data.results.filter(planet => planet.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase()));
+    return data.results;
+  }
+
   renderContent() {
-    const { data } = this.props;
+    const filterPlanets = this.filterData();
     return (
       <table>
         <tr>
@@ -24,7 +30,7 @@ class Table extends Component {
           <th>rotation period</th>
           <th>surface water</th>
         </tr>
-        {data.results.map(planet => {
+        {filterPlanets.map(planet => {
           const { name, diameter, rotation_period,
             orbital_period, gravity, population,
             climate, terrain, surface_water,
