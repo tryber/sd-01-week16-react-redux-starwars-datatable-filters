@@ -26,18 +26,6 @@ const renderHeadColumns = () => {
   );
 };
 
-"films": [
-  "https://swapi.co/api/films/1/"
-],
-"created": "2014-12-10T11:37:19.144000Z",
-"edited": "2014-12-20T20:58:18.421000Z",
-"url": "https://swapi.co/api/planets/3/"
-}
-
-
-
-
-
 const filterByName = (data, filtersName) => {
   if (filtersName) {
     return data.filter(({ name }) => name.includes(filtersName));
@@ -81,7 +69,7 @@ const createRow = (planet) => (
     <td>{`${planet.rotation_period} Hours`}</td>
     <td>{`${planet.surface_water} %`}</td>
     <td>
-      {planet.films.map(film=><li>{film}</li>)}
+      {planet.films.map(film=><div>{film}</div>)}
     </td>
     <td>{`${planet.created}`}</td>
     <td>{`${planet.edited} %`}</td>
