@@ -69,7 +69,7 @@ const createRow = (planet) => (
     <td>{`${planet.rotation_period} Hours`}</td>
     <td>{`${planet.surface_water} %`}</td>
     <td>
-      {planet.films.map(film => <div>{film}</div>)}
+      {planet.films.map((film) => <div>{film}</div>)}
     </td>
     <td>{`${planet.created}`}</td>
     <td>{`${planet.edited} %`}</td>
