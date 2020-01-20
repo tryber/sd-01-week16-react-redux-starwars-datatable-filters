@@ -27,4 +27,8 @@ FilterName.propTypes = {
   filters: PropTypes.string,
 }
 
+FilterName.defaultProps = {
+  filters: '',
+}
+
 export default connect(mapStateToProps, mapDispatchToProps)(FilterName);

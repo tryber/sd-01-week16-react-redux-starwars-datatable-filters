@@ -86,8 +86,8 @@ const mapStateToProps = ({ filters }) => ({ filters });
 
 CreateFilterNumber.propTypes = {
   filters: PropTypes.shape([{
-    value: PropTypes.number,
     column: PropTypes.string,
+    value: PropTypes.number,
     comparison: PropTypes.string,
   }]).isRequired,
   value: PropTypes.number,
