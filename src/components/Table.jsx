@@ -79,7 +79,7 @@ class Table extends Component {
       </table>
     );
   }
-  
+
   render() {
     const { data, isFetching } = this.props;
     return (
@@ -93,7 +93,6 @@ class Table extends Component {
 
 const mapStateToProps = ({
   planetsData: {
-    error,
     isFetching,
     data,
   },
@@ -101,11 +100,10 @@ const mapStateToProps = ({
     filters: { text,
       numericValues: { column,
         comparison,
-        value }
-    }
+        value, },
+    },
   }
 }) => ({
-  error,
   isFetching,
   data,
   text,
@@ -119,12 +117,12 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Table.propTypes = {
-  error: PropTypes.string,
   isFetching: PropTypes.bool.isRequired,
+  data: PropTypes.object,
 };
 
 Table.defaultProps = {
-  error: null,
+  data: null,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
