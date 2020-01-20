@@ -13,7 +13,7 @@ class FilterNum extends Component {
     super(props);
     this.handleOnClick = this.handleOnClick.bind(this);
   }
-  
+
   handleOnClick() {
     this.props.filterNum(null, filterNumberColumn);
     this.props.filterNum(null, filterNumberComparison);
@@ -29,6 +29,7 @@ class FilterNum extends Component {
       );
     }
     this.props.filterNum(null, filterNumberValue);
+    return null;
   }
 
   renderComparisson() {

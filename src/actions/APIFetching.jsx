@@ -18,10 +18,9 @@ const RequestPlanetsFailure = (error) => ({
   error,
 });
 
-const fetchPlanets = () => {
+function fetchPlanets() {
   return (dispatch) => {
     dispatch(RequestPlanets());
-
     return StarWarsPlanetsFetch()
       .then(
         (PlanetsData) => dispatch(RequestPlanetsSucess(PlanetsData)),

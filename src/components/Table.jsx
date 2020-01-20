@@ -58,24 +58,17 @@ class Table extends Component {
           <th>surface water</th>
         </tr>
         {filterPlanets.map((planet) => {
-          const { name, diameter, rotation_period,
-            orbital_period, gravity, population,
-            climate, terrain, surface_water,
-          } = planet;
-          const surfaceWater = surface_water;
-          const orbitalPeriod = orbital_period;
-          const rotationPeriod = rotation_period;
           return (
             <tr>
-              <td>{name}</td>
-              <td>{terrain}</td>
-              <td>{climate}</td>
-              <td>{gravity}</td>
-              <td>{population}</td>
-              <td>{diameter}</td>
-              <td>{orbitalPeriod}</td>
-              <td>{rotationPeriod}</td>
-              <td>{surfaceWater}</td>
+              <td>{planet.name}</td>
+              <td>{planet.terrain}</td>
+              <td>{planet.climate}</td>
+              <td>{planet.gravity}</td>
+              <td>{planet.population}</td>
+              <td>{planet.diameter}</td>
+              <td>{planet.orbital_period}</td>
+              <td>{planet.rotation_period}</td>
+              <td>{planet.surface_water}</td>
             </tr>
           );
         })}
