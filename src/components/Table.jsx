@@ -22,19 +22,19 @@ class Table extends Component {
       switch (comparison) {
         case 'maior que':
           return filteredData.filter(planet => {
-            const num = Number(planet[column])
-            return num > Number(value)
-          })
+            const num = Number(planet[column]);
+            return num > Number(value);
+          });
         case 'menor que':
           return filteredData.filter(planet => {
-            const num = Number(planet[column])
-            return num < Number(value)
-          })
+            const num = Number(planet[column]);
+            return num < Number(value);
+          });
         case 'igual a':
           return filteredData.filter(planet => {
-            const num = Number(planet[column])
-            return num === Number(value)
-          })
+            const num = Number(planet[column]);
+            return num === Number(value);
+          });
         default:
           return filteredData;
       }
@@ -57,11 +57,14 @@ class Table extends Component {
           <th>rotation period</th>
           <th>surface water</th>
         </tr>
-        {filterPlanets.map(planet => {
+        {filterPlanets.map((planet) => {
           const { name, diameter, rotation_period,
             orbital_period, gravity, population,
             climate, terrain, surface_water,
           } = planet;
+          const surfaceWater = surface_water;
+          const orbitalPeriod = orbital_period;
+          const rotationPeriod = rotation_period;
           return (
             <tr>
               <td>{name}</td>
@@ -70,11 +73,11 @@ class Table extends Component {
               <td>{gravity}</td>
               <td>{population}</td>
               <td>{diameter}</td>
-              <td>{orbital_period}</td>
-              <td>{rotation_period}</td>
-              <td>{surface_water}</td>
+              <td>{orbitalPeriod}</td>
+              <td>{rotationPeriod}</td>
+              <td>{surfaceWater}</td>
             </tr>
-          )
+          );
         })}
       </table>
     );
@@ -100,9 +103,9 @@ const mapStateToProps = ({
     filters: { text,
       numericValues: { column,
         comparison,
-        value, },
+        value, }
     },
-  }
+  },
 }) => ({
   isFetching,
   data,
