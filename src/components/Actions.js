@@ -8,21 +8,23 @@ const requestSWAPI = () => ({
   type: REQUEST_SWAPI,
 });
 
-const requestSWAPISuccess = () => ({
+const requestSWAPISuccess = ({ results }) => ({
   type: REQUEST_SWAPI_SUCCESS,
+  data: results,
 });
 
-const requestSWAPIFailed = () => ({
+const requestSWAPIFailed = (error) => ({
   type: REQUEST_SWAPI_FAILED,
+  error,
 });
 
-export function fetchAPI() {
+export default function fetchAPI() {
   return (dispatch) => {
     dispatch(requestSWAPI());
 
     return getDataAPI()
       .then(
-        (request) => dispatch(requestSWAPISuccess(request)),
+        (data) => dispatch(requestSWAPISuccess(data)),
         (error) => dispatch(requestSWAPIFailed(error.message)),
       );
   };

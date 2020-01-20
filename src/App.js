@@ -1,10 +1,9 @@
 import React from 'react';
 import './App.css';
-import loadingAPI from './components/API';
+import fetchAPI from './components/Actions';
 import Table from './components/Table';
 
 function App() {
-  console.log(loadingAPI);
   return (
     <div className="App">
       <header className="App-header">

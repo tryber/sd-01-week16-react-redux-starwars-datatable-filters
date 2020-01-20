@@ -1,6 +1,6 @@
 const SWAPI = 'https://swapi.co/api/planets/';
 
-export const getDataAPI = () => (
+const getDataAPI = () => (
   fetch(SWAPI)
     .then((response) => (
       response
