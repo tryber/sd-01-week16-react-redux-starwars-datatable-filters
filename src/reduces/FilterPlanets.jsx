@@ -28,7 +28,8 @@ function filText(state, action) {
 
 function filColumn(state, action) {
   return {
-    ...state, filters: {
+    ...state,
+    filters: {
       ...state.filters,
       numericValues: { ...state.filters.numericValues, column: nullElements(action.column) },
     },
@@ -37,10 +38,12 @@ function filColumn(state, action) {
 
 function filComparison(state, action) {
   return {
-    ...state, filters: {
-      ...state.filters, numericValues: {
+    ...state,
+    filters: {
+      ...state.filters,
+      numericValues: {
         ...state.filters.numericValues,
-        comparison: nullElements(action.comparison)
+        comparison: nullElements(action.comparison),
       },
     },
   };
@@ -48,10 +51,12 @@ function filComparison(state, action) {
 
 function filValue(state, action) {
   return {
-    ...state, filters: {
-      ...state.filters, numericValues: {
+    ...state,
+    filters: {
+      ...state.filters,
+      numericValues: {
         ...state.filters.numericValues,
-        value: nullElements(action.value)
+        value: nullElements(action.value),
       },
     },
   };
@@ -66,11 +71,10 @@ const filterPlanets = (state = InitialState, action) => {
     case FilterNumberComparison:
       return filComparison(state, action);
     case FilterNumberValue:
-    return filValue(state, action);
+      return filValue(state, action);
     default:
       return state;
   }
 };
 
 export default filterPlanets;
-
