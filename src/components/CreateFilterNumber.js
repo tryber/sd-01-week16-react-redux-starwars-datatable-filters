@@ -85,14 +85,15 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = ({ filters }) => ({ filters });
 
 CreateFilterNumber.propTypes = {
-  value: PropTypes.number,
-  column: PropTypes.string,
-  comparison: PropTypes.string,
-  filters: PropTypes.array,
+  filters: PropTypes.shape([{
+    value: PropTypes.number,
+    column: PropTypes.string,
+    comparison: PropTypes.string,
+  }]).isRequired,
   changeValue: PropTypes.func.isRequired,
   changeColumn: PropTypes.func.isRequired,
   changeComparison: PropTypes.func.isRequired,
   sendValues: PropTypes.func.isRequired,
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateFilterNumber);
