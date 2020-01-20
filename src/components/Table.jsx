@@ -65,11 +65,15 @@ const mapStateToProps = ({
     isFetching,
     data,
   },
+  filterPlanets : {
+    filter,
+  }
 }) => (
     {
       error,
       isFetching,
       data,
+      filter,
     }
   );
 
