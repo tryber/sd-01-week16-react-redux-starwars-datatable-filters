@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import finalFilter from '../actions/filters';
 
 class Filters extends React.Component {
@@ -83,4 +84,17 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   sendFinalFilter: (data) => dispatch(finalFilter(data)),
 });
+
+Filters.propTypes = {
+  nameFilter: PropTypes.string.isRequired,
+  valueFilter: PropTypes.shape({
+    numeric_values: PropTypes.shape({
+      column: PropTypes.string,
+    }),
+  }).isRequired,
+  filtersActive: PropTypes.arrayOf.isRequired,
+  initialData: PropTypes.shape({
+    count: PropTypes.number.isRequired,
+  }).isRequired,
+};
 export default connect(mapStateToProps, mapDispatchToProps)(Filters);
