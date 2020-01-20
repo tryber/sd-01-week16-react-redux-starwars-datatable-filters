@@ -4,11 +4,7 @@ import { loadData } from '../actions/starWarsApi';
 import './table.css';
 
 class Table extends React.Component {
-  componentDidMount() {
-    this.props.loadData();
-  }
-
-  generateTableHead(data) {
+  static generateTableHead(data) {
     if (data.length > 0) {
       const arrayOfTags = Object.entries(data[0])
         .map((tag) => tag[0])
@@ -22,14 +18,14 @@ class Table extends React.Component {
               ))}
             </tr>
           </thead>
-          <tbody>{this.generateTableBody(data, arrayOfTags)}</tbody>
+          <tbody>{Table.generateTableBody(data, arrayOfTags)}</tbody>
         </table>
       );
     }
     return <p>Planeta não encontrado</p>;
   }
 
-  generateTableBody(data, arrayOfTags) {
+  static generateTableBody(data, arrayOfTags) {
     return data.map((planet) => (
       <tr key={planet.diameter}>
         {arrayOfTags.map((tag) => (
@@ -39,15 +35,19 @@ class Table extends React.Component {
     ));
   }
 
+  componentDidMount() {
+    this.props.loadData();
+  }
+
   render() {
     if (this.props.isFetching) {
       return <p>LOADING...</p>;
     }
     if (this.props.sucess) {
       if (this.props.finalData) {
-        return this.generateTableHead(this.props.finalData);
+        return Table.generateTableHead(this.props.finalData);
       }
-      return this.generateTableHead(this.props.initialData.results);
+      return Table.generateTableHead(this.props.initialData.results);
     }
     return <div>ERROR</div>;
   }
