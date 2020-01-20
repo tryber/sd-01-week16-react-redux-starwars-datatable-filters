@@ -17,9 +17,9 @@ const renderSelectFilter = (changeColumn, hideFilters) => (
 
 const renderRadioButton = (value, changeComparison) => (
   <div>
-    <input type="radio" defaultChecked={value === 'Maior que'} checked={value === 'Maior que'} name="comparison" value="Maior que" onClick={(e) => changeComparison(e.target.value)} /> Maior que
-      <input type="radio" defaultChecked={value === 'Maior que'} checked={value === 'Menor que'} name="comparison" value="Menor que" onClick={(e) => changeComparison(e.target.value)} /> Menor que
-      <input type="radio" defaultChecked={value === 'Maior que'} checked={value === 'Igual a'} name="comparison" value="Igual a" onClick={(e) => changeComparison(e.target.value)} /> Igual a
+    <input type="radio" checked={value === 'Maior que'} name="comparison" value="Maior que" onClick={(e) => changeComparison(e.target.value)} /> Maior que
+      <input type="radio" checked={value === 'Menor que'} name="comparison" value="Menor que" onClick={(e) => changeComparison(e.target.value)} /> Menor que
+      <input type="radio" checked={value === 'Igual a'} name="comparison" value="Igual a" onClick={(e) => changeComparison(e.target.value)} /> Igual a
     </div>
 );
 
