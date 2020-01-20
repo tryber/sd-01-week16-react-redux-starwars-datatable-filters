@@ -18,7 +18,7 @@ const InitialState = {
 };
 
 function nullElements(action) {
-  if(action === 'none') return null;
+  if (action === 'none') return null;
   return action;
 }
 
@@ -28,9 +28,10 @@ const filterPlanets = (state = InitialState, action) => {
     case FilterText:
       return {
         ...state,
-        filters: { 
+        filters: {
           ...state.filters,
-          text: action.text },
+          text: action.text
+        },
       };
     case FilterNumberColumn:
       return {
