@@ -8,20 +8,19 @@ const requestPlanets = () => ({
   type: REQUEST_PLANETS,
 });
 
-const receivePlanetsSuccess = ({ planets }) => ({
+const receivePlanetsSuccess = ({ results }) => ({
   type: RECEIVE_PLANETS_SUCCESS,
-  data: planets,
+  data: results,
 });
 
-const receivePlanetsFailure = (error) => ({
+const receivePlanetsFailure = () => ({
   type: RECEIVE_PLANETS_FAILURE,
-  error,
+  error: 'deuruim',
 });
 
 export function fetchPlanets() {
   return (dispatch) => {
     dispatch(requestPlanets());
-    
     return getPlanets()
       .then(
         (data) => dispatch(receivePlanetsSuccess(data)),

@@ -1,17 +1,27 @@
-import {
-  RECEIVE_PLANETS,
-} from '../actions';
+import { REQUEST_PLANETS, RECEIVE_PLANETS_SUCCESS, RECEIVE_PLANETS_FAILURE } from '../actions';
 
-const defaultState = {
-  data: [],
+const INITIAL_PLANET_STATE = {
+  isFetching: false,
 };
 
-const planets = (state = defaultState, action) => {
+const planets = (state = INITIAL_PLANET_STATE, action) => {
   switch (action.type) {
-    case RECEIVE_PLANETS:
+    case REQUEST_PLANETS:
       return {
         ...state,
-        data: [...action.data],
+        isFetching: true,
+      };
+    case RECEIVE_PLANETS_SUCCESS:
+      return {
+        ...state,
+        data: action.data,
+        isFetching: false,
+      };
+    case RECEIVE_PLANETS_FAILURE:
+      return {
+        ...state,
+        error: action.error,
+        isFetching: false,
       };
     default:
       return state;
