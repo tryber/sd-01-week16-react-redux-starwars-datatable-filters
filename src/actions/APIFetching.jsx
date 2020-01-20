@@ -27,6 +27,6 @@ function fetchPlanets() {
         (error) => dispatch(RequestPlanetsFailure(error.message)),
       );
   };
-};
+}
 
 export default fetchPlanets;

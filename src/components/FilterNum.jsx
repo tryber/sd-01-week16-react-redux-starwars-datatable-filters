@@ -23,7 +23,8 @@ class FilterNum extends Component {
   renderInputNumber() {
     if (this.props.column && this.props.column !== 'none' && this.props.comparison && this.props.comparison !== 'none') {
       return (
-        <input type="number"
+        <input
+          type="number"
           onChange={(e) => this.props.filterNum(Number(e.target.value), filterNumberValue)}
         />
       );
@@ -86,7 +87,7 @@ FilterNum.propTypes = {
   column: PropTypes.string,
   comparison: PropTypes.string,
   filterNum: PropTypes.func.isRequired,
-  categorys: PropTypes.array.isRequired,
+  categorys: PropTypes.shape([PropTypes.string]).isRequired,
 };
 
 FilterNum.defaultProps = {
