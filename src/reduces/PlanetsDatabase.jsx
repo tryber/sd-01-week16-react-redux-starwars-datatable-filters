@@ -1,7 +1,7 @@
 import {
   RequestPlanetsDatabase,
   ReceivePlanetsDatabaseSucess,
-  ReceivePlanetsDatabaseFailure
+  ReceivePlanetsDatabaseFailure,
 } from '../actions/APIFetching';
 
 const InitialState = {
