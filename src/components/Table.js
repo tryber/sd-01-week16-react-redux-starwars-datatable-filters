@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loadData } from '../actions/starWarsApi';
 import './table.css';
@@ -63,4 +64,19 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   loadData: () => dispatch(loadData()),
 });
+
+Table.propTypes = {
+  sucess: PropTypes.string.isRequired,
+  isFetching: PropTypes.string.isRequired,
+  initialData: PropTypes.shape({
+    count: PropTypes.number.isRequired,
+    results: PropTypes.arrayOf.isRequired,
+  }).isRequired,
+  finalData: PropTypes.shape({
+    count: PropTypes.number.isRequired,
+    results: PropTypes.arrayOf.isRequired,
+  }).isRequired,
+  loadData: PropTypes.func.isRequired,
+};
+
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
