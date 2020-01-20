@@ -8,16 +8,6 @@ class Table extends React.Component {
     this.props.loadData();
   }
 
-  static generateTableBody(data, arrayOfTags) {
-    return data.map(planet => {
-      return (
-        <tr key={planet.diameter}>
-          {arrayOfTags.map((tag) => <td key={tag}>{planet[tag]}</td>)}
-        </tr>
-      );
-    });
-  }
-
   generateTableHead(data) {
     if (data.length > 0) {
       const arrayOfTags = Object.entries(data[0])
@@ -27,14 +17,26 @@ class Table extends React.Component {
         <table>
           <thead>
             <tr>
-              {arrayOfTags.map((tag) => <th key={`${tag}1`}>{tag}</th>)}
+              {arrayOfTags.map((tag) => (
+                <th key={`${tag}1`}>{tag}</th>
+              ))}
             </tr>
           </thead>
-          <tbody>{Table.generateTableBody(data, arrayOfTags)}</tbody>
+          <tbody>{this.generateTableBody(data, arrayOfTags)}</tbody>
         </table>
       );
     }
-      return <p>Planeta não encontrado</p>;
+    return <p>Planeta não encontrado</p>;
+  }
+
+  generateTableBody(data, arrayOfTags) {
+    return data.map((planet) => (
+      <tr key={planet.diameter}>
+        {arrayOfTags.map((tag) => (
+          <td key={tag}>{planet[tag]}</td>
+        ))}
+      </tr>
+    ));
   }
 
   render() {
@@ -51,7 +53,7 @@ class Table extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   finalData: state.finalFilterReducer.data,
   initialData: state.apiServiceReducer.data,
   isFetching: state.apiServiceReducer.isFetching,
@@ -59,7 +61,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  loadData: () => dispatch(loadData())
+  loadData: () => dispatch(loadData()),
 });
-
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

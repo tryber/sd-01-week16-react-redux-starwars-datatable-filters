@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { updatingValuesFilter } from '../actions/valuesFilter';
+import updatingValuesFilter from '../actions/valuesFilter';
 
 class ValuesInput extends React.Component {
   constructor(props) {
@@ -8,7 +8,7 @@ class ValuesInput extends React.Component {
     this.state = {
       column: '',
       comparison: '',
-      value: ''
+      value: '',
     };
   }
 
@@ -19,14 +19,12 @@ class ValuesInput extends React.Component {
       'orbital_period',
       'diameter',
       'rotation_period',
-      'surface_water'
+      'surface_water',
     ];
     if (this.props.columns.length > 0) {
-      const arrayOfUsedColumns = this.props.columns.map(
-        column => column.column
-      );
+      const arrayOfUsedColumns = this.props.columns.map((column) => column.column);
       const arrayOfColumnsToUse = completeColumns.filter(
-        column => !arrayOfUsedColumns.includes(column)
+        (column) => !arrayOfUsedColumns.includes(column),
       );
       return arrayOfColumnsToUse;
     }
@@ -34,13 +32,11 @@ class ValuesInput extends React.Component {
   }
 
   generateColumnOptions() {
-    return this.arrayOfColumns().map(each => {
-      return (
-        <option key={each} value={each}>
-          {each}
-        </option>
-      );
-    });
+    return this.arrayOfColumns().map((each) => (
+      <option key={each} value={each}>
+        {each}
+      </option>
+    ));
   }
 
   updateStore(state) {
@@ -49,8 +45,8 @@ class ValuesInput extends React.Component {
       numeric_values: {
         column,
         comparison,
-        value
-      }
+        value,
+      },
     };
     const formatFilter = { column, comparison, value };
     const newFilter = [...this.props.columns, formatFilter];
@@ -63,7 +59,7 @@ class ValuesInput extends React.Component {
 
   changeState(event, id) {
     this.setState({
-      [id]: event.target.value
+      [id]: event.target.value,
     });
   }
 
@@ -71,28 +67,23 @@ class ValuesInput extends React.Component {
     return (
       <div>
         <label>
-          <select onChange={e => this.changeState(e, 'column')} id='column'>
+          <select onChange={(e) => this.changeState(e, 'column')} id="column">
             {this.generateColumnOptions()}
           </select>
         </label>
-        <select
-          onChange={e => this.changeState(e, 'comparison')}
-          id='comparison'
-        >
-          <option></option>
-          <option value='Maior'>Maior que</option>
-          <option value='Menor'>Menor que</option>
-          <option value='Igual'>Igual</option>
+        <select onChange={(e) => this.changeState(e, 'comparison')} id="comparison">
+          <option />
+          <option value="Maior">Maior que</option>
+          <option value="Menor">Menor que</option>
+          <option value="Igual">Igual</option>
         </select>
         <input
-          onChange={e => this.changeState(e, 'value')}
-          id='comparisonValue'
-          type='number'
-          placeholder='Valor'
+          onChange={(e) => this.changeState(e, 'value')}
+          id="comparisonValue"
+          type="number"
+          placeholder="Valor"
         />
-        <button onClick={() => this.updateStore(this.state)}>
-          Adicionar filtro
-        </button>
+        <button onClick={() => this.updateStore(this.state)}>Adicionar filtro</button>
       </div>
     );
   }
@@ -107,16 +98,12 @@ class ValuesInput extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    filters: state.valueFilterReducer.filters,
-    columns: state.valueFilterReducer.columns
-  };
-};
+const mapStateToProps = (state) => ({
+  filters: state.valueFilterReducer.filters,
+  columns: state.valueFilterReducer.columns,
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    updateValues: (obj, columns) => dispatch(updatingValuesFilter(obj, columns))
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  updateValues: (obj, columns) => dispatch(updatingValuesFilter(obj, columns)),
+});
 export default connect(mapStateToProps, mapDispatchToProps)(ValuesInput);

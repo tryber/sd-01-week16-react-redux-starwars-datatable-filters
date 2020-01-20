@@ -1,32 +1,28 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { finalFilter } from '../actions/filters';
+import finalFilter from '../actions/filters';
 
 class Filters extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: ''
+      data: '',
     };
   }
 
-  static findComparisons(valueFilter, data) {
+  findComparisons(valueFilter, data) {
     const { column, comparison, value } = valueFilter;
     switch (comparison) {
       case 'Maior':
         return data.filter(
-          (planet) =>
-            planet[column] > Number(value) && planet[column] !== 'unknown',
+          (planet) => planet[column] > Number(value) && planet[column] !== 'unknown',
         );
       case 'Menor':
         return data.filter(
-          (planet) =>
-            planet[column] < Number(value) && planet[column] !== 'unknown',
+          (planet) => planet[column] < Number(value) && planet[column] !== 'unknown',
         );
       case 'Igual':
-        return data.filter(
-          (planet) => planet[column] === value && planet[column] !== 'unknown',
-        );
+        return data.filter((planet) => planet[column] === value && planet[column] !== 'unknown');
       default:
         return false;
     }
@@ -34,7 +30,7 @@ class Filters extends React.Component {
 
   filterByValues(data, valueFilter) {
     if (valueFilter) {
-      const result = Filters.findComparisons(valueFilter, data);
+      const result = this.findComparisons(valueFilter, data);
       return result;
     }
     return data;
@@ -51,7 +47,7 @@ class Filters extends React.Component {
     return this.filterByValues(data, valueFilter);
   }
 
-  addFilters(data) {
+  showFilters(data) {
     const { filtersActive } = this.props;
     if (filtersActive.length > 0) {
       const finalData = filtersActive.reduce((acc, filter, index) => {
@@ -59,42 +55,31 @@ class Filters extends React.Component {
         return this.filterByName(array, filter);
       }, []);
       this.props.sendFinalFilter(finalData);
+      return filtersActive.map((filter) => (
+        <p key={filter.column}>{`${filter.column} - ${filter.comparison} - ${filter.value}`}</p>
+      ));
     }
-    return this.props.sendFinalFilter(this.filterByName(data))
-  }
-
-  showFilters() {
-    const { filtersActive } = this.props;
-    return filtersActive.map((filter) => {
-      return (
-        <p
-          key={filter.column}
-        >{`${filter.column} - ${filter.comparison} - ${filter.value}`}</p>
-      );
-    });
+    this.filterByName(data);
   }
 
   render() {
-    this.addFilters(this.props.initialData.results);
     return (
       <div>
         <p>Filters active:</p>
-        <div>{() => this.showFilters()}</div>
+        <div>{this.showFilters(this.props.initialData.results)}</div>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, ownProps) => ({
   nameFilter: state.textFilterReducer.filters,
   valueFilter: state.valueFilterReducer.filters,
   filtersActive: state.valueFilterReducer.columns,
   initialData: state.apiServiceReducer.data,
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    sendFinalFilter: (data) => dispatch(finalFilter(data)),
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  sendFinalFilter: (data) => dispatch(finalFilter(data)),
+});
 export default connect(mapStateToProps, mapDispatchToProps)(Filters);

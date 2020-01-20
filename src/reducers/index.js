@@ -8,5 +8,5 @@ export const rootReducers = combineReducers({
   apiServiceReducer,
   textFilterReducer,
   valueFilterReducer,
-  finalFilterReducer
+  finalFilterReducer,
 });

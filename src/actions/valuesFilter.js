@@ -1,7 +1,7 @@
-export const updatingValuesFilter = (filters, columns) => {
-  return {
-    type: 'UPDATE_VALUE_FILTER',
-    filters,
-    columns,
-  };
-};
+const updatingValuesFilter = (filters, columns) => ({
+  type: 'UPDATE_VALUE_FILTER',
+  filters,
+  columns,
+});
+
+export default updatingValuesFilter;

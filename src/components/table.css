@@ -1,18 +1,17 @@
-table {
-  border-collapse: collapse;
-  font-size: 0.8em;
-  margin: 0 auto;
-  text-align: center;
-  width: 80%;
-}
-
-td,
-th {
+th,
+td {
   border: 1px solid black;
   padding: 1em;
+  /* max-width: 4em; */
 }
-
-tr {
+table {
+  border-collapse: collapse;
+  width: 80%;
   text-align: center;
+  margin: 0 auto;
+  font-size: 0.8em;
+}
+tr {
   width: 100%;
+  text-align: center;
 }

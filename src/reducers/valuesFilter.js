@@ -1,6 +1,6 @@
 const initialValue = {
   filters: '',
-  columns: []
+  columns: [],
 };
 
 export const valueFilterReducer = (state = initialValue, action) => {
@@ -8,7 +8,7 @@ export const valueFilterReducer = (state = initialValue, action) => {
     return {
       ...state,
       filters: action.filters,
-      columns: action.columns
+      columns: action.columns,
     };
   }
   return state;
