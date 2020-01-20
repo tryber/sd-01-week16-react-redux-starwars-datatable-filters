@@ -8,38 +8,33 @@ class Table extends React.Component {
     this.props.loadData();
   }
 
+  static generateTableBody(data, arrayOfTags) {
+    return data.map(planet => {
+      return (
+        <tr key={planet.diameter}>
+          {arrayOfTags.map((tag) => <td key={tag}>{planet[tag]}</td>)}
+        </tr>
+      );
+    });
+  }
+
   generateTableHead(data) {
     if (data.length > 0) {
       const arrayOfTags = Object.entries(data[0])
-        .map(tag => tag[0])
-        .filter(name => name !== 'residents');
+        .map((tag) => tag[0])
+        .filter((name) => name !== 'residents');
       return (
         <table>
           <thead>
             <tr>
-              {arrayOfTags.map(tag => {
-                return <th key={`${tag}1`}>{tag}</th>;
-              })}
+              {arrayOfTags.map((tag) => <th key={`${tag}1`}>{tag}</th>)}
             </tr>
           </thead>
-          <tbody>{this.generateTableBody(data, arrayOfTags)}</tbody>
+          <tbody>{Table.generateTableBody(data, arrayOfTags)}</tbody>
         </table>
       );
-    } else {
-      return <p>Planeta não encontrado</p>;
     }
-  }
-
-  generateTableBody(data, arrayOfTags) {
-    return data.map(planet => {
-      return (
-        <tr key={planet.diameter}>
-          {arrayOfTags.map(tag => {
-            return <td key={tag}>{planet[tag]}</td>;
-          })}
-        </tr>
-      );
-    });
+      return <p>Planeta não encontrado</p>;
   }
 
   render() {
@@ -56,18 +51,15 @@ class Table extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    finalData: state.finalFilterReducer.data,
-    initialData: state.apiServiceReducer.data,
-    isFetching: state.apiServiceReducer.isFetching,
-    sucess: state.apiServiceReducer.sucess
-  };
-};
+const mapStateToProps = state => ({
+  finalData: state.finalFilterReducer.data,
+  initialData: state.apiServiceReducer.data,
+  isFetching: state.apiServiceReducer.isFetching,
+  sucess: state.apiServiceReducer.sucess,
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    loadData: () => dispatch(loadData())
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  loadData: () => dispatch(loadData())
+});
+
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

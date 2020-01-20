@@ -1,28 +1,28 @@
-export const loadDataSucess = data => {
+export const loadDataSucess = (data) => {
   return {
     type: 'LOAD_API_SUCESS',
-    data
+    data,
   };
 };
 
 export const loadDataError = () => {
   return {
-    type: 'LOAD_API_ERROR'
+    type: 'LOAD_API_ERROR',
   };
 };
 
 export const loadDataRequest = () => {
   return {
-    type: 'LOAD_API_REQUEST'
+    type: 'LOAD_API_REQUEST',
   };
 };
 
 export const loadData = () => {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(loadDataRequest());
     fetch('https://swapi.co/api/planets/')
-      .then(data => data.json())
-      .then(response => dispatch(loadDataSucess(response)))
+      .then((data) => data.json())
+      .then((response) => dispatch(loadDataSucess(response)))
       .catch(() => dispatch(loadDataError()));
   };
 };
