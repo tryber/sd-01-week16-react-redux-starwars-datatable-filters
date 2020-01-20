@@ -21,17 +21,17 @@ class Table extends Component {
     if (column && comparison && value && column !== 'none' && comparison !== 'none' && value !== 'none') {
       switch (comparison) {
         case 'maior que':
-          return filteredData.filter(planet => {
+          return filteredData.filter((planet) => {
             const num = Number(planet[column]);
             return num > Number(value);
           });
         case 'menor que':
-          return filteredData.filter(planet => {
+          return filteredData.filter((planet) => {
             const num = Number(planet[column]);
             return num < Number(value);
           });
         case 'igual a':
-          return filteredData.filter(planet => {
+          return filteredData.filter((planet) => {
             const num = Number(planet[column]);
             return num === Number(value);
           });
@@ -103,7 +103,7 @@ const mapStateToProps = ({
     filters: { text,
       numericValues: { column,
         comparison,
-        value, }
+        value },
     },
   },
 }) => ({
@@ -121,7 +121,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 Table.propTypes = {
   isFetching: PropTypes.bool.isRequired,
-  data: PropTypes.shape({
+  filterPlanets: PropTypes.shape({
     filters: {
       text: PropTypes.string.isRequired,
       numericValues: {
