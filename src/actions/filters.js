@@ -1,6 +1,4 @@
-export const finalFilter = (data) => {
-  return {
-    type: 'FINAL_DATA_FILTER',
-    data,
-  };
-};
+export const finalFilter = (data) => ({
+  type: 'FINAL_DATA_FILTER',
+  data,
+});
