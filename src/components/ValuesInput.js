@@ -66,7 +66,7 @@ class ValuesInput extends React.Component {
   generateValuesInput() {
     return (
       <div>
-        <label>
+        <label htmlFor="column">
           <select onChange={(e) => this.changeState(e, 'column')} id="column">
             {this.generateColumnOptions()}
           </select>
