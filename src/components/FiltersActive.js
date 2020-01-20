@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { removeFilter } from '../actions';
 
@@ -35,5 +35,17 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = ({ filters }) => ({ filters });
+
+FiltersActive.propTypes = {
+  filters: PropTypes.shape([{
+    value: PropTypes.number,
+    column: PropTypes.string,
+    comparison: PropTypes.string,
+  }]).isRequired,
+  value: PropTypes.number,
+  column: PropTypes.string,
+  comparison: PropTypes.string,
+  removesFilter: PropTypes.func.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(FiltersActive);

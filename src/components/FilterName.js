@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addFilterName } from '../actions';
 
@@ -20,5 +21,10 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = ({ filtersName: { filters } }) => ({ filters });
+
+FilterName.propTypes = {
+  changeFilterName: PropTypes.func.isRequired,
+  filters: PropTypes.string,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilterName);
