@@ -51,7 +51,7 @@ class Filters extends React.Component {
     return this.filterByValues(data, valueFilter);
   }
 
-  showFilters(data) {
+  addFilters(data) {
     const { filtersActive } = this.props;
     if (filtersActive.length > 0) {
       const finalData = filtersActive.reduce((acc, filter, index) => {
@@ -59,22 +59,27 @@ class Filters extends React.Component {
         return this.filterByName(array, filter);
       }, []);
       this.props.sendFinalFilter(finalData);
-      return filtersActive.map((filter) => {
-        return (
-          <p
-            key={filter.column}
-          >{`${filter.column} - ${filter.comparison} - ${filter.value}`}</p>
-        );
-      });
     }
-     return this.filterByName(data);
+    return this.props.sendFinalFilter(this.filterByName(data))
+  }
+
+  showFilters() {
+    const { filtersActive } = this.props;
+    return filtersActive.map((filter) => {
+      return (
+        <p
+          key={filter.column}
+        >{`${filter.column} - ${filter.comparison} - ${filter.value}`}</p>
+      );
+    });
   }
 
   render() {
+    this.addFilters(this.props.initialData.results);
     return (
       <div>
         <p>Filters active:</p>
-        <div>{this.showFilters(this.props.initialData.results)}</div>
+        <div>{() => this.showFilters()}</div>
       </div>
     );
   }
