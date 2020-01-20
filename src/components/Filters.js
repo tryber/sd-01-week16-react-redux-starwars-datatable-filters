@@ -3,15 +3,21 @@ import { connect } from "react-redux";
 import { finalFilter } from "../actions/filters";
 
 class Filters extends React.Component {
-  filterByName() {
-    if (this.props.nameFilter) {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: ""
+    };
+  }
+
+  filterByName(data) {
+    const { nameFilter } = this.props;
+    if (nameFilter) {
       return this.filterByValues(
-        this.props.data.results.filter(planet =>
-          planet.name.includes(this.props.nameFilter)
-        )
+        data.filter(planet => planet.name.includes(nameFilter))
       );
     }
-    return this.filterByValues(this.props.data.results);
+    return this.filterByValues(data);
   }
 
   findComparisons(valueFilter, data) {
@@ -41,20 +47,24 @@ class Filters extends React.Component {
     const { valueFilter } = this.props;
     if (valueFilter !== "") {
       const result = this.findComparisons(valueFilter.numeric_values, data);
-      return this.props.sendFinalFilter(result);
+      this.setState({ data: result });
     }
-    return this.props.sendFinalFilter(data);
+    this.setState({ data: data });
   }
 
-  showFilters(filters) {
-    if (filters.length > 0) {
-      return filters.map(filter => {
+  showFilters() {
+    const { filtersActive } = this.props;
+    if (filtersActive.length > 0) {
+      return filtersActive.map(filter => {
+        this.filterByName(this.state.data);
         return (
           <p
             key={filter.column}
           >{`${filter.column} - ${filter.comparison} - ${filter.value}`}</p>
         );
       });
+    } else {
+      this.filterByName(this.props.initialData.results);
     }
   }
 
@@ -62,7 +72,7 @@ class Filters extends React.Component {
     return (
       <div>
         <p>Filters active:</p>
-        <div>{this.showFilters(this.props.filtersActive)}</div>
+        <div>{this.showFilters()}</div>
       </div>
     );
   }
@@ -73,7 +83,7 @@ const mapStateToProps = state => {
     nameFilter: state.textFilterReducer.filters,
     valueFilter: state.valueFilterReducer.filters,
     filtersActive: state.valueFilterReducer.columns,
-    data: state.apiServiceReducer.data
+    initialData: state.apiServiceReducer.data
   };
 };
 
