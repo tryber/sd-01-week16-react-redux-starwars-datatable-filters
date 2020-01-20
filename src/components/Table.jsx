@@ -105,17 +105,15 @@ const mapStateToProps = ({
         value }
     }
   }
-}) => (
-    {
-      error,
-      isFetching,
-      data,
-      text,
-      column,
-      comparison,
-      value,
-    }
-  );
+}) => ({
+  error,
+  isFetching,
+  data,
+  text,
+  column,
+  comparison,
+  value,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   getPlanets: () => dispatch(filterText()),

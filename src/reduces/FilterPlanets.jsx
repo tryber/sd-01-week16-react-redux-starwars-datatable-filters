@@ -30,7 +30,7 @@ const filterPlanets = (state = InitialState, action) => {
         ...state,
         filters: {
           ...state.filters,
-          text: action.text
+          text: action.text,
         },
       };
     case FilterNumberColumn:
