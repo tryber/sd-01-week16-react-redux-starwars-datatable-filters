@@ -12,9 +12,15 @@ const InitialState = {
       column: null,
       comparison: null,
       value: null,
-    }
+    },
+    categorys: ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'],
   },
 };
+
+function nullElements(action) {
+  if(action === 'none') return null;
+  return action;
+}
 
 const filterPlanets = (state = InitialState, action) => {
   console.log('received action:', action);
@@ -33,8 +39,8 @@ const filterPlanets = (state = InitialState, action) => {
           ...state.filters,
           numericValues: {
             ...state.filters.numericValues,
-            column: action.column,
-          }
+            column: nullElements(action.column),
+          },
         },
       };
     case FilterNumberComparison:
@@ -44,8 +50,8 @@ const filterPlanets = (state = InitialState, action) => {
           ...state.filters,
           numericValues: {
             ...state.filters.numericValues,
-            comparison: action.comparison,
-          }
+            comparison: nullElements(action.comparison),
+          },
         },
       };
     case FilterNumberValue:
@@ -55,8 +61,8 @@ const filterPlanets = (state = InitialState, action) => {
           ...state.filters,
           numericValues: {
             ...state.filters.numericValues,
-            value: action.value,
-          }
+            value: nullElements(action.value),
+          },
         },
       };
     default:

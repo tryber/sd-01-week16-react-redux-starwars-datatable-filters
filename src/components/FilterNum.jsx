@@ -9,21 +9,27 @@ import {
 
 class FilterNum extends Component {
   renderInputNumber() {
-    if (this.props.comparison && this.props.comparison !== 'none') return (
-      <input type="number" onChange={(e) => this.props.filterNum(e.target.value, filterNumberValue)}>
-      </input>
-    );
+    if (this.props.column && this.props.column !== 'none' && this.props.comparison && this.props.comparison !== 'none') {
+      return (
+        <input type="number" onChange={(e) => this.props.filterNum(e.target.value, filterNumberValue)}>
+        </input>
+      );
+    }
+    this.props.filterNum(null, filterNumberValue);
   }
 
   renderComparisson() {
-    if (this.props.column && this.props.column !== 'none') return (
-      <select onChange={(e) => this.props.filterNum(e.target.value, filterNumberComparison)}>
-        <option>none</option>
-        <option>maior que</option>
-        <option>menor que</option>
-        <option>igual a</option>
-      </select>
-    );
+    if (this.props.column && this.props.column !== 'none') {
+      return (
+        <select onChange={(e) => this.props.filterNum(e.target.value, filterNumberComparison)}>
+          <option>none</option>
+          <option>maior que</option>
+          <option>menor que</option>
+          <option>igual a</option>
+        </select>
+      );
+    }
+    this.props.filterNum(null, filterNumberComparison);
   }
 
   render() {
@@ -31,14 +37,15 @@ class FilterNum extends Component {
       <div>
         <select onChange={(e) => this.props.filterNum(e.target.value, filterNumberColumn)}>
           <option>none</option>
-          <option>population</option>
-          <option>orbital_period</option>
-          <option>diameter</option>
-          <option>rotation_period</option>
-          <option>surface_water</option>
+          {this.props.categorys.map(category => <option>{category}</option>)}
         </select>
         {this.renderComparisson()}
         {this.renderInputNumber()}
+        <button onClick={() => {
+          this.props.filterNum(null, filterNumberColumn);
+          this.props.filterNum(null, filterNumberComparison);
+          this.props.filterNum(null, filterNumberValue);
+        }}>X</button>
       </div>
     );
   }
@@ -51,13 +58,16 @@ const mapStateToProps = ({
         column,
         comparison,
         value,
-      } }
+      },
+      categorys,
+    }
   }
 }) => (
     {
       column,
       comparison,
       value,
+      categorys,
     }
   );
 
