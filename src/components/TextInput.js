@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import textFilter from '../actions/textFilter';
 
 class TextInput extends React.Component {
@@ -23,5 +24,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   changeNameInFilter: (value) => dispatch(textFilter(value)),
 });
+
+TextInput.propTypes = {
+  changeNameInFilter: PropTypes.func.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(TextInput);

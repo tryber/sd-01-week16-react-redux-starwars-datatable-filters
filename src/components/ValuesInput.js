@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import updatingValuesFilter from '../actions/valuesFilter';
 
@@ -89,6 +90,7 @@ class ValuesInput extends React.Component {
   }
 
   render() {
+    console.log(this.props.filters, this.props.columns);
     return (
       <div>
         Choose the column to filter:
@@ -106,4 +108,15 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   updateValues: (obj, columns) => dispatch(updatingValuesFilter(obj, columns)),
 });
+
+ValuesInput.propTypes = {
+  columns: PropTypes.arrayOf.isRequired,
+  filters: PropTypes.shape({
+    numeric_values: PropTypes.shape({
+      column: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+  updateValues: PropTypes.func.isRequired,
+};
+
 export default connect(mapStateToProps, mapDispatchToProps)(ValuesInput);
