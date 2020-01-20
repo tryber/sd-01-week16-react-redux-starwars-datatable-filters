@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addFilter } from '../actions';
 
@@ -82,5 +83,16 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = ({ filters }) => ({ filters });
+
+CreateFilterNumber.propTypes = {
+  value: PropTypes.number,
+  column: PropTypes.string,
+  comparison: PropTypes.string,
+  filters: PropTypes.array,
+  changeValue: PropTypes.func.isRequired,
+  changeColumn: PropTypes.func.isRequired,
+  changeComparison: PropTypes.func.isRequired,
+  sendValues: PropTypes.func.isRequired,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateFilterNumber);
