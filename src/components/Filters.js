@@ -3,14 +3,7 @@ import { connect } from 'react-redux';
 import finalFilter from '../actions/filters';
 
 class Filters extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: '',
-    };
-  }
-
-  findComparisons(valueFilter, data) {
+  static findComparisons(valueFilter, data) {
     const { column, comparison, value } = valueFilter;
     switch (comparison) {
       case 'Maior':
@@ -28,23 +21,30 @@ class Filters extends React.Component {
     }
   }
 
-  filterByValues(data, valueFilter) {
+  static filterByValues(data, valueFilter) {
     if (valueFilter) {
-      const result = this.findComparisons(valueFilter, data);
+      const result = Filters.findComparisons(valueFilter, data);
       return result;
     }
     return data;
   }
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: '',
+    };
+  }
+
   filterByName(data, valueFilter) {
     const { nameFilter } = this.props;
     if (nameFilter) {
-      return this.filterByValues(
+      return Filters.filterByValues(
         data.filter((planet) => planet.name.includes(nameFilter)),
         valueFilter,
       );
     }
-    return this.filterByValues(data, valueFilter);
+    return Filters.filterByValues(data, valueFilter);
   }
 
   showFilters(data) {
@@ -60,6 +60,7 @@ class Filters extends React.Component {
       ));
     }
     this.filterByName(data);
+    return 'no filter';
   }
 
   render() {
@@ -72,7 +73,7 @@ class Filters extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state) => ({
   nameFilter: state.textFilterReducer.filters,
   valueFilter: state.valueFilterReducer.filters,
   filtersActive: state.valueFilterReducer.columns,
