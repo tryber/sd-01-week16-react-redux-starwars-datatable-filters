@@ -61,8 +61,8 @@ class Table extends Component {
         <section>
           <h1>LOADING...</h1>
           <img
-            src="https://media.giphy.com/media/FvKe8DbAMnOda/giphy.gif"
-            alt="gif terra com a lua girando"
+            src='https://media.giphy.com/media/FvKe8DbAMnOda/giphy.gif'
+            alt='gif terra com a lua girando'
           />
         </section>
       );
@@ -72,7 +72,7 @@ class Table extends Component {
       <div>
         <h1>StarWars Datatable with Filters</h1>
         <Filter />
-
+        <h2> {inputValue}</h2>
         <table>
           <thead>{this.headColumns()}</thead>
           <tbody>{data && data.map((value) => this.bodyTableRow(value))}</tbody>
