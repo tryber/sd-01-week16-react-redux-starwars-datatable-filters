@@ -76,7 +76,6 @@ class Filters extends React.Component {
 
 const mapStateToProps = (state) => ({
   nameFilter: state.textFilterReducer.filters,
-  valueFilter: state.valueFilterReducer.filters,
   filtersActive: state.valueFilterReducer.columns,
   initialData: state.apiServiceReducer.data,
 });
@@ -87,14 +86,11 @@ const mapDispatchToProps = (dispatch) => ({
 
 Filters.propTypes = {
   nameFilter: PropTypes.string.isRequired,
-  valueFilter: PropTypes.shape({
-    numeric_values: PropTypes.shape({
-      column: PropTypes.string,
-    }),
-  }).isRequired,
   filtersActive: PropTypes.arrayOf.isRequired,
   initialData: PropTypes.shape({
     count: PropTypes.number.isRequired,
+    results: PropTypes.arrayOf.isRequired,
   }).isRequired,
+  sendFinalFilter: PropTypes.func.isRequired,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Filters);
