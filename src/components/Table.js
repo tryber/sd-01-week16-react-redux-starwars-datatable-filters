@@ -32,10 +32,11 @@ const filterByName = (data, filtersName) => {
 const allFilters = (data, filters) => (
   filters.reduce((acc, filter, index) => {
     const array = (index === 0) ? data : acc;
+
     const obj = {
       'Maior que': array.filter((planet) => Number(planet[filter.column]) > filter.value),
       'Menor que': array.filter((planet) => Number(planet[filter.column]) < filter.value),
-      'Igual a': array.filter((planet) => Number(planet[filter.column]) === filter.value),
+      'Igual a': array.filter((planet) => planet[filter.column] === filter.value),
     };
     return obj[filter.comparison];
   }, [],
