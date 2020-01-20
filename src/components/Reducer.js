@@ -1,0 +1,5 @@
+import {
+  REQUEST_SWAPI,
+  REQUEST_SWAPI_SUCCESS,
+  REQUEST_SWAPI_FAILED,
+} from './Actions';
