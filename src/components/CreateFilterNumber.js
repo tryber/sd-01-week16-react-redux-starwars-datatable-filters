@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addFilter } from '../actions';
 
+import { filtersType } from '../types';
+
 const renderSelectFilter = (changeColumn, hideFilters) => (
   <select onChange={(e) => changeColumn(e.target.value)}>
     <option value="" />
@@ -85,11 +87,7 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = ({ filters }) => ({ filters });
 
 CreateFilterNumber.propTypes = {
-  filters: PropTypes.shape([{
-    column: PropTypes.string,
-    value: PropTypes.number,
-    comparison: PropTypes.string,
-  }]).isRequired,
+  filters: filtersType.isRequired,
   value: PropTypes.number,
   column: PropTypes.string,
   comparison: PropTypes.string,
