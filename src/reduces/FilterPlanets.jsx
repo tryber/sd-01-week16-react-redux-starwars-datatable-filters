@@ -22,53 +22,55 @@ function nullElements(action) {
   return action;
 }
 
+function filText(state, action) {
+  return { ...state, filters: { ...state.filters, text: action.text } };
+}
+
+function filColumn(state, action) {
+  return {
+    ...state, filters: {
+      ...state.filters,
+      numericValues: { ...state.filters.numericValues, column: nullElements(action.column) },
+    },
+  };
+}
+
+function filComparison(state, action) {
+  return {
+    ...state, filters: {
+      ...state.filters, numericValues: {
+        ...state.filters.numericValues,
+        comparison: nullElements(action.comparison)
+      },
+    },
+  };
+}
+
+function filValue(state, action) {
+  return {
+    ...state, filters: {
+      ...state.filters, numericValues: {
+        ...state.filters.numericValues,
+        value: nullElements(action.value)
+      },
+    },
+  };
+}
+
 const filterPlanets = (state = InitialState, action) => {
-  console.log('received action:', action);
   switch (action.type) {
     case FilterText:
-      return {
-        ...state,
-        filters: {
-          ...state.filters,
-          text: action.text,
-        },
-      };
+      return filText(state, action);
     case FilterNumberColumn:
-      return {
-        ...state,
-        filters: {
-          ...state.filters,
-          numericValues: {
-            ...state.filters.numericValues,
-            column: nullElements(action.column),
-          },
-        },
-      };
+      return filColumn(state, action);
     case FilterNumberComparison:
-      return {
-        ...state,
-        filters: {
-          ...state.filters,
-          numericValues: {
-            ...state.filters.numericValues,
-            comparison: nullElements(action.comparison),
-          },
-        },
-      };
+      return filComparison(state, action);
     case FilterNumberValue:
-      return {
-        ...state,
-        filters: {
-          ...state.filters,
-          numericValues: {
-            ...state.filters.numericValues,
-            value: nullElements(action.value),
-          },
-        },
-      };
+    return filValue(state, action);
     default:
       return state;
   }
 };
 
 export default filterPlanets;
+
