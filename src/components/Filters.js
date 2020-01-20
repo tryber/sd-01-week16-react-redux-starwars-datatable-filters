@@ -1,5 +1,4 @@
 import React from 'react';
-
 import FilterNumbers from './FilterNumbers';
 import FilterName from './FilterName';
 import FiltersActive from './FiltersActive';

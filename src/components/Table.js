@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
 import  filtersType  from '../types';
-import { is } from '@babel/types';
 
 const renderHeadColumns = () => {
   const columnsProperties = [
@@ -95,7 +93,7 @@ Table.propTypes = {
   filtersName: PropTypes.string.isRequired,
   filters: filtersType.isRequired,
   data: PropTypes.shape([{
-    name: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired,
   }]).isRequired,
 };
 
