@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 
-const filtersType = PropTypes.shape([{
+const filtersType = PropTypes.arrayOf(PropTypes.shape({
   column: PropTypes.string,
-  value: PropTypes.number,
+  value: PropTypes.string,
   comparison: PropTypes.string,
-}]);
+}));
 
 export default filtersType;

@@ -87,7 +87,7 @@ const mapStateToProps = ({ filters }) => ({ filters });
 
 CreateFilterNumber.propTypes = {
   filters: filtersType.isRequired,
-  value: PropTypes.number,
+  value: PropTypes.string,
   column: PropTypes.string,
   comparison: PropTypes.string,
   changeValue: PropTypes.func.isRequired,

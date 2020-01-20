@@ -2,7 +2,7 @@ import {
   ADD_FILTER_NAME,
 } from '../actions';
 
-const INITIAL_FILTER = '';
+const INITIAL_FILTER = {};
 
 const filtersName = (state = INITIAL_FILTER, action) => {
   switch (action.type) {

@@ -8,7 +8,7 @@ class FilterNumbers extends Component {
     this.state = {
       column: '',
       comparison: '',
-      value: 0,
+      value: '0',
     };
 
     this.changeColumn = this.changeColumn.bind(this);
