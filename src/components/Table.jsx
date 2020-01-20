@@ -124,5 +124,9 @@ Table.propTypes = {
   isFetching: PropTypes.bool.isRequired,
 };
 
+Table.defaultProps = {
+  error: null,
+};
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
