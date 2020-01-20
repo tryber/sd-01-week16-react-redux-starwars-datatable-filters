@@ -25,7 +25,7 @@ const fetchPlanets = () => {
     return StarWarsPlanetsFetch()
       .then(
         (PlanetsData) => dispatch(RequestPlanetsSucess(PlanetsData)),
-        (error) => dispatch(RequestPlanetsFailure(error)),
+        (error) => dispatch(RequestPlanetsFailure(error.message)),
       );
   };
 };

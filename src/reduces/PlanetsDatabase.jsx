@@ -20,7 +20,7 @@ const planetsData = (state = InitialState, action) => {
       return {
         ...state,
         isFetching: false,
-        planets: action.PlanetsData,
+        data: action.PlanetsData,
       };
     case ReceivePlanetsDatabaseFailure:
       return {
