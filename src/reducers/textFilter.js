@@ -1,6 +1,6 @@
 const initialValue = '';
 
-export const textFilterReducer = (state = initialValue, action) => {
+const textFilterReducer = (state = initialValue, action) => {
   if (action.type === 'INPUT_TEXT_CHANGE') {
     return {
       ...state,
@@ -9,3 +9,5 @@ export const textFilterReducer = (state = initialValue, action) => {
   }
   return state;
 };
+
+export default textFilterReducer;

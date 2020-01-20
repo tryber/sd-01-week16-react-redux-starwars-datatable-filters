@@ -4,7 +4,7 @@ const initialData = {
   sucess: false,
 };
 
-export const apiServiceReducer = (state = initialData, action) => {
+const apiServiceReducer = (state = initialData, action) => {
   switch (action.type) {
     case 'LOAD_API_REQUEST':
       return {
@@ -22,3 +22,5 @@ export const apiServiceReducer = (state = initialData, action) => {
       return state;
   }
 };
+
+export default apiServiceReducer;

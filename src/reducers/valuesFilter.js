@@ -3,7 +3,7 @@ const initialValue = {
   columns: [],
 };
 
-export const valueFilterReducer = (state = initialValue, action) => {
+const valueFilterReducer = (state = initialValue, action) => {
   if (action.type === 'UPDATE_VALUE_FILTER') {
     return {
       ...state,
@@ -13,3 +13,5 @@ export const valueFilterReducer = (state = initialValue, action) => {
   }
   return state;
 };
+
+export default valueFilterReducer;

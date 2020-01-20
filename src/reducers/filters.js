@@ -1,6 +1,6 @@
 const initialValue = '';
 
-export const finalFilterReducer = (state = initialValue, action) => {
+const finalFilterReducer = (state = initialValue, action) => {
   if (action.type === 'FINAL_DATA_FILTER') {
     return {
       ...state,
@@ -9,3 +9,5 @@ export const finalFilterReducer = (state = initialValue, action) => {
   }
   return state;
 };
+
+export default finalFilterReducer;
