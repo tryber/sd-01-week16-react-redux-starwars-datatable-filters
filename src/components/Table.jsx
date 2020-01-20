@@ -79,8 +79,7 @@ class Table extends Component {
       </table>
     );
   }
-
-
+  
   render() {
     const { data, isFetching } = this.props;
     return (
@@ -127,6 +126,5 @@ Table.propTypes = {
 Table.defaultProps = {
   error: null,
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
