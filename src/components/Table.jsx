@@ -18,7 +18,7 @@ class Table extends Component {
   filterDataNum() {
     const { column, comparison, value } = this.props;
     const filteredData = this.filterDataText();
-    if (column && comparison && value && column !== 'none' && comparison !== 'none' && value !== 'none') {
+    if (column && comparison && value) {
       switch (comparison) {
         case 'maior que':
           return filteredData.filter((planet) => {
@@ -57,7 +57,7 @@ class Table extends Component {
           <th>rotation period</th>
           <th>surface water</th>
         </tr>
-        {filterPlanets.map(planet => (
+        {filterPlanets.map((planet) => (
           <tr>
             <td>{planet.name}</td>
             <td>{planet.terrain}</td>
