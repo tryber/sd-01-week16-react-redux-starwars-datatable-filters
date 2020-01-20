@@ -14,6 +14,10 @@ const renderHeadColumns = () => {
     'Solo',
     'Duração Rotação',
     'Superficie de Água',
+    'Films',
+    'Created',
+    'Edited',
+    'Link',
   ];
   return (
     <tr>
@@ -21,6 +25,18 @@ const renderHeadColumns = () => {
     </tr>
   );
 };
+
+"films": [
+  "https://swapi.co/api/films/1/"
+],
+"created": "2014-12-10T11:37:19.144000Z",
+"edited": "2014-12-20T20:58:18.421000Z",
+"url": "https://swapi.co/api/planets/3/"
+}
+
+
+
+
 
 const filterByName = (data, filtersName) => {
   if (filtersName) {
@@ -32,7 +48,6 @@ const filterByName = (data, filtersName) => {
 const allFilters = (data, filters) => (
   filters.reduce((acc, filter, index) => {
     const array = (index === 0) ? data : acc;
-
     const obj = {
       'Maior que': array.filter((planet) => Number(planet[filter.column]) > filter.value),
       'Menor que': array.filter((planet) => Number(planet[filter.column]) < filter.value),
@@ -65,6 +80,12 @@ const createRow = (planet) => (
     <td>{`${planet.terrain}`}</td>
     <td>{`${planet.rotation_period} Hours`}</td>
     <td>{`${planet.surface_water} %`}</td>
+    <td>
+      {planet.films.map(film=><li>{film}</li>)}
+    </td>
+    <td>{`${planet.created}`}</td>
+    <td>{`${planet.edited} %`}</td>
+    <td>{`${planet.url} %`}</td>
   </tr>
 );
 
