@@ -121,29 +121,22 @@ const mapDispatchToProps = (dispatch) => ({
 
 Table.propTypes = {
   isFetching: PropTypes.bool.isRequired,
-  filterPlanets: PropTypes.shape({
-    filters: {
-      text: PropTypes.string.isRequired,
-      numericValues: {
-        column: PropTypes.string,
-        comparison: PropTypes.string,
-        value: PropTypes.string,
-      },
-      categorys: PropTypes.array,
-    },
+  text: PropTypes.string.isRequired,
+  column: PropTypes.string,
+  comparison: PropTypes.string,
+  value: PropTypes.number,
+  data: PropTypes.shape({
+    count: PropTypes.number.isRequired,
+    next: PropTypes.string.isRequired,
+    results: PropTypes.array.isRequired,
   }),
 };
 
 Table.defaultProps = {
-  data: {
-    filters: {
-      numericValues: {
-        column: null,
-        comparison: null,
-        value: null,
-      },
-    },
-  },
+  data: null,
+  column: null,
+  comparison: null,
+  value: null,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

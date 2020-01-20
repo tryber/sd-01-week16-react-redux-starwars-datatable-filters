@@ -11,7 +11,7 @@ class FilterNum extends Component {
   renderInputNumber() {
     if (this.props.column && this.props.column !== 'none' && this.props.comparison && this.props.comparison !== 'none') {
       return (
-        <input type="number" onChange={(e) => this.props.filterNum(e.target.value, filterNumberValue)}>
+        <input type="number" onChange={(e) => this.props.filterNum(Number(e.target.value), filterNumberValue)}>
         </input>
       );
     }
