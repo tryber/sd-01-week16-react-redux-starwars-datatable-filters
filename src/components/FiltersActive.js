@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { removeFilter } from '../actions';
-import  filtersType  from '../types';
+import filtersType from '../types';
 
 const saveFilter = ({ column, comparison, value }, index, removeFilters) => {
   const columnsProperties = {

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addFilter } from '../actions';
-import  filtersType  from '../types';
+import filtersType from '../types';
 
 const renderSelectFilter = (changeColumn, hideFilters) => (
   <select onChange={(e) => changeColumn(e.target.value)}>
