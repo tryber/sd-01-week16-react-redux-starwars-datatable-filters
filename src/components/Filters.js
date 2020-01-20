@@ -10,16 +10,6 @@ class Filters extends React.Component {
     };
   }
 
-  filterByName(data) {
-    const { nameFilter } = this.props;
-    if (nameFilter) {
-      return this.filterByValues(
-        data.filter(planet => planet.name.includes(nameFilter))
-      );
-    }
-    return this.filterByValues(data);
-  }
-
   findComparisons(valueFilter, data) {
     const { column, comparison, value } = valueFilter;
     switch (comparison) {
@@ -35,28 +25,41 @@ class Filters extends React.Component {
         );
       case "Igual":
         return data.filter(
-          planet =>
-            planet[column] === Number(value) && planet[column] !== "unknown"
+          planet => planet[column] === value && planet[column] !== "unknown"
         );
       default:
         return false;
     }
   }
 
-  filterByValues(data) {
-    const { valueFilter } = this.props;
-    if (valueFilter !== "") {
-      const result = this.findComparisons(valueFilter.numeric_values, data);
-      this.setState({ data: result });
+  filterByValues(data, valueFilter) {
+    if (valueFilter) {
+      const result = this.findComparisons(valueFilter, data);
+      return result;
     }
-    this.setState({ data: data });
+    return data;
   }
 
-  showFilters() {
+  filterByName(data, valueFilter) {
+    const { nameFilter } = this.props;
+    if (nameFilter) {
+      return this.filterByValues(
+        data.filter(planet => planet.name.includes(nameFilter)),
+        valueFilter
+      );
+    }
+    return this.filterByValues(data, valueFilter);
+  }
+
+  showFilters(data) {
     const { filtersActive } = this.props;
     if (filtersActive.length > 0) {
+      const finalData = filtersActive.reduce((acc, filter, index) => {
+        const array = index === 0 ? data : acc;
+        return this.filterByName(array, filter);
+      }, []);
+      this.props.sendFinalFilter(finalData);
       return filtersActive.map(filter => {
-        this.filterByName(this.state.data);
         return (
           <p
             key={filter.column}
@@ -64,7 +67,7 @@ class Filters extends React.Component {
         );
       });
     } else {
-      this.filterByName(this.props.initialData.results);
+      this.filterByName(data);
     }
   }
 
@@ -72,13 +75,13 @@ class Filters extends React.Component {
     return (
       <div>
         <p>Filters active:</p>
-        <div>{this.showFilters()}</div>
+        <div>{this.showFilters(this.props.initialData.results)}</div>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
     nameFilter: state.textFilterReducer.filters,
     valueFilter: state.valueFilterReducer.filters,

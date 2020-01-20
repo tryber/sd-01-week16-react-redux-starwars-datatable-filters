@@ -6,21 +6,30 @@ class ValuesInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      column: this.arrayOfColumns()[0],
-      comparison: "Maior",
+      column: '',
+      comparison: "",
       value: ""
     };
   }
 
   arrayOfColumns() {
     const completeColumns = [
+      "",
       "population",
       "orbital_period",
       "diameter",
       "rotation_period",
       "surface_water"
     ];
-    // const filteredColumns = completeColumns.filter(column => !this.props.columns.includes(column));
+    if (this.props.columns.length > 0) {
+      const arrayOfUsedColumns = this.props.columns.map(
+        column => column.column
+      );
+      const arrayOfColumnsToUse = completeColumns.filter(
+        column => !arrayOfUsedColumns.includes(column)
+      );
+      return arrayOfColumnsToUse;
+    }
     return completeColumns;
   }
 
@@ -36,16 +45,20 @@ class ValuesInput extends React.Component {
 
   updateStore(state) {
     const { column, comparison, value } = state;
-      const obj = {
-          numeric_values: {
-          column,
-          comparison,
-          value
-        }
-      };
-      const formatFilter = {column, comparison, value};
-      const newFilter = [...this.props.columns, formatFilter];
-   return this.props.updateValues(obj, newFilter);
+    const obj = {
+      numeric_values: {
+        column,
+        comparison,
+        value
+      }
+    };
+    const formatFilter = { column, comparison, value };
+    const newFilter = [...this.props.columns, formatFilter];
+    if(column === '' || comparison === '' || value === '') {
+      return alert('dados não preenchidos');
+    }
+    this.setState({ column: ''});
+    return this.props.updateValues(obj, newFilter);
   }
 
   changeState(event, id) {
@@ -66,6 +79,7 @@ class ValuesInput extends React.Component {
           onChange={e => this.changeState(e, "comparison")}
           id="comparison"
         >
+          <option></option>
           <option value="Maior">Maior que</option>
           <option value="Menor">Menor que</option>
           <option value="Igual">Igual</option>
