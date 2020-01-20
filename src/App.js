@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import fetchAPI from './components/Actions';
 import Table from './components/Table';
 
 function App() {
