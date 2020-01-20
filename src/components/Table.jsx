@@ -9,14 +9,41 @@ class Table extends Component {
     this.props.getPlanets();
   }
 
-  filterData() {
+  filterDataText() {
     const { data, text } = this.props;
     if (text !== '') return data.results.filter(planet => planet.name.toLocaleLowerCase().includes(text.toLocaleLowerCase()));
     return data.results;
   }
 
+  filterDataNum() {
+    const { column, comparison, value } = this.props;
+    const filteredData = this.filterDataText();
+    if (column && comparison && value && column !== 'none' && comparison !== 'none' && value !== 'none') {
+      switch (comparison) {
+        case 'maior que':
+          return filteredData.filter(planet => {
+            const num = Number(planet[column])
+            return num > Number(value)
+          })
+        case 'menor que':
+          return filteredData.filter(planet => {
+            const num = Number(planet[column])
+            return num < Number(value)
+          })
+        case 'igual a':
+          return filteredData.filter(planet => {
+            const num = Number(planet[column])
+            return num === Number(value)
+          })
+        default:
+          return filteredData;
+      }
+    }
+    return filteredData;
+  }
+
   renderContent() {
-    const filterPlanets = this.filterData();
+    const filterPlanets = this.filterDataNum();
     return (
       <table>
         <tr>

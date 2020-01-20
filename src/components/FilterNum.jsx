@@ -32,10 +32,10 @@ class FilterNum extends Component {
         <select onChange={(e) => this.props.filterNum(e.target.value, filterNumberColumn)}>
           <option>none</option>
           <option>population</option>
-          <option>orbital period</option>
+          <option>orbital_period</option>
           <option>diameter</option>
-          <option>rotation period</option>
-          <option>surface water</option>
+          <option>rotation_period</option>
+          <option>surface_water</option>
         </select>
         {this.renderComparisson()}
         {this.renderInputNumber()}
