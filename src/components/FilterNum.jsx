@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   filterNumberColumn,
@@ -79,5 +80,19 @@ const mapStateToProps = ({
 const mapDispatchToProps = (dispatch) => ({
   filterNum: (content, callback) => dispatch(callback(content)),
 });
+
+FilterNum.propTypes = {
+  column: PropTypes.string,
+  comparison: PropTypes.string,
+  value: PropTypes.number,
+  filterNum: PropTypes.func.isRequired,
+  categorys: PropTypes.array.isRequired,
+};
+
+FilterNum.defaultProps = {
+  column: null,
+  comparison: null,
+  value: null,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilterNum);
