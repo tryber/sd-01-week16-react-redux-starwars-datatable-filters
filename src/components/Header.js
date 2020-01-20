@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
 import { fetchPlanets } from '../actions';
+
 
 class Header extends Component {
   componentDidMount() {
@@ -21,5 +21,9 @@ class Header extends Component {
 const mapDispatchToProps = (dispatch) => ({
   getPlanets: () => dispatch(fetchPlanets()),
 });
+
+Header.propTypes = {
+  getPlanets: PropTypes.func.isRequired,
+};
 
 export default connect(null, mapDispatchToProps)(Header);

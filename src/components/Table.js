@@ -1,5 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
+import  filtersType  from '../types';
+import { is } from '@babel/types';
 
 const renderHeadColumns = () => {
   const columnsProperties = [
@@ -85,5 +89,15 @@ const Table = ({ data, filters, filtersName }) => {
 const mapStateToProps = ({ data: { data }, filtersName, filters }) => (
   { data, filters, filtersName }
 );
+
+
+Table.propTypes = {
+  filtersName: PropTypes.string.isRequired,
+  filters: filtersType.isRequired,
+  data: PropTypes.shape([{
+    name: PropTypes.string.isRequired
+  }]).isRequired,
+};
+
 
 export default connect(mapStateToProps)(Table);
