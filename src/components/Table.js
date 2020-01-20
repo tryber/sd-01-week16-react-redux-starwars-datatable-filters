@@ -1,7 +1,7 @@
-import React from "react";
-import { connect } from "react-redux";
-import { loadData } from "../actions/starWarsApi";
-import "./table.css";
+import React from 'react';
+import { connect } from 'react-redux';
+import { loadData } from '../actions/starWarsApi';
+import './table.css';
 
 class Table extends React.Component {
   componentDidMount() {
@@ -12,7 +12,7 @@ class Table extends React.Component {
     if (data.length > 0) {
       const arrayOfTags = Object.entries(data[0])
         .map(tag => tag[0])
-        .filter(name => name !== "residents");
+        .filter(name => name !== 'residents');
       return (
         <table>
           <thead>
@@ -47,8 +47,8 @@ class Table extends React.Component {
       return <p>LOADING...</p>;
     }
     if (this.props.sucess) {
-      if(this.props.finalData) {
-        return this.generateTableHead(this.props.finalData)
+      if (this.props.finalData) {
+        return this.generateTableHead(this.props.finalData);
       }
       return this.generateTableHead(this.props.initialData.results);
     }

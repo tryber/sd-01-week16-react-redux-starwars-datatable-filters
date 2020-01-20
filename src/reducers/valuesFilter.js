@@ -1,14 +1,14 @@
 const initialValue = {
   filters: '',
-  columns: [],
+  columns: []
 };
 
 export const valueFilterReducer = (state = initialValue, action) => {
-  if (action.type === "UPDATE_VALUE_FILTER") {
+  if (action.type === 'UPDATE_VALUE_FILTER') {
     return {
       ...state,
       filters: action.filters,
-      columns: action.columns,
+      columns: action.columns
     };
   }
   return state;

@@ -1,31 +1,31 @@
-import React from "react";
-import { connect } from "react-redux";
-import { finalFilter } from "../actions/filters";
+import React from 'react';
+import { connect } from 'react-redux';
+import { finalFilter } from '../actions/filters';
 
 class Filters extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: ""
+      data: ''
     };
   }
 
   findComparisons(valueFilter, data) {
     const { column, comparison, value } = valueFilter;
     switch (comparison) {
-      case "Maior":
+      case 'Maior':
         return data.filter(
           planet =>
-            planet[column] > Number(value) && planet[column] !== "unknown"
+            planet[column] > Number(value) && planet[column] !== 'unknown'
         );
-      case "Menor":
+      case 'Menor':
         return data.filter(
           planet =>
-            planet[column] < Number(value) && planet[column] !== "unknown"
+            planet[column] < Number(value) && planet[column] !== 'unknown'
         );
-      case "Igual":
+      case 'Igual':
         return data.filter(
-          planet => planet[column] === value && planet[column] !== "unknown"
+          planet => planet[column] === value && planet[column] !== 'unknown'
         );
       default:
         return false;

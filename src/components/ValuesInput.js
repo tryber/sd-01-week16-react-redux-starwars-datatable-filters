@@ -1,25 +1,25 @@
-import React from "react";
-import { connect } from "react-redux";
-import { updatingValuesFilter } from "../actions/valuesFilter";
+import React from 'react';
+import { connect } from 'react-redux';
+import { updatingValuesFilter } from '../actions/valuesFilter';
 
 class ValuesInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       column: '',
-      comparison: "",
-      value: ""
+      comparison: '',
+      value: ''
     };
   }
 
   arrayOfColumns() {
     const completeColumns = [
-      "",
-      "population",
-      "orbital_period",
-      "diameter",
-      "rotation_period",
-      "surface_water"
+      '',
+      'population',
+      'orbital_period',
+      'diameter',
+      'rotation_period',
+      'surface_water'
     ];
     if (this.props.columns.length > 0) {
       const arrayOfUsedColumns = this.props.columns.map(
@@ -54,10 +54,10 @@ class ValuesInput extends React.Component {
     };
     const formatFilter = { column, comparison, value };
     const newFilter = [...this.props.columns, formatFilter];
-    if(column === '' || comparison === '' || value === '') {
+    if (column === '' || comparison === '' || value === '') {
       return alert('dados não preenchidos');
     }
-    this.setState({ column: ''});
+    this.setState({ column: '' });
     return this.props.updateValues(obj, newFilter);
   }
 
@@ -71,24 +71,24 @@ class ValuesInput extends React.Component {
     return (
       <div>
         <label>
-          <select onChange={e => this.changeState(e, "column")} id="column">
+          <select onChange={e => this.changeState(e, 'column')} id='column'>
             {this.generateColumnOptions()}
           </select>
         </label>
         <select
-          onChange={e => this.changeState(e, "comparison")}
-          id="comparison"
+          onChange={e => this.changeState(e, 'comparison')}
+          id='comparison'
         >
           <option></option>
-          <option value="Maior">Maior que</option>
-          <option value="Menor">Menor que</option>
-          <option value="Igual">Igual</option>
+          <option value='Maior'>Maior que</option>
+          <option value='Menor'>Menor que</option>
+          <option value='Igual'>Igual</option>
         </select>
         <input
-          onChange={e => this.changeState(e, "value")}
-          id="comparisonValue"
-          type="number"
-          placeholder="Valor"
+          onChange={e => this.changeState(e, 'value')}
+          id='comparisonValue'
+          type='number'
+          placeholder='Valor'
         />
         <button onClick={() => this.updateStore(this.state)}>
           Adicionar filtro

@@ -1,15 +1,15 @@
-import React from "react";
-import { connect } from "react-redux";
-import { textFilter } from "../actions/textFilter";
+import React from 'react';
+import { connect } from 'react-redux';
+import { textFilter } from '../actions/textFilter';
 
 class TextInput extends React.Component {
   render() {
     return (
       <div>
         <input
-          type="text"
+          type='text'
           onChange={e => this.props.changeNameInFilter(e.target.value)}
-          placeholder="Nome"
+          placeholder='Nome'
         />
       </div>
     );
