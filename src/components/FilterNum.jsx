@@ -14,11 +14,18 @@ class FilterNum extends Component {
     this.handleOnClick = this.handleOnClick.bind(this);
   }
   
+  handleOnClick() {
+    this.props.filterNum(null, filterNumberColumn);
+    this.props.filterNum(null, filterNumberComparison);
+    this.props.filterNum(null, filterNumberValue);
+  }
+
   renderInputNumber() {
     if (this.props.column && this.props.column !== 'none' && this.props.comparison && this.props.comparison !== 'none') {
       return (
-        <input type="number" onChange={(e) => this.props.filterNum(Number(e.target.value), filterNumberValue)}>
-        </input>
+        <input type="number"
+          onChange={(e) => this.props.filterNum(Number(e.target.value), filterNumberValue)}
+        />
       );
     }
     this.props.filterNum(null, filterNumberValue);
@@ -36,12 +43,7 @@ class FilterNum extends Component {
       );
     }
     this.props.filterNum(null, filterNumberComparison);
-  }
-
-  handleOnClick() {
-    this.props.filterNum(null, filterNumberColumn);
-    this.props.filterNum(null, filterNumberComparison);
-    this.props.filterNum(null, filterNumberValue);
+    return null;
   }
 
   render() {
@@ -49,7 +51,7 @@ class FilterNum extends Component {
       <div>
         <select onChange={(e) => this.props.filterNum(e.target.value, filterNumberColumn)}>
           <option>none</option>
-          {this.props.categorys.map(category => <option>{category}</option>)}
+          {this.props.categorys.map((category) => <option>{category}</option>)}
         </select>
         {this.renderComparisson()}
         {this.renderInputNumber()}
@@ -65,7 +67,6 @@ const mapStateToProps = ({
       numericValues: {
         column,
         comparison,
-        value,
       },
       categorys,
     },
@@ -73,7 +74,6 @@ const mapStateToProps = ({
 }) => ({
   column,
   comparison,
-  value,
   categorys,
 });
 
@@ -84,7 +84,6 @@ const mapDispatchToProps = (dispatch) => ({
 FilterNum.propTypes = {
   column: PropTypes.string,
   comparison: PropTypes.string,
-  value: PropTypes.number,
   filterNum: PropTypes.func.isRequired,
   categorys: PropTypes.array.isRequired,
 };
@@ -92,7 +91,6 @@ FilterNum.propTypes = {
 FilterNum.defaultProps = {
   column: null,
   comparison: null,
-  value: null,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilterNum);
