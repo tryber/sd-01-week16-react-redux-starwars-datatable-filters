@@ -18,10 +18,9 @@ const requestSWAPIFailed = (error) => ({
   error,
 });
 
-export default function fetchAPI() {
+export function fetchAPI() {
   return (dispatch) => {
     dispatch(requestSWAPI());
-
     return getDataAPI()
       .then(
         (data) => dispatch(requestSWAPISuccess(data)),
