@@ -6,21 +6,28 @@ import { fetchPlanets } from '../actions';
 function createRows(planet) {
   return (
     <tr key={planet.name}>
-      <td>{`${planet.name}`}</td>
-      <td>{`${planet.population}`}</td>
-      <td>{`${planet.orbital_period} Hours`}</td>
-      <td>{`${planet.diameter} KM`}</td>
-      <td>{`${planet.climate}`}</td>
-      <td>{`${planet.gravity}`}</td>
-      <td>{`${planet.terrain}`}</td>
-      <td>{`${planet.rotation_period}`}</td>
-      <td>{`${planet.surface_water}`}</td>
+      <td>{planet.name}</td>
+      <td>{planet.population}</td>
+      <td>{planet.orbital_period}</td>
+      <td>{planet.diameter}</td>
+      <td>{planet.climate}</td>
+      <td>{planet.gravity}</td>
+      <td>{planet.terrain}</td>
+      <td>{planet.rotation_period}</td>
+      <td>{planet.surface_water}</td>
       <td>{planet.films.map((film) => <div key={film}>{film}</div>)}</td>
-      <td>{`${planet.created}`}</td>
-      <td>{`${planet.edited}`}</td>
-      <td>{`${planet.url}`}</td>
+      <td>{planet.created}</td>
+      <td>{planet.edited}</td>
+      <td>{planet.url}</td>
     </tr>
   );
+}
+
+function filterPlanets(data, filters) {
+  if (filters) {
+    return data.filter((planet) => planet.name.toUpperCase().includes(filters.toUpperCase()));
+  }
+  return data;
 }
 
 class Table extends Component {
@@ -30,7 +37,8 @@ class Table extends Component {
   }
 
   render() {
-    const { isFetching, data } = this.props;
+    const { isFetching, data, filters } = this.props;
+    const filteredPlanets = (data) ? filterPlanets(data, filters) : false;
     return (
       <div>
         {isFetching && 'Loading...'}
@@ -51,7 +59,7 @@ class Table extends Component {
               <th>Edited</th>
               <th>Link</th>
             </tr>
-            {data && data.map((planet) => createRows(planet))}
+            {filteredPlanets && filteredPlanets.map((planet) => createRows(planet))}
           </tbody>
         </table>
       </div>
@@ -65,13 +73,15 @@ Table.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
   })),
+  filters: PropTypes.string,
 };
 
 Table.defaultProps = {
   data: [],
+  filters: '',
 };
 
-const mapStateToProps = ({ planets: { isFetching, data } }) => ({ isFetching, data });
+const mapStateToProps = ({ planets: { isFetching, data }, filterName: { filters } }) => ({ isFetching, data, filters });
 
 const mapDispatchToProps = (dispatch) => ({
   getPlanets: () => dispatch(fetchPlanets()),
