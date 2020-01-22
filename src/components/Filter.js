@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { updateInput } from '../actions/updateInput';
 
 function Filter(props) {
   return (
@@ -7,24 +8,22 @@ function Filter(props) {
       <input
         value={props.inputValue}
         placeholder="Digite o nome do planeta aqui"
-        onChange={props.inputChange}
+        onChange={(e) => props.inputChange(e.target.value)}
       />
-      <p>{props.inputValue}</p>
     </div>
   );
 }
 
-const UPDATE_INPUT = 'UPDATE_INPUT';
-
+ 
 const mapStateToProps = (state) => ({
-  inputValue: state.inputValue,
+
+  inputValue: state.updateInput.inputValue,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  inputChange: (e) => {
-    const action = { type: UPDATE_INPUT, text: e.target.value };
-    dispatch(action);
-  },
+  inputChange: (text) => dispatch(updateInput(text)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filter);
+
+
