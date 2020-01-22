@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchPlanets } from '../actions/apiAndRequests';
+// import { fetchPlanets, filterNamesFilme } from '../actions/apiAndRequests';
+import { bindActionCreators } from 'redux';
+import * as allActions from '../actions/apiAndRequests';
 import Filter from './Filter';
 
 class Table extends Component {
@@ -10,6 +12,7 @@ class Table extends Component {
     this.state = {};
     this.headColumns = this.headColumns.bind(this);
     this.bodyTableRow = this.bodyTableRow.bind(this);
+    console.log(props);
   }
 
   componentDidMount() {
@@ -56,7 +59,7 @@ class Table extends Component {
 
   render() {
     const { data, inputValue, isFetching } = this.props;
-    if (isFetching) {
+    if (this.props.isFetching) {
       return (
         <section>
           <h1>LOADING...</h1>
@@ -67,7 +70,6 @@ class Table extends Component {
         </section>
       );
     }
-    console.log('→→→', inputValue);
     return (
       <div>
         <h1>StarWars Datatable with Filters</h1>
@@ -92,8 +94,10 @@ const mapStateToProps = ({
   inputValue,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getPlanetFetch: () => dispatch(fetchPlanets()),
-});
+const mapDispatchToProps = (dispatch) => bindActionCreators(allActions, dispatch);
+
+// const mapDispatchToProps = (dispatch) => ({
+//   getPlanetFetch: () => dispatch(fetchPlanets()),
+// });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
