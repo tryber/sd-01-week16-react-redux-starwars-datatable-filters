@@ -67,7 +67,7 @@ class Table extends Component {
         </section>
       );
     }
-    console.log('→→→', inputValue);
+    
     return (
       <div>
         <h1>StarWars Datatable with Filters</h1>
