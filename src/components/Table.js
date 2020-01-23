@@ -48,7 +48,7 @@ class Table extends Component {
     );
   }
 
-  bodyTableRow(planets, functi) {
+  bodyTableRow(planets) {
     return (
       <tr key={planets.name}>
         <td>{planets.name}</td>
