@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { fetchPlanets, filterNamesFilme } from '../actions/apiAndRequests';
-import { bindActionCreators } from 'redux';
-import * as allActions from '../actions/apiAndRequests';
+import { fetchPlanets } from '../actions/apiAndRequests';
 import Filter from './Filter';
 
 class Table extends Component {
   constructor(props) {
     super(props);
-
     this.state = {};
     this.headColumns = this.headColumns.bind(this);
     this.bodyTableRow = this.bodyTableRow.bind(this);
-    console.log(props);
   }
 
   componentDidMount() {
@@ -59,23 +55,25 @@ class Table extends Component {
 
   render() {
     const { data, inputValue, isFetching } = this.props;
-    if (this.props.isFetching) {
+    if (isFetching) {
       return (
         <section>
           <h1>LOADING...</h1>
           <img
-            src='https://media.giphy.com/media/FvKe8DbAMnOda/giphy.gif'
-            alt='gif terra com a lua girando'
+            src="https://media.giphy.com/media/FvKe8DbAMnOda/giphy.gif"
+            alt="gif terra com a lua girando"
           />
         </section>
       );
     }
-    
     return (
       <div>
         <h1>StarWars Datatable with Filters</h1>
         <Filter />
-        <h2> {inputValue}</h2>
+        <h2>
+          {' '}
+          {inputValue}
+        </h2>
         <table>
           <thead>{this.headColumns()}</thead>
           <tbody>{data && data.map((value) => this.bodyTableRow(value))}</tbody>
@@ -84,7 +82,6 @@ class Table extends Component {
     );
   }
 }
-
 const mapStateToProps = ({
   allPlanetWar: { isFetching, data, error },
   updateInput: { inputValue },
@@ -94,11 +91,7 @@ const mapStateToProps = ({
   error,
   inputValue,
 });
-
-const mapDispatchToProps = (dispatch) => bindActionCreators(allActions, dispatch);
-
-// const mapDispatchToProps = (dispatch) => ({
-//   getPlanetFetch: () => dispatch(fetchPlanets()),
-// });
-
+const mapDispatchToProps = (dispatch) => ({
+  getPlanetFetch: () => dispatch(fetchPlanets()),
+});
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

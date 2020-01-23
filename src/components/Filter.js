@@ -13,17 +13,10 @@ function Filter(props) {
     </div>
   );
 }
-
- 
 const mapStateToProps = (state) => ({
-
   inputValue: state.updateInput.inputValue,
 });
-
 const mapDispatchToProps = (dispatch) => ({
   inputChange: (text) => dispatch(updateInput(text)),
 });
-
 export default connect(mapStateToProps, mapDispatchToProps)(Filter);
-
-

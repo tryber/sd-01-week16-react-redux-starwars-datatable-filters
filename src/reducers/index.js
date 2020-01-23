@@ -1,10 +1,9 @@
 import { combineReducers } from 'redux';
 import allPlanetWar from './allPlanetWar';
-import filterFilme from './filterFilme';
+import updateInput from './updateInput';
 
 const rootReducer = combineReducers({
   allPlanetWar,
-  filterFilme,
+  updateInput,
 });
-
 export default rootReducer;

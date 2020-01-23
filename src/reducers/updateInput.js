@@ -1,13 +1,12 @@
 import UPDATE_INPUT from '../actions/updateInput';
 
 const intialState = { inputValue: '' };
-const filterFilme = (state = intialState, action) => {
+const reducer = (state = intialState, action) => {
   switch (action.type) {
     case UPDATE_INPUT:
-      return { ...state, inputValue: action.inputValue };
+      return { ...state, inputValue: action.text };
     default:
       return state;
   }
 };
-
-export default filterFilme;
+export default reducer;
