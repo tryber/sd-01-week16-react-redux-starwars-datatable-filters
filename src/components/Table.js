@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchPlanets } from '../actions/apiAndRequests';
 import Filter from './Filter';
+import Loading from './Loading';
 
 class Table extends Component {
   constructor(props) {
@@ -9,11 +10,21 @@ class Table extends Component {
     this.state = {};
     this.headColumns = this.headColumns.bind(this);
     this.bodyTableRow = this.bodyTableRow.bind(this);
+    this.switchOfTable = this.switchOfTable.bind(this);
   }
 
   componentDidMount() {
     const { getPlanetFetch } = this.props;
     getPlanetFetch();
+  }
+
+  switchOfTable(value) {
+    console.log('→→→→ visualizar o valor →→→', value);
+    console.log('→→→→ visualizar o tipo da data →→→→', typeof value);
+    console.log('→→→→ visualizar se é de fato uma é lista →→→→', Array.isArray(value));
+    // console.log(length.value);
+    // console.log(value.length);
+    if (value) return value.map((data) => this.bodyTableRow(data));
   }
 
   headColumns() {
@@ -37,7 +48,7 @@ class Table extends Component {
     );
   }
 
-  bodyTableRow(planets) {
+  bodyTableRow(planets, functi) {
     return (
       <tr key={planets.name}>
         <td>{planets.name}</td>
@@ -55,17 +66,7 @@ class Table extends Component {
 
   render() {
     const { data, inputValue, isFetching } = this.props;
-    if (isFetching) {
-      return (
-        <section>
-          <h1>LOADING...</h1>
-          <img
-            src="https://media.giphy.com/media/FvKe8DbAMnOda/giphy.gif"
-            alt="gif terra com a lua girando"
-          />
-        </section>
-      );
-    }
+    if (isFetching) return <Loading />;
     return (
       <div>
         <h1>StarWars Datatable with Filters</h1>
@@ -76,7 +77,7 @@ class Table extends Component {
         </h2>
         <table>
           <thead>{this.headColumns()}</thead>
-          <tbody>{data && data.map((value) => this.bodyTableRow(value))}</tbody>
+          <tbody>{this.switchOfTable(data)}</tbody>
         </table>
       </div>
     );
