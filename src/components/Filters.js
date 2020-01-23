@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import finalFilter from '../actions/filters';
+import removeValuesFilter from '../actions/valueFilterRemove';
 
 class Filters extends React.Component {
   static findComparisons(valueFilter, data) {
@@ -48,8 +49,14 @@ class Filters extends React.Component {
     return Filters.filterByValues(data, valueFilter);
   }
 
-  showFilters(data) {
-    const { filtersActive } = this.props;
+  removeFilter(filter) {
+    const actualFilter = this.props.filtersActive;
+    const newFilters = actualFilter.filter((filt) => filt.column !== filter.column);
+    this.props.removeFilters(newFilters);
+    this.showFilters(this.props.initialData.results, newFilters);
+  }
+
+  showFilters(data, filtersActive) {
     if (filtersActive.length > 0) {
       const finalData = filtersActive.reduce((acc, filter, index) => {
         const array = index === 0 ? data : acc;
@@ -57,10 +64,13 @@ class Filters extends React.Component {
       }, []);
       this.props.sendFinalFilter(finalData);
       return filtersActive.map((filter) => (
-        <p key={filter.column}>{`${filter.column} - ${filter.comparison} - ${filter.value}`}</p>
+        <div>
+          <p key={filter.column}>{`${filter.column} - ${filter.comparison} - ${filter.value}`}</p>
+          <button type="button" onClick={() => this.removeFilter(filter)}>X</button>
+        </div>
       ));
     }
-    this.filterByName(data);
+    this.props.sendFinalFilter(this.filterByName(data));
     return 'no filter';
   }
 
@@ -68,7 +78,7 @@ class Filters extends React.Component {
     return (
       <div>
         <p>Filters active:</p>
-        <div>{this.showFilters(this.props.initialData.results)}</div>
+        <div>{this.showFilters(this.props.initialData.results, this.props.filtersActive)}</div>
       </div>
     );
   }
@@ -82,6 +92,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   sendFinalFilter: (data) => dispatch(finalFilter(data)),
+  removeFilters: (columns) => dispatch(removeValuesFilter(columns)),
 });
 
 Filters.propTypes = {

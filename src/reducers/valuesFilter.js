@@ -4,14 +4,22 @@ const initialValue = {
 };
 
 const valueFilterReducer = (state = initialValue, action) => {
-  if (action.type === 'UPDATE_VALUE_FILTER') {
-    return {
-      ...state,
-      filters: action.filters,
-      columns: action.columns,
-    };
+  switch (action.type) {
+    case 'UPDATE_VALUE_FILTER':
+      return {
+        ...state,
+        filters: action.filters,
+        columns: action.columns,
+      };
+    case 'REMOVE_VALUE_FILTER':
+      return {
+        ...state,
+        filters: state.filters,
+        columns: action.columns,
+      };
+    default:
+      return state;
   }
-  return state;
 };
 
 export default valueFilterReducer;
