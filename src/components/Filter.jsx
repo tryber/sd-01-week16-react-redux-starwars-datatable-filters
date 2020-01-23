@@ -10,10 +10,17 @@ class Filter extends Component {
       <div>
         <input type="text" onChange={(e) => this.props.filterText(e.target.value)} />
         <FilterNum />
+        { this.props.isCallingFilter && <FilterNum /> }
       </div>
     );
   }
 }
+
+const mapStateToProps = ({
+  filterPlanets: { isCallingFilter }
+}) => ({
+  isCallingFilter,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   filterText: (text) => dispatch(filterText(text)),
@@ -23,4 +30,4 @@ Filter.propTypes = {
   filterText: PropTypes.func.isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(Filter);
+export default connect(mapStateToProps, mapDispatchToProps)(Filter);

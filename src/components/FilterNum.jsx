@@ -5,6 +5,7 @@ import {
   filterNumberColumn,
   filterNumberComparison,
   filterNumberValue,
+  callingFilter,
 }
   from '../actions/FilterNumber';
 
@@ -22,26 +23,31 @@ class FilterNum extends Component {
 
   renderInputNumber() {
     if (this.props.column && this.props.column !== 'none' && this.props.comparison && this.props.comparison !== 'none') {
+      this.props.pureDispatch(callingFilter(true));
       return (
         <input
           type="number"
-          onChange={(e) => this.props.filterNum(Number(e.target.value), filterNumberValue)}
+          onChange={(e) => this.props.filterNum(e.target.value, filterNumberValue)}
         />
       );
     }
     this.props.filterNum(null, filterNumberValue);
+    this.props.pureDispatch(callingFilter(false));
     return null;
   }
 
   renderComparisson() {
     if (this.props.column && this.props.column !== 'none') {
+
       return (
-        <select onChange={(e) => this.props.filterNum(e.target.value, filterNumberComparison)}>
-          <option>none</option>
-          <option>maior que</option>
-          <option>menor que</option>
-          <option>igual a</option>
-        </select>
+        <div>
+          <select onChange={(e) => this.props.filterNum(e.target.value, filterNumberComparison)}>
+            <option>none</option>
+            <option>maior que</option>
+            <option>menor que</option>
+            <option>igual a</option>
+          </select>
+        </div>
       );
     }
     this.props.filterNum(null, filterNumberComparison);
@@ -71,23 +77,28 @@ const mapStateToProps = ({
         comparison,
       },
       categorys,
+      isCallingFilter,
     },
   },
 }) => ({
   column,
   comparison,
   categorys,
+  isCallingFilter,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   filterNum: (content, callback) => dispatch(callback(content)),
+  pureDispatch: (action) => dispatch(action),
 });
 
 FilterNum.propTypes = {
   column: PropTypes.string,
   comparison: PropTypes.string,
   filterNum: PropTypes.func.isRequired,
+  pureDispatch: PropTypes.func.isRequired,
   categorys: PropTypes.shape([PropTypes.string]).isRequired,
+  isCallingFilter : PropTypes.bool.isRequired,
 };
 
 FilterNum.defaultProps = {

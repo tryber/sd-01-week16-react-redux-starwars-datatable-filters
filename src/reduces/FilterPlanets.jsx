@@ -3,24 +3,21 @@ import {
   FilterNumberColumn,
   FilterNumberComparison,
   FilterNumberValue,
+  CallingFilter,
 } from '../actions/FilterNumber';
 
 const InitialState = {
   filters: {
     text: '',
     numericValues: {
-      column: null,
-      comparison: null,
-      value: null,
+      column: [],
+      comparison: [],
+      value: [],
     },
     categorys: ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'],
+    isCallingFilter: false,
   },
 };
-
-function nullElements(action) {
-  if (action === 'none') return null;
-  return action;
-}
 
 function filText(state, action) {
   return { ...state, filters: { ...state.filters, text: action.text } };
@@ -31,7 +28,7 @@ function filColumn(state, action) {
     ...state,
     filters: {
       ...state.filters,
-      numericValues: { ...state.filters.numericValues, column: nullElements(action.column) },
+      numericValues: { ...state.filters.numericValues, column: [...state.filters.numericValues.column, action.column ] },
     },
   };
 }
@@ -43,7 +40,7 @@ function filComparison(state, action) {
       ...state.filters,
       numericValues: {
         ...state.filters.numericValues,
-        comparison: nullElements(action.comparison),
+        comparison: [...state.filters.numericValues.comparison, action.comparison ],
       },
     },
   };
@@ -56,7 +53,7 @@ function filValue(state, action) {
       ...state.filters,
       numericValues: {
         ...state.filters.numericValues,
-        value: nullElements(action.value),
+        value: [...state.filters.numericValues.value, action.value ],
       },
     },
   };
@@ -72,6 +69,8 @@ const filterPlanets = (state = InitialState, action) => {
       return filComparison(state, action);
     case FilterNumberValue:
       return filValue(state, action);
+      case CallingFilter:
+        return { ...state, isCallingFilter: action.boolean };
     default:
       return state;
   }
