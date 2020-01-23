@@ -36,6 +36,14 @@ class Table extends Component {
     return dataFinal.map((data) => this.bodyTableRow(data));
   }
 
+  // if (filters) {
+  //   dataFinal = data.filter((planet) => planet.name.toUpperCase().includes(filters.toUpperCase()));
+  // } else {
+  //   dataFinal = data
+  // }
+
+  // return dataFinal.map((data) => this.bodyTableRow(data));
+
   headColumns() {
     const textColumns = [
       'NOME',
