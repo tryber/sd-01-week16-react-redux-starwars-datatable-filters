@@ -103,7 +103,6 @@ class ValuesInput extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  filters: state.valueFilterReducer.filters,
   columns: state.valueFilterReducer.columns,
 });
 
@@ -113,11 +112,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 ValuesInput.propTypes = {
   columns: PropTypes.arrayOf.isRequired,
-  filters: PropTypes.shape({
-    numeric_values: PropTypes.shape({
-      column: PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
   updateValues: PropTypes.func.isRequired,
 };
 

@@ -103,5 +103,6 @@ Filters.propTypes = {
     results: PropTypes.arrayOf.isRequired,
   }).isRequired,
   sendFinalFilter: PropTypes.func.isRequired,
+  removeFilters: PropTypes.func.isRequired,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Filters);
