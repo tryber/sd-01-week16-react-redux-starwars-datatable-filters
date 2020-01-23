@@ -18,26 +18,35 @@ class Table extends Component {
     getPlanetFetch();
   }
 
-  switchOfTable(value) {
-    console.log('→→→→ visualizar o valor →→→', value);
-    console.log('→→→→ visualizar o tipo da data →→→→', typeof value);
-    console.log('→→→→ visualizar se é de fato uma é lista →→→→', Array.isArray(value));
-    // console.log(length.value);
-    // console.log(value.length);
-    if (value) return value.map((data) => this.bodyTableRow(data));
+  capitalize(word) {
+    const newWord = word.toLowerCase();
+    return newWord && newWord[0].toUpperCase() + newWord.slice(1);
+  }
+
+  switchOfTable(data, filters) {
+    let dataFinal = null;
+    switch (filters) {
+      case filters.length === 0:
+        dataFinal = data.filter((planet) => planet.name.toUpperCase().includes(filters.toUpperCase()));
+        break;
+      default:
+        dataFinal = data;
+        break;
+    }
+    return dataFinal.map((data) => this.bodyTableRow(data));
   }
 
   headColumns() {
     const textColumns = [
-      'Nome',
-      'População',
-      'Duração Orbita',
-      'Diametro',
-      'Clima',
-      'Gravidade',
-      'Solo',
-      'Duração Rotação',
-      'Superficie de Água',
+      'NOME',
+      'POPULAÇÃO',
+      'DURAÇÃO DA ORBITA',
+      'DIÂMENTRO',
+      'CLIMA',
+      'GRAVIDADE',
+      'SOLO',
+      'DURAÇÃO DA ROTAÇÃO',
+      'SUPERFÍCIE DE ÁGUA',
     ];
     return (
       <tr>
@@ -77,7 +86,7 @@ class Table extends Component {
         </h2>
         <table>
           <thead>{this.headColumns()}</thead>
-          <tbody>{this.switchOfTable(data)}</tbody>
+          <tbody>{data && this.switchOfTable(data, inputValue)}</tbody>
         </table>
       </div>
     );
