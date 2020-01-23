@@ -90,6 +90,9 @@ class ValuesInput extends React.Component {
   }
 
   render() {
+    if (this.props.columns.length === 5) {
+      return 'All filters are being used';
+    }
     return (
       <div>
         Choose the column to filter:
