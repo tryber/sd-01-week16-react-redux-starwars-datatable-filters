@@ -6,21 +6,22 @@ import { filterText } from '../actions/filters';
 
 class FilterText extends Component {
   render() {
+    const { dispatchSomething } = this.props;
     return (
       <div>
         <h2>Filter Table By Text</h2>
-        <input type="text" onChange={(e) => this.props.filterText(e.target.value)} />
-      </div>  
+        <input type="text" onChange={(e) => dispatchSomething(filterText, e.target.value)} />
+      </div>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  filterText: (text) => dispatch(filterText(text)),
+  dispatchSomething: (callback, text) => dispatch(callback(text)),
 });
 
 FilterText.propTypes = {
-  filterText: PropTypes.func.isRequired,
+  dispatchSomething: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(FilterText);
