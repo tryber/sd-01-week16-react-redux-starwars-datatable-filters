@@ -25,22 +25,26 @@ class DisplayFilterNum extends Component {
   }
 
   handleClick(index) {
-    const { add_filter, dispatchSomething, available_categories } = this.props;
-    const newNode = [...add_filter];
+    const { addFilter, dispatchSomething, availableCategories } = this.props;
+    const newNode = [...addFilter];
     newNode.splice(index, 1);
     dispatchSomething(clearOneFilter, newNode);
-    const column = add_filter[index].column;
-    const New_Node = [...available_categories, column];
-    dispatchSomething(modifyCategories, New_Node);
+    const column = addFilter[index].column;
+    const NewNode = [...availableCategories, column];
+    dispatchSomething(modifyCategories, NewNode);
   }
 
   render() {
-    const { add_filter } = this.props;
+    const { addFilter } = this.props;
     return (
       <div>
-        {add_filter.map((Each_Filter_Array, index) => (
-          <div style={{ 'display': 'flex' }}>
-            <p>{Each_Filter_Array.column} | {comparisonSing(Each_Filter_Array.comparison)} | {Each_Filter_Array.value} </p>
+        {addFilter.map((EachFilterArray, index) => (
+          <div style={{ display: 'flex' }}>
+            <p>
+              {EachFilterArray.column} |
+            {comparisonSing(EachFilterArray.comparison)} |
+            {EachFilterArray.value}
+            </p>
             <button type="button" onClick={() => this.handleClick(index)}> X </button>
           </div>
         ))}
@@ -52,8 +56,8 @@ class DisplayFilterNum extends Component {
 const mapStateToProps = ({
   filters: { add_filter, available_categories },
 }) => ({
-  add_filter,
-  available_categories,
+  addFilter: add_filter,
+  availableCategories: available_categories,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -61,12 +65,13 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 DisplayFilterNum.propTypes = {
-  add_filter: PropTypes.arrayOf(PropTypes.shape({
+  addFilter: PropTypes.arrayOf(PropTypes.shape({
     column: PropTypes.string.isRequired,
     comparison: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
   })),
   dispatchSomething: PropTypes.func.isRequired,
+  availableCategories: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 };
 
 DisplayFilterNum.defaultProps = {
