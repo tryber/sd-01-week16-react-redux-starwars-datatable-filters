@@ -23,7 +23,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 NumberRange.propTypes = {
-  filterValue: PropTypes.func.isRequired,
+  dispatchSomething: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(NumberRange);
