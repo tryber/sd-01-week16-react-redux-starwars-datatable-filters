@@ -2,9 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import ClearFilterButton from './DisplayFilterNum/ClearFilterButton';
+import { clearOneFilter, modifyCategories } from '../actions/filters';
 
 class DisplayFilterNum extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
   comparisonSing(Comparison_Sign) {
     switch (Comparison_Sign) {
       case 'greater':
@@ -18,14 +24,24 @@ class DisplayFilterNum extends Component {
     }
   }
 
+  handleClick(index) {
+    const { add_filter, dispatchSomething, available_categories } = this.props;
+    const newNode = [...add_filter];
+    newNode.splice(index, 1);
+    dispatchSomething(clearOneFilter, newNode);
+    const column = add_filter[index].column;
+    const New_Node = [...available_categories, column];
+    dispatchSomething(modifyCategories, New_Node);
+  }
+
   render() {
     const { add_filter } = this.props;
     return (
       <div>
         {add_filter.map((Each_Filter_Array, index) => (
-          <div style={{'display': 'flex'}}>
+          <div style={{ 'display': 'flex' }}>
             <p>{Each_Filter_Array.column} | {this.comparisonSing(Each_Filter_Array.comparison)} | {Each_Filter_Array.value} </p>
-            <ClearFilterButton index={index} />
+            <button type="button" onClick={() => this.handleClick(index)}> X </button>
           </div>
         ))}
       </div>
@@ -34,9 +50,14 @@ class DisplayFilterNum extends Component {
 }
 
 const mapStateToProps = ({
-  filters: { add_filter },
+  filters: { add_filter, available_categories },
 }) => ({
   add_filter,
+  available_categories,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchSomething: (callback, node) => dispatch(callback(node)),
 });
 
 DisplayFilterNum.propTypes = {
@@ -44,11 +65,12 @@ DisplayFilterNum.propTypes = {
     column: PropTypes.string.isRequired,
     comparison: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
-  }))
+  })),
+  dispatchSomething: PropTypes.func.isRequired,
 };
 
 DisplayFilterNum.defaultProps = {
   add_filter: [],
 };
 
-export default connect(mapStateToProps)(DisplayFilterNum);
+export default connect(mapStateToProps, mapDispatchToProps)(DisplayFilterNum);
