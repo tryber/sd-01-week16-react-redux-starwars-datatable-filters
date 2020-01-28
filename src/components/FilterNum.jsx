@@ -14,9 +14,9 @@ class FilterNum extends Component {
       <div>
         <h2>Filter Table By Number</h2>
         <ChooseColumn />
-        { column !== '' && <ComparisonSign />}
-        { comparison !== '' && <NumberRange />}
-        { value !== '' && <FilterButton />}
+        {column !== '' && <ComparisonSign />}
+        {comparison !== '' && <NumberRange />}
+        {value !== '' && <FilterButton />}
       </div>
     );
   }
@@ -27,7 +27,7 @@ const mapStateToProps = ({
     column,
     comparison,
     value,
-  }},
+  } },
 }) => ({
   column,
   comparison,
@@ -38,12 +38,12 @@ FilterNum.propTypes = {
   column: PropTypes.string,
   comparison: PropTypes.string,
   value: PropTypes.string,
-}
+};
 
 FilterNum.defaultProps = {
   column: '',
   comparison: '',
   value: '',
-}
+};
 
 export default connect(mapStateToProps)(FilterNum);
