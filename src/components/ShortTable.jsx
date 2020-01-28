@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { filterText } from '../actions/filters';
 import ChooseOrder from './ShortTable/ChooseOrder';
 import ChooseColumn from './ShortTable/ChooseColumn';
 
@@ -17,7 +15,5 @@ class ShortTable extends Component {
     );
   }
 }
-
-
 
 export default connect()(ShortTable);
