@@ -1,8 +1,7 @@
 import { combineReducers } from 'redux';
 
 import database from './database';
-import filters from './filters'
-
+import filters from './filters';
 
 const rootReducer = combineReducers({
   database,

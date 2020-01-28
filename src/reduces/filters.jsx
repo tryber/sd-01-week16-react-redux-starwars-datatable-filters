@@ -23,8 +23,8 @@ const InitialState = {
   shortOrder: {
     column: 'name',
     order: 'ASC',
-  }
-}
+  },
+};
 
 function filColumn(state, action) {
   return {
@@ -32,7 +32,7 @@ function filColumn(state, action) {
     numeric_values: {
       ...state.numeric_values,
       column: action.column,
-    }
+    },
   };
 }
 
@@ -42,8 +42,8 @@ function filComparison(state, action) {
     numeric_values: {
       ...state.numeric_values,
       comparison: action.comparison,
-    }
-  }
+    },
+  };
 }
 
 function filValue(state, action) {
@@ -52,14 +52,14 @@ function filValue(state, action) {
     numeric_values: {
       ...state.numeric_values,
       value: action.value,
-    }
-  }
+    },
+  };
 }
 
 function filAdd(state, action) {
   return {
     ...state,
-    add_filter: [...state.add_filter, action.node]
+    add_filter: [...state.add_filter, action.node],
   };
 }
 
@@ -71,7 +71,7 @@ function filReset(state) {
       column: '',
       comparison: '',
       value: '',
-    }
+    },
   };
 }
 

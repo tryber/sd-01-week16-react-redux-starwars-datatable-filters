@@ -1,7 +1,7 @@
-const Star_Wars_Base_URL = 'https://swapi.co/api/planets';
+const StarWarsBaseURL = 'https://swapi.co/api/planets';
 
 const fetchingPlanets = async () => {
-  const response = await fetch(Star_Wars_Base_URL);
+  const response = await fetch(StarWarsBaseURL);
   return response.json();
 };
 
