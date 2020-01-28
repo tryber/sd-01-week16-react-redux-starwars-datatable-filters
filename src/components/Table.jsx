@@ -15,16 +15,16 @@ class TableContainer extends Component {
     this.filteredContent = this.filteredContent.bind(this);
   }
 
-  comparisonCase(Column_Value, Comparison_Sign, Value) {
-    switch (Comparison_Sign) {
+  comparisonCase(ColumnValue, ComparisonSign, Value) {
+    switch (ComparisonSign) {
       case 'greater':
-        if (Column_Value > Value) return true;
+        if (ColumnValue > Value) return true;
         return false;
       case 'less':
-        if (Column_Value < Value) return true;
+        if (ColumnValue < Value) return true;
         return false;
       case 'iqual':
-        if (Column_Value === Value) return true;
+        if (ColumnValue === Value) return true;
         return false;
       default:
         return false;
@@ -32,17 +32,19 @@ class TableContainer extends Component {
   }
 
   filterByNumber(newData) {
-    const { add_filter } = this.props;
-    if (add_filter !== []) {
-      const Planets_Each_Filter = add_filter.map((Filer_Obj) =>
-        newData.filter((Planet_Obj) =>
-          this.comparisonCase(Number(Planet_Obj[Filer_Obj.column]), Filer_Obj.comparison, Number(Filer_Obj.value))
+    const { addFilter } = this.props;
+    if (addFilter !== []) {
+      const PlanetsEachFilter = addFilter.map((FilerObj) =>
+        newData.filter((PlanetObj) =>
+          this.comparisonCase(Number(PlanetObj[FilerObj.column]), FilerObj.comparison, Number(FilerObj.value))
         )
-      )
-      return newData.filter((Current_Planet) => {
-        const boolean = Planets_Each_Filter.map((Each_Filter_Array) => Each_Filter_Array.includes(Current_Planet))
+      );
+      return newData.filter((CurrentPlanet) => {
+        const boolean = PlanetsEachFilter
+          .map((PlanetsEachFilter) => PlanetsEachFilter
+            .includes(CurrentPlanet));
         return boolean.every((bool) => bool === true);
-      })
+      });
     }
     return newData;
   }
@@ -50,7 +52,7 @@ class TableContainer extends Component {
   filterByName() {
     const { data, name } = this.props;
     if (name !== '') {
-      return data.filter((Planet_Obj => Planet_Obj['name'].toLowerCase().includes(name.toLowerCase())));
+      return data.filter(((PlanetObj) => PlanetObj.name.toLowerCase().includes(name.toLowerCase())));
     }
     return data;
   }
@@ -68,19 +70,19 @@ class TableContainer extends Component {
         return 1;
       }
       return 0;
-    })
+    });
     if (order === 'ASC') {
       shortData.reverse();
     }
-    return shortData
+    return shortData;
   }
 
   renderContent(categories) {
-    const content = this.filteredContent()
+    const content = this.filteredContent();
     return (
       <tbody>
-        {content.map(planet => <tr key={planet.name}>
-          {categories.map(key => <td key={key}>{planet[key]}</td>)}
+        {content.map((planet) => <tr key={planet.name}>
+          {categories.map((key) => <td key={key}>{planet[key]}</td>)}
         </tr>)}
       </tbody>
     );
@@ -88,12 +90,12 @@ class TableContainer extends Component {
 
   renderTable() {
     const { data } = this.props;
-    const categories = Object.keys(data[0]).filter(category => category !== 'residents');
+    const categories = Object.keys(data[0]).filter((category) => category !== 'residents');
     return (
       <Table responsive="sm" striped bordered hover variant="dark">
         <thead>
           <tr>
-            {categories.map(category => <th key={category}>{category}</th>)}
+            {categories.map((category) => <th key={category}>{category}</th>)}
           </tr>
         </thead>
         {this.renderContent(categories)}
@@ -119,11 +121,11 @@ const mapStateToProps = ({
   data,
   isFetching,
   name,
-  add_filter,
+  addFilter: add_filter,
   shortOrder,
 });
 
-Table.propTypes = {
+TableContainer.propTypes = {
   isFetching: PropTypes.bool,
   data: PropTypes.arrayOf(PropTypes.shape({
     climate: PropTypes.string.isRequired,
@@ -141,9 +143,18 @@ Table.propTypes = {
     url: PropTypes.string.isRequired,
   })),
   name: PropTypes.string,
+  shortOrder: PropTypes.shape({
+    column: PropTypes.string.isRequired,
+    order: PropTypes.string.isRequired,
+  }),
+  addFilter: PropTypes.arrayOf(PropTypes.shape({
+    column: PropTypes.string.isRequired,
+    comparison: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+  })),
 };
 
-Table.defaultProps = {
+TableContainer.defaultProps = {
   data: null,
   isFetching: false,
   name: '',

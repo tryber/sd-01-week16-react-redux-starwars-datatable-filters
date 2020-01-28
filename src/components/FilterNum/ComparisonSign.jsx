@@ -40,7 +40,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 ComparisonSign.propTypes = {
-  filterComparison: PropTypes.func.isRequired,
+  dispatchSomething: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(ComparisonSign);
