@@ -1,33 +1,26 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import filterText from '../actions/FilterText';
-import FilterNum from './FilterNum';
 
-class Filter extends Component {
+import { filterText } from '../actions/filters';
+
+class FilterText extends Component {
   render() {
     return (
       <div>
+        <h2>Filter Table By Text</h2>
         <input type="text" onChange={(e) => this.props.filterText(e.target.value)} />
-        <FilterNum />
-        { this.props.isCallingFilter && <FilterNum /> }
-      </div>
+      </div>  
     );
   }
 }
-
-const mapStateToProps = ({
-  filterPlanets: { isCallingFilter }
-}) => ({
-  isCallingFilter,
-});
 
 const mapDispatchToProps = (dispatch) => ({
   filterText: (text) => dispatch(filterText(text)),
 });
 
-Filter.propTypes = {
+FilterText.propTypes = {
   filterText: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Filter);
+export default connect(null, mapDispatchToProps)(FilterText);

@@ -1,0 +1,49 @@
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+import { filterNumberColumn } from '../../actions/filters';
+
+class ChooseColumn extends Component {
+  renderContent() {
+    const { available_categories } = this.props;
+    if (available_categories.length >= 1) {
+      return (
+        <select key="categories" onChange={(e) => {
+          if(e.target.value !== 'none') {
+            this.props.filterColumn(e.target.value)
+          }}}>
+          <option value="none" >Choose Column</option>
+          {available_categories.map((category) => (
+            <option key={category} value={category} >{category}</option>
+          ))}
+        </select>
+      );
+    }
+    return null;
+  }
+
+  render() {
+    return (
+      <div>
+        {this.renderContent()}
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = ({
+  filters: { available_categories },
+}) => ({
+  available_categories,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  filterColumn: (column) => dispatch(filterNumberColumn(column)),
+});
+
+ChooseColumn.propTypes = {
+  filterColumn: PropTypes.func.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChooseColumn);

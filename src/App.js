@@ -1,23 +1,38 @@
 import React, { Component } from 'react';
-import { Provider } from 'react-redux';
-import store from './store/Store';
 
+import { connect } from 'react-redux';
+
+import FilterText from './components/FilterText';
+import FilterNum from './components/FilterNum';
+import TableContainer from './components/Table';
+import DisplayFilterNum from './components/DisplayFilterNum';
+import fetchPlanets from './actions/database';
+import ShortTable from './components/ShortTable';
 
 import './App.css';
 
-import Table from './components/Table';
-import Filter from './components/Filter';
 
 class App extends Component {
 
+  componentDidMount() {
+    this.props.getPlanets();
+  }
+
   render() {
     return (
-      <Provider store={store}>
-        <Filter />
-        <Table />
-      </Provider>
+      <div>
+        <FilterText />
+        <ShortTable />
+        <DisplayFilterNum />
+        <FilterNum />
+        <TableContainer />
+      </div>  
     );
   }
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => ({
+  getPlanets: () => dispatch(fetchPlanets()),
+});
+
+export default connect(null, mapDispatchToProps)(App);
