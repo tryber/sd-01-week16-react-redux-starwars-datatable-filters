@@ -6,11 +6,12 @@ import { filterNumberValue } from '../../actions/filters';
 
 class NumberRange extends Component {
   render() {
+    const { dispatchSomething } = this.props;
     return (
       <div>
         <input
           type="number"
-          onChange={(e) => this.props.filterValue(e.target.value)}
+          onChange={(e) => dispatchSomething(filterNumberValue, e.target.value)}
         />
       </div>
     );
@@ -18,7 +19,7 @@ class NumberRange extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  filterValue: (value) => dispatch(filterNumberValue(value)),
+  dispatchSomething: (callback, node) => dispatch(callback(node)),
 });
 
 NumberRange.propTypes = {

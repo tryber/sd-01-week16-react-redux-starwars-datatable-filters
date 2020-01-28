@@ -12,10 +12,10 @@ class FilterButton extends Component {
       column,
       comparison,
       value,
-    }
+    };
     dispatchSomething(addFilter, newNode);
-    const New_Node = available_categories.filter((category) => category !== column)
-    dispatchSomething(modifyCategories, New_Node);
+    const NewNode = available_categories.filter((category) => category !== column);
+    dispatchSomething(modifyCategories, NewNode);
     this.props.resetFilter();
   }
 
@@ -49,6 +49,10 @@ const mapDispatchToProps = (dispatch) => ({
 FilterButton.propTypes = {
   dispatchSomething: PropTypes.func.isRequired,
   resetFilter: PropTypes.func.isRequired,
+  column: PropTypes.func.isRequired,
+  comparison: PropTypes.func.isRequired,
+  value: PropTypes.func.isRequired,
+  available_categories: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilterButton);
