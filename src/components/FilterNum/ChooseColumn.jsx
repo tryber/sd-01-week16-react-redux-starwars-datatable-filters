@@ -6,13 +6,14 @@ import { filterNumberColumn } from '../../actions/filters';
 
 class ChooseColumn extends Component {
   renderContent() {
-    const { available_categories } = this.props;
+    const { available_categories, dispatchSomething } = this.props;
     if (available_categories.length >= 1) {
       return (
         <select key="categories" onChange={(e) => {
-          if(e.target.value !== 'none') {
-            this.props.filterColumn(e.target.value)
-          }}}>
+          if (e.target.value !== 'none') {
+            dispatchSomething(filterNumberColumn, e.target.value)
+          }
+        }}>
           <option value="none" >Choose Column</option>
           {available_categories.map((category) => (
             <option key={category} value={category} >{category}</option>
@@ -39,11 +40,11 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  filterColumn: (column) => dispatch(filterNumberColumn(column)),
+  dispatchSomething: (callback, column) => dispatch(callback(column)),
 });
 
 ChooseColumn.propTypes = {
-  filterColumn: PropTypes.func.isRequired,
+  dispatchSomething: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChooseColumn);
