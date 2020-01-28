@@ -4,24 +4,24 @@ import { connect } from 'react-redux';
 
 import { clearOneFilter, modifyCategories } from '../actions/filters';
 
+function comparisonSing(ComparisonSign) {
+  switch (ComparisonSign) {
+    case 'greater':
+      return 'maior que';
+    case 'less':
+      return 'menor que';
+    case 'iqual':
+      return 'igual a';
+    default:
+      return null;
+  }
+}
+
 class DisplayFilterNum extends Component {
   constructor(props) {
     super(props);
 
     this.handleClick = this.handleClick.bind(this);
-  }
-
-  comparisonSing(Comparison_Sign) {
-    switch (Comparison_Sign) {
-      case 'greater':
-        return 'maior que';
-      case 'less':
-        return 'menor que';
-      case 'iqual':
-        return 'igual a';
-      default:
-        return null;
-    }
   }
 
   handleClick(index) {
@@ -40,7 +40,7 @@ class DisplayFilterNum extends Component {
       <div>
         {add_filter.map((Each_Filter_Array, index) => (
           <div style={{ 'display': 'flex' }}>
-            <p>{Each_Filter_Array.column} | {this.comparisonSing(Each_Filter_Array.comparison)} | {Each_Filter_Array.value} </p>
+            <p>{Each_Filter_Array.column} | {comparisonSing(Each_Filter_Array.comparison)} | {Each_Filter_Array.value} </p>
             <button type="button" onClick={() => this.handleClick(index)}> X </button>
           </div>
         ))}
