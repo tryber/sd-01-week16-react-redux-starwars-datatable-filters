@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
+import './App.css';
 
 import FilterText from './components/FilterText';
 import FilterNum from './components/FilterNum';
 import TableContainer from './components/Table';
 import DisplayFilterNum from './components/DisplayFilterNum';
-import fetchPlanets from './actions/database';
 import ShortTable from './components/ShortTable';
 
-import './App.css';
+import fetchPlanets from './actions/database';
 
 
 class App extends Component {
@@ -26,7 +27,7 @@ class App extends Component {
         <DisplayFilterNum />
         <FilterNum />
         <TableContainer />
-      </div>  
+      </div>
     );
   }
 }
@@ -34,5 +35,9 @@ class App extends Component {
 const mapDispatchToProps = (dispatch) => ({
   getPlanets: () => dispatch(fetchPlanets()),
 });
+
+App.propTypes = {
+  getPlanets: PropTypes.func.isRequired,
+};
 
 export default connect(null, mapDispatchToProps)(App);
