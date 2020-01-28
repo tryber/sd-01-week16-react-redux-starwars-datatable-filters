@@ -4,7 +4,21 @@ import { connect } from 'react-redux';
 
 import Table from 'react-bootstrap/Table';
 
-
+function comparisonCase(ColumnValue, ComparisonSign, Value) {
+  switch (ComparisonSign) {
+    case 'greater':
+      const greater = ColumnValue > Value;
+      return greater;
+    case 'less':
+      const less = ColumnValue < Value;
+      return less;
+    case 'iqual':
+      const iqual = ColumnValue === Value;
+      return iqual;
+    default:
+      return false;
+  }
+}
 
 class TableContainer extends Component {
   constructor(props) {
@@ -15,33 +29,21 @@ class TableContainer extends Component {
     this.filteredContent = this.filteredContent.bind(this);
   }
 
-  comparisonCase(ColumnValue, ComparisonSign, Value) {
-    switch (ComparisonSign) {
-      case 'greater':
-        if (ColumnValue > Value) return true;
-        return false;
-      case 'less':
-        if (ColumnValue < Value) return true;
-        return false;
-      case 'iqual':
-        if (ColumnValue === Value) return true;
-        return false;
-      default:
-        return false;
-    }
-  }
-
   filterByNumber(newData) {
     const { addFilter } = this.props;
     if (addFilter !== []) {
       const PlanetsEachFilter = addFilter.map((FilerObj) =>
         newData.filter((PlanetObj) =>
-          this.comparisonCase(Number(PlanetObj[FilerObj.column]), FilerObj.comparison, Number(FilerObj.value))
+          comparisonCase(
+            Number(PlanetObj[FilerObj.column]),
+            FilerObj.comparison,
+            Number(FilerObj.value),
+          )
         )
       );
       return newData.filter((CurrentPlanet) => {
         const boolean = PlanetsEachFilter
-          .map((PlanetsEachFilter) => PlanetsEachFilter
+          .map((EachFilter) => EachFilter
             .includes(CurrentPlanet));
         return boolean.every((bool) => bool === true);
       });
@@ -52,7 +54,9 @@ class TableContainer extends Component {
   filterByName() {
     const { data, name } = this.props;
     if (name !== '') {
-      return data.filter(((PlanetObj) => PlanetObj.name.toLowerCase().includes(name.toLowerCase())));
+      return data
+        .filter(((PlanetObj) => PlanetObj.name.toLowerCase()
+          .includes(name.toLowerCase())));
     }
     return data;
   }
@@ -146,7 +150,7 @@ TableContainer.propTypes = {
   shortOrder: PropTypes.shape({
     column: PropTypes.string.isRequired,
     order: PropTypes.string.isRequired,
-  }),
+  }).isRequired,
   addFilter: PropTypes.arrayOf(PropTypes.shape({
     column: PropTypes.string.isRequired,
     comparison: PropTypes.string.isRequired,
@@ -158,6 +162,7 @@ TableContainer.defaultProps = {
   data: null,
   isFetching: false,
   name: '',
+  addFilter: [],
 };
 
 export default connect(mapStateToProps)(TableContainer);
