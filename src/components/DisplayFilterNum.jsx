@@ -75,7 +75,7 @@ DisplayFilterNum.propTypes = {
 };
 
 DisplayFilterNum.defaultProps = {
-  add_filter: [],
+  addFilter: [],
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DisplayFilterNum);
