@@ -6,15 +6,18 @@ import Table from 'react-bootstrap/Table';
 
 function comparisonCase(ColumnValue, ComparisonSign, Value) {
   switch (ComparisonSign) {
-    case 'greater':
+    case 'greater': {
       const greater = ColumnValue > Value;
       return greater;
-    case 'less':
+    }
+    case 'less': {
       const less = ColumnValue < Value;
       return less;
-    case 'iqual':
+    }
+    case 'iqual': {
       const iqual = ColumnValue === Value;
       return iqual;
+    }
     default:
       return false;
   }
@@ -38,8 +41,8 @@ class TableContainer extends Component {
             Number(PlanetObj[FilerObj.column]),
             FilerObj.comparison,
             Number(FilerObj.value),
-          )
-        )
+          ),
+        ),
       );
       return newData.filter((CurrentPlanet) => {
         const boolean = PlanetsEachFilter

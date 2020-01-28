@@ -66,8 +66,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 DisplayFilterNum.propTypes = {
   addFilter: PropTypes.arrayOf(PropTypes.shape({
-    column: PropTypes.string.isRequired,
-    comparison: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
   })),
   dispatchSomething: PropTypes.func.isRequired,
