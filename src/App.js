@@ -2,12 +2,12 @@ import React from 'react';
 import './App.css';
 
 import Table from './components/Table';
-import FilterByName from './components/FilterByName';
+import Filters from './components/Filters';
 
 function App() {
   return (
     <div className="black-app">
-      <FilterByName />
+      <Filters />
       <Table />
     </div>
   );

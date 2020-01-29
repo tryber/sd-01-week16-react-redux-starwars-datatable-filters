@@ -23,22 +23,49 @@ function createRows(planet) {
   );
 }
 
-function filterPlanets(data, filters) {
-  if (filters) {
-    return data.filter((planet) => planet.name.toUpperCase().includes(filters.toUpperCase()));
-  }
-  return data;
-}
-
 class Table extends Component {
+  static comparisonCase(filters, data) {
+    return filters.reduce((previousList, filter, index) => {
+      const planetList = (index === 0) ? data : previousList;
+      const obj = {
+        bigger: planetList.filter((planet) => Number(planet[filter.column]) > filter.value),
+        less: planetList.filter((planet) => Number(planet[filter.column]) < filter.value),
+        equal: planetList.filter((planet) => planet[filter.column] === filter.value),
+      };
+      return obj[filter.comparison];
+    }, []);
+  }
+
+  constructor(props) {
+    super(props);
+    this.filterPlanetsName = this.filterPlanetsName.bind(this);
+    this.filterNumericNumber = this.filterNumericNumber.bind(this);
+  }
+
   componentDidMount() {
     const { getPlanets } = this.props;
     getPlanets();
   }
 
+  filterNumericNumber(planetsData) {
+    const { numeric_values } = this.props;
+    if (numeric_values.length !== 0) {
+      return Table.comparisonCase(numeric_values, planetsData);
+    }
+    return planetsData;
+  }
+
+  filterPlanetsName() {
+    const { data, name } = this.props;
+    if (name) {
+      return data.filter((planet) => planet.name.toUpperCase().includes(name.toUpperCase()));
+    }
+    return data;
+  }
+
   render() {
-    const { isFetching, data, filters } = this.props;
-    const filteredPlanets = (data) ? filterPlanets(data, filters) : false;
+    const { isFetching, data } = this.props;
+    const filteredPlanets = (data) ? this.filterNumericNumber(this.filterPlanetsName()) : false;
     return (
       <div>
         {isFetching && 'Loading...'}
@@ -73,15 +100,28 @@ Table.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
   })),
-  filters: PropTypes.string,
+  name: PropTypes.string,
+  numeric_values: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 Table.defaultProps = {
   data: [],
-  filters: '',
+  name: '',
+  numeric_values: [],
 };
 
-const mapStateToProps = ({ planets: { isFetching, data }, filterName: { filters } }) => ({ isFetching, data, filters });
+const mapStateToProps = ({
+  planets: { isFetching, data },
+  filters: {
+    name,
+    numeric_values,
+  },
+}) => ({
+  isFetching,
+  data,
+  name,
+  numeric_values,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   getPlanets: () => dispatch(fetchPlanets()),
