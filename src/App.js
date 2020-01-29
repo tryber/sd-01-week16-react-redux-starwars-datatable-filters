@@ -6,7 +6,7 @@ import Filters from './components/Filters';
 
 function App() {
   return (
-    <div className="black-app">
+    <div className="App">
       <Filters />
       <Table />
     </div>

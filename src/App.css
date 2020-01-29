@@ -1,5 +1,26 @@
-.black-app {
-  background-color: #282c34;
-  color: white;
-  font-size: 12px;
+.App {
+  font-size: 14px;
+}
+
+.table {
+  margin-top: 20px;
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  font-weight: 500;
+}
+
+.filter-planets {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.active-filters {
+  margin-left: 15px;
 }

@@ -3,27 +3,27 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchPlanets } from '../actions';
 
-function createRows(planet) {
-  return (
-    <tr key={planet.name}>
-      <td>{planet.name}</td>
-      <td>{planet.population}</td>
-      <td>{planet.orbital_period}</td>
-      <td>{planet.diameter}</td>
-      <td>{planet.climate}</td>
-      <td>{planet.gravity}</td>
-      <td>{planet.terrain}</td>
-      <td>{planet.rotation_period}</td>
-      <td>{planet.surface_water}</td>
-      <td>{planet.films.map((film) => <div key={film}>{film}</div>)}</td>
-      <td>{planet.created}</td>
-      <td>{planet.edited}</td>
-      <td>{planet.url}</td>
-    </tr>
-  );
-}
-
 class Table extends Component {
+  static createRows(planet) {
+    return (
+      <tr key={planet.name}>
+        <td>{planet.name}</td>
+        <td>{planet.population}</td>
+        <td>{planet.orbital_period}</td>
+        <td>{planet.diameter}</td>
+        <td>{planet.climate}</td>
+        <td>{planet.gravity}</td>
+        <td>{planet.terrain}</td>
+        <td>{planet.rotation_period}</td>
+        <td>{planet.surface_water}</td>
+        <td>{planet.films.map((film) => <div key={film}>{film}</div>)}</td>
+        <td>{planet.created}</td>
+        <td>{planet.edited}</td>
+        <td>{planet.url}</td>
+      </tr>
+    );
+  }
+
   static comparisonCase(filters, data) {
     return filters.reduce((previousList, filter, index) => {
       const planetList = (index === 0) ? data : previousList;
@@ -67,7 +67,7 @@ class Table extends Component {
     const { isFetching, data } = this.props;
     const filteredPlanets = (data) ? this.filterNumericNumber(this.filterPlanetsName()) : false;
     return (
-      <div>
+      <div className="table">
         {isFetching && 'Loading...'}
         <table>
           <tbody>
@@ -86,7 +86,7 @@ class Table extends Component {
               <th>Edited</th>
               <th>Link</th>
             </tr>
-            {filteredPlanets && filteredPlanets.map((planet) => createRows(planet))}
+            {filteredPlanets && filteredPlanets.map((planet) => Table.createRows(planet))}
           </tbody>
         </table>
       </div>

@@ -13,8 +13,8 @@ class ActiveFilters extends Component {
   createFilter(filterObj) {
     const { removePlanetFilters } = this.props;
     return (
-      <p key={filterObj.column}>
-        {`${filterObj.column} | ${filterObj.comparison} | ${filterObj.value}`}
+      <p key={filterObj.column} className="active-filters">
+        {`${filterObj.column} | ${filterObj.comparison} | ${filterObj.value}  `}
         <button type="button" onClick={() => removePlanetFilters(filterObj)}>X</button>
       </p>
     );
@@ -27,7 +27,8 @@ class ActiveFilters extends Component {
   render() {
     const { numeric_values } = this.props;
     return (
-      <div>
+      <div className="active-filters">
+        <h3>Filtros Ativos</h3>
         {numeric_values && this.showActiveFilters(numeric_values)}
       </div>
     );

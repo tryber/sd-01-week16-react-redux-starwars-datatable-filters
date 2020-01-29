@@ -46,24 +46,27 @@ class Filters extends Component {
     return (
       <div>
         <ActiveFilters />
-        <input type="text" placeholder="Filtrar pelo Nome" onChange={(e) => filterName(e.target.value)} />
-        <div>
-          <select name="column" onChange={(e) => this.changeFilterColumn(e.target.value)}>
-            <option value="">Select Option</option>
-            <option value="population">Population</option>
-            <option value="orbital_period">Orbital Period</option>
-            <option value="diameter">Diameter</option>
-            <option value="rotation_period">Rotation Period</option>
-            <option value="surface_water">Surface Water</option>
-          </select>
-          <select name="type" onChange={(e) => this.changeFilterComparison(e.target.value)}>
-            <option value="">Select Option</option>
-            <option value="bigger">Maior que</option>
-            <option value="less">Menor que</option>
-            <option value="equal">Igual a</option>
-          </select>
-          <input type="number" placeholder="Filtrar por Valor" onChange={(e) => this.changeFilterValue(e.target.value)} />
-          <button type="button" onClick={() => this.sendValues()}>Adicionar Filtro</button>
+        <div className="filters">
+          <input type="text" placeholder="Filtrar pelo Nome" onChange={(e) => filterName(e.target.value)} />
+          Filtrar por Valores Numéricos
+          <div className="filter-planets">
+            <select name="column" onChange={(e) => this.changeFilterColumn(e.target.value)}>
+              <option value="">Selecionar Opção</option>
+              <option value="population">População</option>
+              <option value="orbital_period">Duração Orbital</option>
+              <option value="diameter">Diâmetro</option>
+              <option value="rotation_period">Duração da Rotação</option>
+              <option value="surface_water">Superfície da Água</option>
+            </select>
+            <select name="type" onChange={(e) => this.changeFilterComparison(e.target.value)}>
+              <option value="">Selecionar Opção</option>
+              <option value="bigger">Maior que</option>
+              <option value="less">Menor que</option>
+              <option value="equal">Igual a</option>
+            </select>
+            <input type="number" placeholder="Filtrar por Valor" onChange={(e) => this.changeFilterValue(e.target.value)} />
+            <button type="button" onClick={() => this.sendValues()}>Adicionar Filtro</button>
+          </div>
         </div>
       </div>
     );
