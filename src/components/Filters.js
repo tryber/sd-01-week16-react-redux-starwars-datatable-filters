@@ -5,6 +5,7 @@ import {
   planetFilterName,
   addFilters,
 } from '../actions';
+import ActiveFilters from './ActiveFilters';
 
 class Filters extends Component {
   constructor(props) {
@@ -44,6 +45,7 @@ class Filters extends Component {
     const { filterName } = this.props;
     return (
       <div>
+        <ActiveFilters />
         <input type="text" placeholder="Filtrar pelo Nome" onChange={(e) => filterName(e.target.value)} />
         <div>
           <select name="column" onChange={(e) => this.changeFilterColumn(e.target.value)}>
