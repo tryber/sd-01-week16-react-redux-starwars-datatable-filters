@@ -23,6 +23,11 @@ function ColumnFilterSelect({ numeric_values, handleChange }) {
 
 ColumnFilterSelect.propTypes = {
   handleChange: PropTypes.func.isRequired,
+  numeric_values: PropTypes.arrayOf(PropTypes.shape({})),
+};
+
+ColumnFilterSelect.defaultProps = {
+  numeric_values: [],
 };
 
 const mapStateToProps = ({ filters: numeric_values }) => ({ numeric_values });
