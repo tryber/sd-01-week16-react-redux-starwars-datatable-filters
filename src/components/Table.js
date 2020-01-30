@@ -53,19 +53,6 @@ const headColumns = () => {
 };
 
 class Table extends Component {
-  // capitalize(word) {
-  //   const newWord = word.toLowerCase();
-  //   return newWord && newWord[0].toUpperCase() + newWord.slice(1);
-  // }
-
-  constructor(props) {
-    super(props);
-    this.state = {};
-    // this.headColumns = this.headColumns.bind(this);
-    // this.bodyTableRow = this.bodyTableRow.bind(this);
-    // this.switchOfTable = this.switchOfTable.bind(this);
-  }
-
   componentDidMount() {
     const { getPlanetFetch } = this.props;
     getPlanetFetch();
@@ -73,6 +60,9 @@ class Table extends Component {
 
   render() {
     const { data, inputValue, isFetching } = this.props;
+    console.log('********************');
+    console.log(inputValue);
+    console.log('********************');
     if (isFetching) return <Loading />;
     return (
       <div>
@@ -89,16 +79,18 @@ class Table extends Component {
 }
 const mapStateToProps = ({
   allPlanetWar: { isFetching, data, error },
-  filterName: { inputValue },
+  filterName: { name },
 }) => ({
   isFetching,
   data,
   error,
-  inputValue,
+  inputValue: name,
 });
 const mapDispatchToProps = (dispatch) => ({
   getPlanetFetch: () => dispatch(fetchPlanets()),
 });
+
+export default connect(mapStateToProps, mapDispatchToProps)(Table);
 
 // Table.propTypes = {
 //   isFetching: PropTypes.string.isRequired,
@@ -110,5 +102,3 @@ const mapDispatchToProps = (dispatch) => ({
 //   data: PropTypes.string,
 //   inputValue: PropTypes.string,
 // };
-
-export default connect(mapStateToProps, mapDispatchToProps)(Table);

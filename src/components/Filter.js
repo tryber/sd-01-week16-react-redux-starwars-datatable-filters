@@ -7,7 +7,7 @@ function Filter(props) {
     <div>
       <input
         value={props.inputValue}
-        placeholder="Digite o nome do planeta aqui"
+        placeholder="  Digite o nome do planeta"
         onChange={(e) => props.inputChange(e.target.value)}
       />
     </div>
