@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { fetchPlanets } from '../actions/apiAndRequests';
 import Filter from './Filter';
 import Loading from './Loading';
+import Dropdown from './DropDown';
+import DropDownPlus from './DropDownPlus';
 
 const bodyTableRow = (planets) => (
   <tr key={planets.name}>
@@ -60,15 +62,22 @@ class Table extends Component {
 
   render() {
     const { data, inputValue, isFetching } = this.props;
-    console.log('********************');
-    console.log(inputValue);
-    console.log('********************');
+    // console.log('********************');
+    // console.log(inputValue);
+    // console.log('********************');
     if (isFetching) return <Loading />;
     return (
       <div>
         <h1>StarWars Datatable with Filters</h1>
+        <br />
         <Filter />
-        <h2>{inputValue}</h2>
+        <br />
+        <Dropdown />
+        <br />
+        <br />
+        <DropDownPlus />
+        <br />
+        <br />
         <table>
           <thead>{headColumns()}</thead>
           <tbody>{data && switchOfTable(data, inputValue)}</tbody>
@@ -77,10 +86,7 @@ class Table extends Component {
     );
   }
 }
-const mapStateToProps = ({
-  allPlanetWar: { isFetching, data, error },
-  filterName: { name },
-}) => ({
+const mapStateToProps = ({ allPlanetWar: { isFetching, data, error }, filterName: { name } }) => ({
   isFetching,
   data,
   error,

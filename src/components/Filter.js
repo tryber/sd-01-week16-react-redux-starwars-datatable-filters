@@ -7,14 +7,15 @@ function Filter(props) {
     <div>
       <input
         value={props.inputValue}
-        placeholder="  Digite o nome do planeta"
+        placeholder="Digite o nome do planeta aqui"
         onChange={(e) => props.inputChange(e.target.value)}
       />
     </div>
   );
 }
+
 const mapStateToProps = ({ filterName }) => ({
-  inputValue: filterName.name,
+  inputDropDonw: filterName.name,
 });
 const mapDispatchToProps = (dispatch) => ({
   inputChange: (text) => dispatch(updateInput(text)),
