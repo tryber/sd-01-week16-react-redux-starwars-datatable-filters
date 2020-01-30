@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 function verifySelect(filters, value) {
-  const exists = filters.numeric_values.find((filterObj) => filterObj.column === value);
+  const exists = filters.find((filterObj) => filterObj.column === value);
   if (exists) return false;
   return true;
 }
@@ -30,6 +30,6 @@ ColumnFilterSelect.defaultProps = {
   numeric_values: [],
 };
 
-const mapStateToProps = ({ filters: numeric_values }) => ({ numeric_values });
+const mapStateToProps = ({ filters: { numeric_values } }) => ({ numeric_values });
 
 export default connect(mapStateToProps)(ColumnFilterSelect);
