@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import PropTypes from 'prop-types';
 import { sortColumn } from '../actions';
 
 class TableHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      column: 'name',
       order: 'ASC',
-      column: '',
     };
     this.changeOrder = this.changeOrder.bind(this);
     this.changeColumn = this.changeColumn.bind(this);
@@ -17,13 +17,13 @@ class TableHeader extends Component {
   changeOrder(title, column) {
     if (title === column) {
       this.setState((state) => ({
-        order: (state.order === 'ASC') ? 'DESC' : 'ASC',
         column: title,
+        order: (state.order === 'ASC') ? 'DESC' : 'ASC',
       }));
     } else {
       this.setState({
-        order: 'DESC',
         column: title,
+        order: 'DESC',
       });
     }
   }
@@ -55,11 +55,19 @@ class TableHeader extends Component {
 
     return (
       <tr>
-        {titles.map((title) => <th key={title} onClick={(e) => this.changeColumn(e)}>{title}</th>)}
+        {titles.map((title) => (
+          <th key={title}>
+            <button type="button" onClick={(e) => this.changeColumn(e)}>{title}</button>
+          </th>
+        ))}
       </tr>
     );
   }
 }
+
+TableHeader.propTypes = {
+  orderColumn: PropTypes.func.isRequired,
+};
 
 const mapDispatchToProps = (dispatch) => ({
   orderColumn: (value) => dispatch(sortColumn(value)),

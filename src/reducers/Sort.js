@@ -3,7 +3,10 @@ import {
 } from '../actions';
 
 const INITIAL_FILTER_STATE = {
-  sortColumn: { column: 'name', order: 'ASC' },
+  sortColumn: {
+    column: 'name',
+    order: 'ASC',
+  },
 };
 
 const sort = (state = INITIAL_FILTER_STATE, action) => {

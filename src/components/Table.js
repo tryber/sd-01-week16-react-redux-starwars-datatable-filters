@@ -41,6 +41,9 @@ class Table extends Component {
     super(props);
     this.filterPlanetsName = this.filterPlanetsName.bind(this);
     this.filterNumericNumber = this.filterNumericNumber.bind(this);
+    this.changeColumnOrder = this.changeColumnOrder.bind(this);
+    this.sortAscending = this.sortAscending.bind(this);
+    this.sortDescending = this.sortDescending.bind(this);
   }
 
   componentDidMount() {
@@ -48,9 +51,33 @@ class Table extends Component {
     getPlanets();
   }
 
+  sortAscending(planetsData, numericColumns) {
+    const { sortColumn: { column } } = this.props;
+    if (!numericColumns.includes(column)) {
+      return planetsData.sort((a, b) => {
+        if (a[column] > b[column]) return 1;
+        if (b[column] > a[column]) return -1;
+        return 0;
+      });
+    }
+    return planetsData.sort((a, b) => Number(a[column]) - Number(b[column]));
+  }
+
+  sortDescending(planetsData, numericColumns) {
+    const { sortColumn: { column } } = this.props;
+    if (!numericColumns.includes(column)) {
+      return planetsData.sort((a, b) => {
+        if (a[column] > b[column]) return -1;
+        if (b[column] > a[column]) return 1;
+        return 0;
+      });
+    }
+    return planetsData.sort((a, b) => Number(b[column]) - Number(a[column]));
+  }
+
   changeColumnOrder(planetsData) {
     const { sortColumn: { column, order } } = this.props;
-    const numericValues = [
+    const numericColumns = [
       'orbital_period',
       'rotation_period',
       'surface_water',
@@ -59,25 +86,8 @@ class Table extends Component {
 
     if (!column) return planetsData;
 
-    if (order === 'ASC') {
-      if (!numericValues.includes(column)) {
-        return planetsData.sort((a, b) => {
-          if (a[column] > b[column]) return 1;
-          if (b[column] > a[column]) return -1;
-          return 0;
-        });
-      }
-      return planetsData.sort((a, b) => Number(a[column]) - Number(b[column]));
-    }
-
-    if (!numericValues.includes(column)) {
-      return planetsData.sort((a, b) => {
-        if (a[column] > b[column]) return -1;
-        if (b[column] > a[column]) return 1;
-        return 0;
-      });
-    }
-    return planetsData.sort((a, b) => Number(b[column]) - Number(a[column]));
+    if (order === 'ASC') return this.sortAscending(planetsData, numericColumns);
+    return this.sortDescending(planetsData, numericColumns);
   }
 
   filterNumericNumber(planetsData) {
@@ -123,7 +133,10 @@ Table.propTypes = {
   })),
   name: PropTypes.string,
   numeric_values: PropTypes.arrayOf(PropTypes.shape({})),
-  sortColumn: PropTypes.shape({}).isRequired,
+  sortColumn: PropTypes.shape({
+    column: PropTypes.string.isRequired,
+    order: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 Table.defaultProps = {
