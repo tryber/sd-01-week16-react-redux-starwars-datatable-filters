@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchPlanets } from '../actions';
+import TableHeader from './TableHeader';
 
 class Table extends Component {
   static createRows(planet) {
@@ -47,6 +48,38 @@ class Table extends Component {
     getPlanets();
   }
 
+  changeColumnOrder(planetsData) {
+    const { sortColumn: { column, order } } = this.props;
+    const numericValues = [
+      'orbital_period',
+      'rotation_period',
+      'surface_water',
+      'diameter',
+    ];
+
+    if (!column) return planetsData;
+
+    if (order === 'ASC') {
+      if (!numericValues.includes(column)) {
+        return planetsData.sort((a, b) => {
+          if (a[column] > b[column]) return 1;
+          if (b[column] > a[column]) return -1;
+          return 0;
+        });
+      }
+      return planetsData.sort((a, b) => Number(a[column]) - Number(b[column]));
+    }
+
+    if (!numericValues.includes(column)) {
+      return planetsData.sort((a, b) => {
+        if (a[column] > b[column]) return -1;
+        if (b[column] > a[column]) return 1;
+        return 0;
+      });
+    }
+    return planetsData.sort((a, b) => Number(b[column]) - Number(a[column]));
+  }
+
   filterNumericNumber(planetsData) {
     const { numeric_values } = this.props;
     if (numeric_values.length !== 0) {
@@ -66,27 +99,15 @@ class Table extends Component {
   render() {
     const { isFetching, data } = this.props;
     const filteredPlanets = (data) ? this.filterNumericNumber(this.filterPlanetsName()) : false;
+    const sortedPlanets = this.changeColumnOrder(filteredPlanets);
     return (
       <div className="table">
         {isFetching && 'Loading...'}
+        <p>Para ordenar basta clicar em cima do titulo da coluna desejada.</p>
         <table>
           <tbody>
-            <tr>
-              <th>Nome</th>
-              <th>População</th>
-              <th>Duração Orbita</th>
-              <th>Diametro</th>
-              <th>Clima</th>
-              <th>Gravidade</th>
-              <th>Solo</th>
-              <th>Duração Rotação</th>
-              <th>Superficie de Água</th>
-              <th>Films</th>
-              <th>Created</th>
-              <th>Edited</th>
-              <th>Link</th>
-            </tr>
-            {filteredPlanets && filteredPlanets.map((planet) => Table.createRows(planet))}
+            <TableHeader />
+            {sortedPlanets && sortedPlanets.map((planet) => Table.createRows(planet))}
           </tbody>
         </table>
       </div>
@@ -102,6 +123,7 @@ Table.propTypes = {
   })),
   name: PropTypes.string,
   numeric_values: PropTypes.arrayOf(PropTypes.shape({})),
+  sortColumn: PropTypes.shape({}).isRequired,
 };
 
 Table.defaultProps = {
@@ -112,15 +134,14 @@ Table.defaultProps = {
 
 const mapStateToProps = ({
   planets: { isFetching, data },
-  filters: {
-    name,
-    numeric_values,
-  },
+  filters: { name, numeric_values },
+  sort: { sortColumn },
 }) => ({
   isFetching,
   data,
   name,
   numeric_values,
+  sortColumn,
 });
 
 const mapDispatchToProps = (dispatch) => ({

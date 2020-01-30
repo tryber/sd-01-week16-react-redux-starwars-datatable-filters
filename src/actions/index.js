@@ -6,6 +6,12 @@ export const REQUEST_PLANETS = 'REQUEST_PLANETS';
 export const FILTER_PLANET_NAME = 'FILTER_PLANET_NAME';
 export const ADD_FILTERS = 'ADD_FILTERS';
 export const REMOVE_FILTERS = 'REMOVE_FILTERS';
+export const SORT_COLUMN = 'SORT_COLUMN';
+
+export const sortColumn = (value) => ({
+  type: SORT_COLUMN,
+  value,
+});
 
 export const removeFilters = (value) => ({
   type: REMOVE_FILTERS,
