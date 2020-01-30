@@ -13,8 +13,8 @@ function Filter(props) {
     </div>
   );
 }
-const mapStateToProps = (state) => ({
-  inputValue: state.updateInput.inputValue,
+const mapStateToProps = ({ filterName }) => ({
+  inputValue: filterName.name,
 });
 const mapDispatchToProps = (dispatch) => ({
   inputChange: (text) => dispatch(updateInput(text)),
