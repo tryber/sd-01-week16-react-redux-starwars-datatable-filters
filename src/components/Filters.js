@@ -51,7 +51,11 @@ class Filters extends Component {
       <div>
         <ActiveFilters />
         <div className="filters">
-          <input type="text" placeholder="Filtrar pelo Nome" onChange={(e) => filterName(e.target.value)} />
+          <input
+            type="text"
+            placeholder="Filtrar pelo Nome"
+            onChange={(e) => filterName(e.target.value)}
+          />
           Filtrar por Valores Numéricos
           <div className="filter-planets">
             <select name="column" onChange={(e) => this.filterColumn(e.target.value)}>
@@ -68,7 +72,11 @@ class Filters extends Component {
               <option value="less">Menor que</option>
               <option value="equal">Igual a</option>
             </select>
-            <input type="number" placeholder="Filtrar por Valor" onChange={(e) => this.filterValue(e.target.value)} />
+            <input
+              type="number"
+              placeholder="Filtrar por Valor"
+              onChange={(e) => this.filterValue(e.target.value)}
+            />
             <button type="button" onClick={() => this.sendValues()}>Adicionar Filtro</button>
           </div>
         </div>
