@@ -26,7 +26,8 @@ class Table extends Component {
   switchOfTable(data, filters) {
     let dataFinal = null;
     switch (filters) {
-      case filters.length === 0:
+      case filters !== '':
+        console.log('incaio ',filters);
         dataFinal = data.filter((planet) => planet.name.toUpperCase().includes(filters.toUpperCase()));
         break;
       default:
