@@ -15,21 +15,25 @@ class Filters extends Component {
       comparison: '',
       value: '',
     };
+    this.filterColumn = this.filterColumn.bind(this);
+    this.filterComparison = this.filterComparison.bind(this);
+    this.filterValue = this.filterValue.bind(this);
+    this.sendValues = this.sendValues.bind(this);
   }
 
-  changeFilterColumn(value) {
+  filterColumn(value) {
     this.setState({
       column: value,
     });
   }
 
-  changeFilterComparison(value) {
+  filterComparison(value) {
     this.setState({
       comparison: value,
     });
   }
 
-  changeFilterValue(value) {
+  filterValue(value) {
     this.setState({
       value,
     });
@@ -50,7 +54,7 @@ class Filters extends Component {
           <input type="text" placeholder="Filtrar pelo Nome" onChange={(e) => filterName(e.target.value)} />
           Filtrar por Valores Numéricos
           <div className="filter-planets">
-            <select name="column" onChange={(e) => this.changeFilterColumn(e.target.value)}>
+            <select name="column" onChange={(e) => this.filterColumn(e.target.value)}>
               <option value="">Selecionar Opção</option>
               <option value="population">População</option>
               <option value="orbital_period">Duração Orbital</option>
@@ -58,13 +62,13 @@ class Filters extends Component {
               <option value="rotation_period">Duração da Rotação</option>
               <option value="surface_water">Superfície da Água</option>
             </select>
-            <select name="type" onChange={(e) => this.changeFilterComparison(e.target.value)}>
+            <select name="type" onChange={(e) => this.filterComparison(e.target.value)}>
               <option value="">Selecionar Opção</option>
               <option value="bigger">Maior que</option>
               <option value="less">Menor que</option>
               <option value="equal">Igual a</option>
             </select>
-            <input type="number" placeholder="Filtrar por Valor" onChange={(e) => this.changeFilterValue(e.target.value)} />
+            <input type="number" placeholder="Filtrar por Valor" onChange={(e) => this.filterValue(e.target.value)} />
             <button type="button" onClick={() => this.sendValues()}>Adicionar Filtro</button>
           </div>
         </div>
