@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { fetchPlanets } from '../actions/apiAndRequests';
 import Filter from './Filter';
 import Loading from './Loading';
-import Dropdown from './DropDown';
+// import Dropdown from './DropDown';
 import DropDownPlus from './DropDownPlus';
 
 const bodyTableRow = (planets) => (
@@ -72,11 +72,7 @@ class Table extends Component {
         <br />
         <Filter />
         <br />
-        <Dropdown />
-        <br />
-        <br />
         <DropDownPlus />
-        <br />
         <br />
         <table>
           <thead>{headColumns()}</thead>

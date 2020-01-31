@@ -1,24 +1,61 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { filterDropDown } from '../actions/filterDropDown';
+import { chooseColumnName, ChooseComparison, placeAnInput } from '../actions/actionDropdown';
 
-function DropDown(props) {
+function chooseColumn({ column, inputChangeColumn }) {
   return (
-    <>
-      <select value={props.value} onChange={(e) => props.inputChange(e.target.value)}>
-        <option value="bigger">MAIOR QUE</option>
-        <option value="smaller">MENOR QUE</option>
-        <option value="equal">IGUAL Á</option>
-        
+    <div>
+      <select value={column} onChange={(e) => inputChangeColumn(e.target.value)}>
+        <option value="population">POPULAÇÃO</option>
+        <option value="orbital_period">DURAÇÃO DA ORBITA</option>
+        <option value="diameter">DIÂMENTRO</option>
+        <option value="rotation_period">DURAÇÃO DA ROTAÇÃO</option>
+        <option value="surface_water">SUPERFÍCIE DE ÁGUA</option>
       </select>
-    </>
+    </div>
   );
 }
 
-const mapStateToProps = ({ filterOfDropPlus }) => ({
-  inputDropDonw: filterOfDropPlus.select,
+function chooseComp({ comparison, inputChangeComp }) {
+  return (
+    <div>
+      <select value={comparison} onChange={(e) => inputChangeComp(e.target.value)}>
+        <option value="bigger">MAIOR QUE</option>
+        <option value="smaller">MENOR QUE</option>
+        <option value="equal">IGUAL Á</option>
+      </select>
+    </div>
+  );
+}
+
+function input({ value, inputChangeInput }) {
+  return (
+    <form onChange={(e) => inputChangeInput(e.target.value)}>
+      <input type="number" value={value} />
+    </form>
+  );
+}
+
+const DropDownPlus = () => (
+  <div>
+    {chooseColumn}
+    <br />
+    {chooseComp}
+    <br />
+    {input}
+  </div>
+);
+
+const mapStateToProps = ({ filterOfDropDown: { column, comparison, value } }) => ({
+  column,
+  comparison,
+  value,
 });
+
 const mapDispatchToProps = (dispatch) => ({
-  inputChange: (text) => dispatch(filterDropDown(text)),
+  inputChangeColumn: (column) => dispatch(chooseColumnName(column)),
+  inputChangeComp: (comparison) => dispatch(ChooseComparison(comparison)),
+  inputChangeInput: (value) => dispatch(placeAnInput(value)),
 });
-export default connect(mapStateToProps, mapDispatchToProps)(DropDown);
+
+export default connect(mapStateToProps, mapDispatchToProps)(DropDownPlus);
