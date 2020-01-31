@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { filterDropDown } from '../actions/filterDropDown';
+import { chooseColumnName } from '../actions/actionDropdown';
 
-function DropDown({value, inputChange}) {
+function SelectColumn({ column, inputChange }) {
   return (
     <div>
-      <select value={value} onChange={(e) => inputChange(e.target.value)}>
+      <span>teste</span>
+      <select value={column} onChange={(e) => inputChange(e.target.value)}>
         <option value="population">POPULAÇÃO</option>
         <option value="orbital_period">DURAÇÃO DA ORBITA</option>
         <option value="diameter">DIÂMENTRO</option>
@@ -16,10 +17,12 @@ function DropDown({value, inputChange}) {
   );
 }
 
-const mapStateToProps = ({ filterOfDropDown }) => ({
-  value: filterOfDropDown.select,
+const mapStateToProps = ({ filter: { column } }) => ({
+  column,
 });
+
 const mapDispatchToProps = (dispatch) => ({
-  inputChange: (text) => dispatch(filterDropDown(text)),
+  inputChange: (column) => dispatch(chooseColumnName(column)),
 });
-export default connect(mapStateToProps, mapDispatchToProps)(DropDown);
+
+export default connect(mapStateToProps, mapDispatchToProps)(SelectColumn);

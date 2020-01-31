@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
 import { fetchPlanets } from '../actions/apiAndRequests';
 import Filter from './Filter';
+import SelectColumn from './SelectColumn';
+import SelectComparison from './SelectComparison';
+import ValueInput from './ValueInput';
 import Loading from './Loading';
-// import Dropdown from './DropDown';
-import DropDownPlus from './DropDownPlus';
 
 const bodyTableRow = (planets) => (
   <tr key={planets.name}>
@@ -62,9 +62,6 @@ class Table extends Component {
 
   render() {
     const { data, inputValue, isFetching } = this.props;
-    // console.log('********************');
-    // console.log(inputValue);
-    // console.log('********************');
     if (isFetching) return <Loading />;
     return (
       <div>
@@ -72,7 +69,11 @@ class Table extends Component {
         <br />
         <Filter />
         <br />
-        <DropDownPlus />
+        <SelectColumn />
+        <br />
+        <SelectComparison />
+        <br />
+        <ValueInput />
         <br />
         <table>
           <thead>{headColumns()}</thead>
