@@ -5,17 +5,17 @@ import {
 } from '../actions/actionDropdown';
 
 const intialState = { numeric_values: [] };
-const filterOfDropDown = (state = intialState, action) => {
+const filter = (state = intialState, action) => {
   switch (action.type) {
     case CHOOSE_A_COLUMN_NAME:
-      return [{ ...state, selectName: action.column }];
+      return [{ ...state, numeric_values: action.column }];
     case CHOOSE_LARGER_SMALLER_OR_EQUAL_COLUMN:
-      return [{ ...state, selectColumn: action.comparison }];
+      return [{ ...state, numeric_values: action.comparison }];
     case PLACE_AN_INPUT:
-      return [{ ...state, selectInput: action.value }];
+      return [{ ...state, numeric_values: action.value }];
     default:
       return state;
   }
 };
 
-export default filterOfDropDown;
+export default filter;

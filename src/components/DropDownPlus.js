@@ -5,6 +5,7 @@ import { chooseColumnName, ChooseComparison, placeAnInput } from '../actions/act
 function chooseColumn({ column, inputChangeColumn }) {
   return (
     <div>
+      <span>teste</span>
       <select value={column} onChange={(e) => inputChangeColumn(e.target.value)}>
         <option value="population">POPULAÇÃO</option>
         <option value="orbital_period">DURAÇÃO DA ORBITA</option>
@@ -46,7 +47,7 @@ const DropDownPlus = () => (
   </div>
 );
 
-const mapStateToProps = ({ filterOfDropDown: { column, comparison, value } }) => ({
+const mapStateToProps = ({ filter: { column, comparison, value } }) => ({
   column,
   comparison,
   value,
