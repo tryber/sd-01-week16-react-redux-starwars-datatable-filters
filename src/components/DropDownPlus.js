@@ -1,11 +1,20 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { chooseColumnName, ChooseComparison, placeAnInput } from '../actions/actionDropdown';
 
+class DropDownPlus extends Component {
+  render(){
+    return(
+      <form onSubmit={this.handleSubmit}>
+
+        </form>
+    )
+  }
+
+}
 function chooseColumn({ column, inputChangeColumn }) {
   return (
     <div>
-      <span>teste</span>
       <select value={column} onChange={(e) => inputChangeColumn(e.target.value)}>
         <option value="population">POPULAÇÃO</option>
         <option value="orbital_period">DURAÇÃO DA ORBITA</option>
