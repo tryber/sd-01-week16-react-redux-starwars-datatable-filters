@@ -6,16 +6,24 @@ import { changeColumn } from '../../actions/filters';
 
 class ChooseColumn extends Component {
   render() {
-    const { dispatchSomething } = this.props;
-    return (
-      <select key="order" onClick={(e) => dispatchSomething(changeColumn, e.target.value)}>
-        <option value="name" selected >Name</option>
-        <option value="climate" >Climante</option>
-        <option value="terrain" >Terrain</option>
-      </select>
-    );
+    const { data, dispatchSomething } = this.props;
+    if (data) {
+      const categories = Object.keys(data[0]).filter((category) => category !== 'residents');
+      return (
+        <select key="order" onClick={(e) => dispatchSomething(changeColumn, e.target.value)}>
+          {categories.map((EachCategory) => <option value={EachCategory} selected >{EachCategory}</option>)}
+        </select>
+      );
+    }
+    return null;
   }
 }
+
+const mapStateToProps = ({
+  database: { data },
+}) => ({
+  data,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchSomething: (callback, text) => dispatch(callback(text)),
@@ -23,6 +31,14 @@ const mapDispatchToProps = (dispatch) => ({
 
 ChooseColumn.propTypes = {
   dispatchSomething: PropTypes.func.isRequired,
+  data: PropTypes.arrayOf(PropTypes.shape({
+    climate: PropTypes.string.isRequired,
+    created: PropTypes.string.isRequired,
+    edited: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    terrain: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
+  }))
 };
 
-export default connect(null, mapDispatchToProps)(ChooseColumn);
+export default connect(mapStateToProps, mapDispatchToProps)(ChooseColumn);

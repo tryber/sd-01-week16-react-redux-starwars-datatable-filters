@@ -6,7 +6,7 @@ import './App.css';
 
 import FilterText from './components/FilterText';
 import FilterNum from './components/FilterNum';
-import TableContainer from './components/Table';
+import Table from './components/Table';
 import DisplayFilterNum from './components/DisplayFilterNum';
 import ShortTable from './components/ShortTable';
 
@@ -26,7 +26,7 @@ class App extends Component {
         <ShortTable />
         <DisplayFilterNum />
         <FilterNum />
-        <TableContainer />
+        <Table />
       </div>
     );
   }

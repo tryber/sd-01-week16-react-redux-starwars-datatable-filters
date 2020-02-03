@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import Table from 'react-bootstrap/Table';
-
 function comparisonCase(ColumnValue, ComparisonSign, Value) {
   switch (ComparisonSign) {
     case 'greater': {
@@ -23,7 +21,7 @@ function comparisonCase(ColumnValue, ComparisonSign, Value) {
   }
 }
 
-class TableContainer extends Component {
+class Table extends Component {
   constructor(props) {
     super(props);
 
@@ -64,19 +62,31 @@ class TableContainer extends Component {
     return data;
   }
 
+  compareFunction(A, B) {
+    if (A > B) {
+      return -1;
+    }
+    if (B < A) {
+      return 1;
+    }
+    return 0;
+  }
+
+  isNumeric(str) {
+    var er = /^[0-9]+$/;
+    return (er.test(str));
+  }
+
   filteredContent() {
     const { shortOrder } = this.props;
     const { column, order } = shortOrder;
     const filteredData = this.filterByNumber(this.filterByName());
     const shortData = [...filteredData];
     shortData.sort(({ [column]: A }, { [column]: B }) => {
-      if (A > B) {
-        return -1;
+      if (this.isNumeric(A) && this.isNumeric(B)) {
+        return this.compareFunction(Number(A), Number(B))
       }
-      if (B < A) {
-        return 1;
-      }
-      return 0;
+      return this.compareFunction(A, B)
     });
     if (order === 'ASC') {
       shortData.reverse();
@@ -99,14 +109,14 @@ class TableContainer extends Component {
     const { data } = this.props;
     const categories = Object.keys(data[0]).filter((category) => category !== 'residents');
     return (
-      <Table responsive="sm" striped bordered hover variant="dark">
+      <table>
         <thead>
           <tr>
             {categories.map((category) => <th key={category}>{category}</th>)}
           </tr>
         </thead>
         {this.renderContent(categories)}
-      </Table>
+      </table>
     );
   }
 
@@ -132,7 +142,7 @@ const mapStateToProps = ({
   shortOrder,
 });
 
-TableContainer.propTypes = {
+Table.propTypes = {
   isFetching: PropTypes.bool,
   data: PropTypes.arrayOf(PropTypes.shape({
     climate: PropTypes.string.isRequired,
@@ -161,11 +171,11 @@ TableContainer.propTypes = {
   })),
 };
 
-TableContainer.defaultProps = {
+Table.defaultProps = {
   data: null,
   isFetching: false,
   name: '',
   addFilter: [],
 };
 
-export default connect(mapStateToProps)(TableContainer);
+export default connect(mapStateToProps)(Table);
