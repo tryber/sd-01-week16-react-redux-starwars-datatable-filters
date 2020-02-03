@@ -11,7 +11,8 @@ class ChooseColumn extends Component {
       const categories = Object.keys(data[0]).filter((category) => category !== 'residents');
       return (
         <select key="order" onClick={(e) => dispatchSomething(changeColumn, e.target.value)}>
-          {categories.map((EachCategory) => <option value={EachCategory} selected >{EachCategory}</option>)}
+          {categories.map((EachCategory) =>
+            <option value={EachCategory} selected >{EachCategory}</option>)}
         </select>
       );
     }
@@ -41,4 +42,7 @@ ChooseColumn.propTypes = {
   }))
 };
 
+ChooseColumn.defaultValue = {
+  data: null,
+}
 export default connect(mapStateToProps, mapDispatchToProps)(ChooseColumn);

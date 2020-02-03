@@ -21,6 +21,21 @@ function comparisonCase(ColumnValue, ComparisonSign, Value) {
   }
 }
 
+function compareFunction(A, B) {
+  if (A > B) {
+    return -1;
+  }
+  if (B < A) {
+    return 1;
+  }
+  return 0;
+}
+
+function isNumeric(str) {
+  const er = /^[0-9]+$/;
+  return (er.test(str));
+}
+
 class Table extends Component {
   constructor(props) {
     super(props);
@@ -62,20 +77,7 @@ class Table extends Component {
     return data;
   }
 
-  compareFunction(A, B) {
-    if (A > B) {
-      return -1;
-    }
-    if (B < A) {
-      return 1;
-    }
-    return 0;
-  }
-
-  isNumeric(str) {
-    var er = /^[0-9]+$/;
-    return (er.test(str));
-  }
+  
 
   filteredContent() {
     const { shortOrder } = this.props;
@@ -83,10 +85,10 @@ class Table extends Component {
     const filteredData = this.filterByNumber(this.filterByName());
     const shortData = [...filteredData];
     shortData.sort(({ [column]: A }, { [column]: B }) => {
-      if (this.isNumeric(A) && this.isNumeric(B)) {
-        return this.compareFunction(Number(A), Number(B))
+      if (isNumeric(A) && isNumeric(B)) {
+        return compareFunction(Number(A), Number(B));
       }
-      return this.compareFunction(A, B)
+      return compareFunction(A, B);
     });
     if (order === 'ASC') {
       shortData.reverse();
