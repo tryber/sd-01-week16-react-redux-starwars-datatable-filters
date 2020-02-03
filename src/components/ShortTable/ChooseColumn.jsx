@@ -39,10 +39,11 @@ ChooseColumn.propTypes = {
     name: PropTypes.string.isRequired,
     terrain: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
-  }))
+  })),
 };
 
-ChooseColumn.defaultValue = {
+ChooseColumn.defaultProps = {
   data: null,
-}
+};
+
 export default connect(mapStateToProps, mapDispatchToProps)(ChooseColumn);

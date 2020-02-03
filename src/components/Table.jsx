@@ -77,8 +77,6 @@ class Table extends Component {
     return data;
   }
 
-  
-
   filteredContent() {
     const { shortOrder } = this.props;
     const { column, order } = shortOrder;
