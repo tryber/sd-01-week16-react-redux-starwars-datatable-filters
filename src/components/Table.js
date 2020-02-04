@@ -103,7 +103,3 @@ Table.propTypes = {
   data: PropTypes.objectOf(PropTypes.string).isRequired,
   inputValue: PropTypes.string.isRequired,
 };
-// Table.defaultProps = {
-//   data: PropTypes.string,
-//   inputValue: PropTypes.string,
-// };
