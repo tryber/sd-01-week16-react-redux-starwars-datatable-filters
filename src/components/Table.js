@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import { fetchPlanets } from '../actions/apiAndRequests';
 import Filter from './Filter';
 import SelectColumn from './SelectColumn';
@@ -95,12 +97,12 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
 
-// Table.propTypes = {
-//   isFetching: PropTypes.string.isRequired,
-//   getPlanetFetch: PropTypes.func.isRequired,
-//   data: PropTypes.string,
-//   inputValue: PropTypes.string,
-// };
+Table.propTypes = {
+  isFetching: PropTypes.bool.isRequired,
+  getPlanetFetch: PropTypes.func.isRequired,
+  data: PropTypes.objectOf(PropTypes.string).isRequired,
+  inputValue: PropTypes.string.isRequired,
+};
 // Table.defaultProps = {
 //   data: PropTypes.string,
 //   inputValue: PropTypes.string,
