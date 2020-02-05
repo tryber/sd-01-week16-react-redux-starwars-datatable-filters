@@ -5,7 +5,6 @@ import { chooseColumnName } from '../actions/actionDropdown';
 function SelectColumn({ column, inputChange }) {
   return (
     <div>
-      <span>teste</span>
       <select value={column} onChange={(e) => inputChange(e.target.value)}>
         <option value="population">POPULAÇÃO</option>
         <option value="orbital_period">DURAÇÃO DA ORBITA</option>
