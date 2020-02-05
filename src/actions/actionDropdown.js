@@ -4,15 +4,15 @@ export const PLACE_AN_INPUT = 'PLACE_AN_INPUT';
 
 export const chooseColumnName = (column) => ({
   type: CHOOSE_A_COLUMN_NAME,
-  numeric_values: column,
+  column,
 });
 
 export const ChooseComparison = (comparison) => ({
   type: CHOOSE_LARGER_SMALLER_OR_EQUAL_COLUMN,
-  numeric_values: comparison,
+  comparison,
 });
 
 export const placeAnInput = (value) => ({
   type: PLACE_AN_INPUT,
-  numeric_values: value,
+  value,
 });
