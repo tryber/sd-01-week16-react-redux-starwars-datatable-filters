@@ -14,7 +14,7 @@ class Filters extends Component {
     this.state = {
       column: '',
       comparison: '',
-      value: '',
+      value: 0,
     };
     this.filterColumn = this.filterColumn.bind(this);
     this.filterComparison = this.filterComparison.bind(this);
@@ -44,9 +44,13 @@ class Filters extends Component {
     const { column, comparison, value } = this.state;
     const { addPlanetFilters } = this.props;
     addPlanetFilters({ column, comparison, value });
+    this.setState({
+      column: '',
+    });
   }
 
   render() {
+    const { column, comparison } = this.state;
     return (
       <div>
         <ActiveFilters />
@@ -57,7 +61,7 @@ class Filters extends Component {
             <ColumnFilterSelect handleChange={this.filterColumn} />
             <ComparisonFilterSelect handleChange={this.filterComparison} />
             <ValueFilterInput handleChange={this.filterValue} />
-            <button type="button" onClick={() => this.sendValues()}>Adicionar Filtro</button>
+            {column && comparison && <button type="button" onClick={() => this.sendValues()}>Adicionar Filtro</button>}
           </div>
         </div>
       </div>
