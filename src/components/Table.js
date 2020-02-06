@@ -64,8 +64,7 @@ const headColumns = () => {
   );
 };
 
-const mapOfObject = (object) =>
-  Object.keys(object).map((key) => <span>{` → ${object[key]} ← `}</span>);
+const mapOfObject = (object) => Object.keys(object).map((key) => <span>{` → ${object[key]} ← `}</span>);
 const btnX = () => false;
 class Table extends Component {
   componentDidMount() {
@@ -74,7 +73,9 @@ class Table extends Component {
   }
 
   render() {
-    const { data, inputValue, isFetching, filters } = this.props;
+    const {
+      data, inputValue, isFetching, filters,
+    } = this.props;
     // console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
     // console.log(filters);
     // console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
@@ -90,7 +91,7 @@ class Table extends Component {
           {filters.map((value) => (
             <li>
               {mapOfObject(value.numeric_values)}
-              <button onClick={}>X</button>
+              <button>X</button>
             </li>
           ))}
         </ul>
