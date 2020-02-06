@@ -71,8 +71,8 @@ class NumberInputDropDown extends Component {
   }
 }
 
-const mapStateToProps = ({ filterNumber }) => ({
-  valueOfState: filterNumber.filters,
+const mapStateToProps = ({ filters }) => ({
+  valueOfState: filters
 });
 const mapDispatchToProps = (dispatch) => bindActionCreators({ filterNumberDrop }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(NumberInputDropDown);

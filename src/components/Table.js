@@ -64,6 +64,9 @@ const headColumns = () => {
   );
 };
 
+const mapOfObject = (object) =>
+  Object.keys(object).map((key) => <span>{` → ${object[key]} ← `}</span>);
+const btnX = () => false;
 class Table extends Component {
   componentDidMount() {
     const { getPlanetFetch } = this.props;
@@ -71,7 +74,10 @@ class Table extends Component {
   }
 
   render() {
-    const { data, inputValue, isFetching } = this.props;
+    const { data, inputValue, isFetching, filters } = this.props;
+    // console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
+    // console.log(filters);
+    // console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
     if (isFetching) return <Loading />;
     return (
       <div>
@@ -80,6 +86,14 @@ class Table extends Component {
         <Filter />
         <br />
         <NumberInputDropDown />
+        <ul>
+          {filters.map((value) => (
+            <li>
+              {mapOfObject(value.numeric_values)}
+              <button onClick={}>X</button>
+            </li>
+          ))}
+        </ul>
         <br />
         <table>
           <thead>{headColumns()}</thead>
@@ -89,11 +103,16 @@ class Table extends Component {
     );
   }
 }
-const mapStateToProps = ({ allPlanetWar: { isFetching, data, error }, filterName: { name } }) => ({
+const mapStateToProps = ({
+  allPlanetWar: { isFetching, data, error },
+  filterName: { name },
+  filters,
+}) => ({
   isFetching,
   data,
   error,
   inputValue: name,
+  filters,
 });
 const mapDispatchToProps = (dispatch) => ({
   getPlanetFetch: () => dispatch(fetchPlanets()),
