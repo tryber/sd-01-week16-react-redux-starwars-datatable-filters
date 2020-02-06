@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-
 import { fetchPlanets } from '../actions/apiAndRequests';
 import Filter from './Filter';
-import SelectColumn from './SelectColumn';
-import SelectComparison from './SelectComparison';
-import ValueInput from './ValueInput';
 import Loading from './Loading';
+import NumberInputDropDown from './NumberInputDropDown';
 
 const bodyTableRow = (planets) => (
   <tr key={planets.name}>
@@ -20,18 +17,25 @@ const bodyTableRow = (planets) => (
     <td>{planets.terrain}</td>
     <td>{planets.rotation_period}</td>
     <td>{planets.surface_water}</td>
+    <td>
+      {planets.films.map((dataOfFilme) => (
+        <div key={dataOfFilme}>{dataOfFilme}</div>
+      ))}
+    </td>
+    <td>{planets.created}</td>
+    <td>{planets.edited}</td>
+    <td>{planets.url}</td>
   </tr>
 );
 
-const switchOfTable = (data, filters) => {
+const switchOfTable = (data, filters, numbers) => {
   let dataFinal = null;
   if (filters) {
     dataFinal = data.filter((planet) => planet.name.toUpperCase().includes(filters.toUpperCase()));
+  } else if (numbers) {
   } else {
     dataFinal = data;
   }
-  console.log(dataFinal);
-
   return dataFinal.map((date) => bodyTableRow(date));
 };
 
@@ -46,6 +50,10 @@ const headColumns = () => {
     'SOLO',
     'DURAÇÃO DA ROTAÇÃO',
     'SUPERFÍCIE DE ÁGUA',
+    'FILMES',
+    'CRIADO',
+    'EDITADO',
+    'URL',
   ];
   return (
     <tr>
@@ -71,11 +79,7 @@ class Table extends Component {
         <br />
         <Filter />
         <br />
-        <SelectColumn />
-        <br />
-        <SelectComparison />
-        <br />
-        <ValueInput />
+        <NumberInputDropDown />
         <br />
         <table>
           <thead>{headColumns()}</thead>
