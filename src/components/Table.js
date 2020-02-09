@@ -51,44 +51,53 @@ class Table extends Component {
     getPlanets();
   }
 
-  sortAscending(planetsData, numericColumns) {
+  sortAscending(planetsData, isNumeric) {
     const { sortColumn: { column } } = this.props;
-    if (!numericColumns.includes(column)) {
+    if (!isNumeric) {
       return planetsData.sort((a, b) => {
         if (a[column] > b[column]) return 1;
         if (b[column] > a[column]) return -1;
         return 0;
       });
     }
-    return planetsData.sort((a, b) => Number(a[column]) - Number(b[column]));
+    return planetsData.sort((a, b) => {
+      if (a[column] === 'unknown') return 1;
+      if (b[column] === 'unknown') return -1;
+      return Number(a[column]) - Number(b[column]);
+    });
   }
 
-  sortDescending(planetsData, numericColumns) {
+  sortDescending(planetsData, isNumeric) {
     const { sortColumn: { column } } = this.props;
-    if (!numericColumns.includes(column)) {
+    if (!isNumeric) {
       return planetsData.sort((a, b) => {
         if (a[column] > b[column]) return -1;
         if (b[column] > a[column]) return 1;
         return 0;
       });
     }
-    return planetsData.sort((a, b) => Number(b[column]) - Number(a[column]));
+    return planetsData.sort((a, b) => {
+      if (a[column] === 'unknown') return -1;
+      if (b[column] === 'unknown') return 1;
+      return Number(b[column]) - Number(a[column]);
+    });
   }
 
   changeColumnOrder(planetsData) {
     const { sortColumn: { column, order } } = this.props;
     const numericColumns = [
+      'population',
       'orbital_period',
+      'diameter',
       'rotation_period',
       'surface_water',
-      'diameter',
-      'population',
     ];
+    const isNumeric = numericColumns.includes(column);
 
     if (!column) return planetsData;
 
-    if (order === 'ASC') return this.sortAscending(planetsData, numericColumns);
-    return this.sortDescending(planetsData, numericColumns);
+    if (order === 'ASC') return this.sortAscending(planetsData, isNumeric);
+    return this.sortDescending(planetsData, isNumeric);
   }
 
   filterNumericNumber(planetsData) {

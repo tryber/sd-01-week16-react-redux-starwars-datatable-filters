@@ -1,68 +1,39 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { sortColumn } from '../actions';
 
-class TableHeader extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      column: 'name',
-      order: 'ASC',
-    };
-    this.changeOrder = this.changeOrder.bind(this);
-    this.changeColumn = this.changeColumn.bind(this);
-  }
+function changeOrder(event, orderColumn) {
+  const title = event.target.innerHTML;
+  orderColumn(title);
+}
 
-  changeOrder(title, column) {
-    if (title === column) {
-      this.setState((state) => ({
-        column: title,
-        order: (state.order === 'ASC') ? 'DESC' : 'ASC',
-      }));
-    } else {
-      this.setState({
-        column: title,
-        order: 'DESC',
-      });
-    }
-  }
+function TableHeader({ orderColumn }) {
+  const titles = [
+    'name',
+    'population',
+    'orbital_period',
+    'diameter',
+    'climate',
+    'gravity',
+    'terrain',
+    'rotation_period',
+    'surface_water',
+    'films',
+    'created',
+    'edited',
+    'url',
+  ];
 
-  changeColumn(event) {
-    const { order, column } = this.state;
-    const { orderColumn } = this.props;
-    const title = event.target.innerHTML;
-    this.changeOrder(title, column);
-    orderColumn({ column: title, order });
-  }
-
-  render() {
-    const titles = [
-      'name',
-      'population',
-      'orbital_period',
-      'diameter',
-      'climate',
-      'gravity',
-      'terrain',
-      'rotation_period',
-      'surface_water',
-      'films',
-      'created',
-      'edited',
-      'link',
-    ];
-
-    return (
-      <tr>
-        {titles.map((title) => (
-          <th key={title}>
-            <button type="button" onClick={(e) => this.changeColumn(e)}>{title}</button>
-          </th>
-        ))}
-      </tr>
-    );
-  }
+  return (
+    <tr>
+      {titles.map((title) => (
+        <th key={title}>
+          <button type="button" onClick={(e) => changeOrder(e, orderColumn)}>{title}</button>
+        </th>
+      ))}
+    </tr>
+  );
 }
 
 TableHeader.propTypes = {

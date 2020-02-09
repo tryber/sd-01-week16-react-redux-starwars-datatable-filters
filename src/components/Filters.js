@@ -14,7 +14,7 @@ class Filters extends Component {
     this.state = {
       column: '',
       comparison: '',
-      value: 0,
+      value: '',
     };
     this.filterColumn = this.filterColumn.bind(this);
     this.filterComparison = this.filterComparison.bind(this);
@@ -50,7 +50,7 @@ class Filters extends Component {
   }
 
   render() {
-    const { column, comparison } = this.state;
+    const { column, comparison, value } = this.state;
     return (
       <div>
         <ActiveFilters />
@@ -61,7 +61,7 @@ class Filters extends Component {
             <ColumnFilterSelect handleChange={this.filterColumn} />
             <ComparisonFilterSelect handleChange={this.filterComparison} />
             <ValueFilterInput handleChange={this.filterValue} />
-            {column && comparison
+            {column && comparison && value
             && <button type="button" onClick={() => this.sendValues()}>Adicionar Filtro</button>}
           </div>
         </div>
