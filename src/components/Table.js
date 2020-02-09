@@ -82,6 +82,7 @@ class Table extends Component {
       'rotation_period',
       'surface_water',
       'diameter',
+      'population',
     ];
 
     if (!column) return planetsData;

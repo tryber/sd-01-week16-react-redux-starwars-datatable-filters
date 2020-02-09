@@ -25,7 +25,7 @@ class ActiveFilters extends Component {
   }
 
   render() {
-    const numericValues = this.props.numeric_values;
+    const { numeric_values: numericValues } = this.props;
     return (
       <div className="active-filters">
         <h3>Filtros Ativos</h3>
