@@ -61,7 +61,8 @@ class Filters extends Component {
             <ColumnFilterSelect handleChange={this.filterColumn} />
             <ComparisonFilterSelect handleChange={this.filterComparison} />
             <ValueFilterInput handleChange={this.filterValue} />
-            {column && comparison && <button type="button" onClick={() => this.sendValues()}>Adicionar Filtro</button>}
+            {column && comparison
+            && <button type="button" onClick={() => this.sendValues()}>Adicionar Filtro</button>}
           </div>
         </div>
       </div>
