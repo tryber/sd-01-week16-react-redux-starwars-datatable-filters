@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchPlanets } from '../actions/apiAndRequests';
+import { removeFilters } from '../actions/actionNumberFilter';
 import Filter from './Filter';
 import Loading from './Loading';
 import NumberInputDropDown from './NumberInputDropDown';
@@ -65,19 +66,30 @@ const headColumns = () => {
 };
 
 const mapOfObject = (object) => Object.keys(object).map((key) => <span>{` → ${object[key]} ← `}</span>);
-const btnX = () => false;
 class Table extends Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
   componentDidMount() {
     const { getPlanetFetch } = this.props;
     getPlanetFetch();
   }
 
+  handleClick(index) {
+    const { numeric_values, removePlanetFilters } = this.props;
+    const newNode = [...numeric_values].splice(index, 1);
+    // const column = numeric_values[index].column;
+    removePlanetFilters(newNode);
+  }
+
   render() {
     const {
-      data, inputValue, isFetching, filters,
+      data, inputValue, isFetching, numeric_values,
     } = this.props;
     // console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
-    // console.log(filters);
+    // console.log(numeric_values);
     // console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
     if (isFetching) return <Loading />;
     return (
@@ -88,10 +100,11 @@ class Table extends Component {
         <br />
         <NumberInputDropDown />
         <ul>
-          {filters.map((value) => (
-            <li>
-              {mapOfObject(value.numeric_values)}
-              <button>X</button>
+          {numeric_values.map((value, index) => (
+            <li key={`value is ${value} for ${index}`}>
+              {mapOfObject(value)}
+
+              <button onClick={() => this.handleClick(numeric_values, index)}>X</button>
             </li>
           ))}
         </ul>
@@ -107,16 +120,17 @@ class Table extends Component {
 const mapStateToProps = ({
   allPlanetWar: { isFetching, data, error },
   filterName: { name },
-  filters,
+  filters: { numeric_values },
 }) => ({
   isFetching,
   data,
   error,
   inputValue: name,
-  filters,
+  numeric_values,
 });
 const mapDispatchToProps = (dispatch) => ({
   getPlanetFetch: () => dispatch(fetchPlanets()),
+  removePlanetFilters: (value) => dispatch(removeFilters(value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

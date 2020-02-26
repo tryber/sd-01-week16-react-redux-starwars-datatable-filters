@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { filterNumberDrop } from '../actions/actionNumberFilter';
+import { addFilters } from '../actions/actionNumberFilter';
 
 class NumberInputDropDown extends Component {
   constructor(props) {
@@ -30,28 +29,65 @@ class NumberInputDropDown extends Component {
     event.preventDefault();
   }
 
+  // sendValues() {
+  //   const { column, comparison, value } = this.state;
+  //   const { addPlanetFilters } = this.props;
+  //   addPlanetFilters({ column, comparison, value });
+  //   this.setState({
+  //     column: '',
+  //   });
+  // }
+
   sendValueForStore() {
-    const state = { ...this.state };
-    return state;
+    const { column, comparison, value } = this.state;
+    const { addPlanetFilters } = this.props;
+    addPlanetFilters({ column, comparison, value });
+    this.setState({
+      column: '',
+    });
   }
 
   render() {
     const { column, comparison, value } = this.state;
-    const { filterNumberDrop } = this.props;
+    const { numeric_values } = this.props;
+    // console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
+    // console.log(numeric_values);
+    // console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
+    // positionsOfList.find((filterObj) => filterObj === value)
+    const selectIsTrueOrFalse = (filters, value) => {
+      const exists = filters.numeric_values.find((filterObj) => filterObj.column === value);
+      if (exists) return false;
+      return true;
+    };
     return (
       <form>
         <fieldset>
           <legend>Campos de Filtro</legend>
-          <select name="column" value={column} onChange={this.handleColumn}>
-            <option value="">SELECIONE</option>
-            <option value="population">POPULAÇÃO</option>
-            <option value="orbital_period">DURAÇÃO DA ORBITA</option>
-            <option value="diameter">DIÂMENTRO</option>
-            <option value="rotation_period">DURAÇÃO DA ROTAÇÃO</option>
-            <option value="surface_water">SUPERFÍCIE DE ÁGUA</option>
+
+          <select name="column" value={column} onChange={this.handleColumn} required>
+            <option value="" disabled>
+              Selecionar Opção
+            </option>
+            {selectIsTrueOrFalse(numeric_values, 'population') && (
+              <option value="population">População</option>
+            )}
+            {selectIsTrueOrFalse(numeric_values, 'orbital_period') && (
+              <option value="orbital_period">Duração Orbital</option>
+            )}
+            {selectIsTrueOrFalse(numeric_values, 'diameter') && (
+              <option value="diameter">Diâmetro</option>
+            )}
+            {selectIsTrueOrFalse(numeric_values, 'rotation_period') && (
+              <option value="rotation_period">Duração da Rotação</option>
+            )}
+            {selectIsTrueOrFalse(numeric_values, 'surface_water') && (
+              <option value="surface_water">Superfície da Água</option>
+            )}
           </select>
-          <select name="comparison" value={comparison} onChange={this.handleComparison}>
-            <option value="">SELECIONE</option>
+          <select name="comparison" value={comparison} onChange={this.handleComparison} required>
+            <option value="" disabled>
+              SELECIONE
+            </option>
             <option value="bigger">MAIOR QUE</option>
             <option value="smaller">MENOR QUE</option>
             <option value="equal">IGUAL Á</option>
@@ -61,10 +97,13 @@ class NumberInputDropDown extends Component {
             value={value}
             placeholder="Valor numérico"
             onChange={this.handleInput}
+            required
           />
-          <button type="button" onClick={() => filterNumberDrop(column, comparison, value)}>
-            Enviar Filtro
-          </button>
+          {column && comparison && value && (
+            <button type="submit" onClick={() => this.sendValueForStore()}>
+              Enviar Filtro
+            </button>
+          )}
         </fieldset>
       </form>
     );
@@ -72,7 +111,11 @@ class NumberInputDropDown extends Component {
 }
 
 const mapStateToProps = ({ filters }) => ({
-  valueOfState: filters
+  numeric_values: filters,
 });
-const mapDispatchToProps = (dispatch) => bindActionCreators({ filterNumberDrop }, dispatch);
+
+const mapDispatchToProps = (dispatch) => ({
+  addPlanetFilters: (value) => dispatch(addFilters(value)),
+});
+
 export default connect(mapStateToProps, mapDispatchToProps)(NumberInputDropDown);
