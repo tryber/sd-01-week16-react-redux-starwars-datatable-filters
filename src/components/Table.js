@@ -83,7 +83,7 @@ const mapOfObject = (object) => Object.keys(object).map((key) => <span>{` → ${
 class Table extends Component {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+    // this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -91,31 +91,31 @@ class Table extends Component {
     getPlanetFetch();
   }
 
-  handleClick(index) {
-    const { numeric_values, removePlanetFilters } = this.props;
-    // console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
-    // console.log(numeric_values);
-    // console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
-    numeric_values.splice(index, 1);
-    numeric_values.pop();
-    // const finalTeste = teste.pop();
-    // const finalTeste2 = finalTeste.pop();
-    // numeric_values.pop();
-    // console.log('+++++++++++++++++++++++');
-    // console.log(teste);
-    // console.log('+++++++++++++++++++++++');
-    // console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
-    // console.log(numeric_values);
-    // console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
-    removePlanetFilters(numeric_values);
-  }
+  // handleClick() {
+  //   const { numeric_values, removePlanetFilters } = this.props;
+  //   // console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
+  //   // console.log(numeric_values);
+  //   // console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
+  //   // numeric_values.splice(index, 1);
+  //   // numeric_values.pop();
+  //   // const finalTeste = teste.pop();
+  //   // const finalTeste2 = finalTeste.pop();
+  //   // numeric_values.pop();
+  //   // console.log('+++++++++++++++++++++++');
+  //   // console.log(teste);
+  //   // console.log('+++++++++++++++++++++++');
+  //   // console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
+  //   // console.log(numeric_values);
+  //   // console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
+  //   removePlanetFilters(numeric_values);
+  // }
 
   render() {
     const {
-      data, inputValue, isFetching, numeric_values,
+      data, inputValue, isFetching, numeric_values, removePlanetFilters,
     } = this.props;
     console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
-    console.log(numeric_values);
+    console.log(numeric_values.map((select) => console.log(select)));
     console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
     if (isFetching) return <Loading />;
     return (
@@ -130,7 +130,7 @@ class Table extends Component {
             <li key={`value is ${value} for ${index}`}>
               {numeric_values && mapOfObject(value)}
 
-              <button onClick={() => this.handleClick(index)}>X</button>
+              <button onClick={() => removePlanetFilters(index)}>X</button>
             </li>
           ))}
         </ul>

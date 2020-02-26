@@ -1,3 +1,4 @@
+import { Select } from 'rbx';
 import { FILTER_IS_ADD, FILTER_IS_REMOVED } from '../actions/actionNumberFilter';
 
 const intialState = {
@@ -14,7 +15,7 @@ const filters = (state = intialState, action) => {
     case FILTER_IS_REMOVED:
       return {
         ...state,
-        numeric_values: [...state.numeric_values, value.pop()],
+        numeric_values: [...state.numeric_values.filter((filter, index) => index !== action.value)],
       };
     default:
       return state;
