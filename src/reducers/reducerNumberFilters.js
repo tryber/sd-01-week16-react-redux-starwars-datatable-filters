@@ -14,7 +14,7 @@ const filters = (state = intialState, action) => {
     case FILTER_IS_REMOVED:
       return {
         ...state,
-        numeric_values: [...state.numeric_values, value],
+        numeric_values: [...state.numeric_values, value.pop()],
       };
     default:
       return state;

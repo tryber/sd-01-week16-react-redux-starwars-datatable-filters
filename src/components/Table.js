@@ -7,6 +7,19 @@ import Filter from './Filter';
 import Loading from './Loading';
 import NumberInputDropDown from './NumberInputDropDown';
 
+// const comparison = (condition) => {
+//   switch (condition) {
+//     case 'greater':
+//       return 'maior que';
+//     case 'less':
+//       return 'menor que';
+//     case 'iqual':
+//       return 'igual a';
+//     default:
+//       return null;
+//   }
+// }
+
 const bodyTableRow = (planets) => (
   <tr key={planets.name}>
     <td>{planets.name}</td>
@@ -80,21 +93,30 @@ class Table extends Component {
 
   handleClick(index) {
     const { numeric_values, removePlanetFilters } = this.props;
-    console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
-    console.log(numeric_values);
-    console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
-    const newNode = [...numeric_values].splice(index, 1);
-
-    removePlanetFilters(newNode);
+    // console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
+    // console.log(numeric_values);
+    // console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
+    numeric_values.splice(index, 1);
+    numeric_values.pop();
+    // const finalTeste = teste.pop();
+    // const finalTeste2 = finalTeste.pop();
+    // numeric_values.pop();
+    // console.log('+++++++++++++++++++++++');
+    // console.log(teste);
+    // console.log('+++++++++++++++++++++++');
+    // console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
+    // console.log(numeric_values);
+    // console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
+    removePlanetFilters(numeric_values);
   }
 
   render() {
     const {
       data, inputValue, isFetching, numeric_values,
     } = this.props;
-    // console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
-    // console.log(numeric_values);
-    // console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
+    console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
+    console.log(numeric_values);
+    console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
     if (isFetching) return <Loading />;
     return (
       <div>
@@ -106,7 +128,7 @@ class Table extends Component {
         <ul>
           {numeric_values.map((value, index) => (
             <li key={`value is ${value} for ${index}`}>
-              {mapOfObject(value)}
+              {numeric_values && mapOfObject(value)}
 
               <button onClick={() => this.handleClick(index)}>X</button>
             </li>
