@@ -14,7 +14,7 @@ const filters = (state = intialState, action) => {
     case FILTER_IS_REMOVED:
       return {
         ...state,
-        numeric_values: [...state.numeric_values.filter((filter) => filter.colunm !== action[0])],
+        numeric_values: [...state.numeric_values, value],
       };
     default:
       return state;

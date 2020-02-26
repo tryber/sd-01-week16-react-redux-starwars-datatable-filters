@@ -34,6 +34,7 @@ const switchOfTable = (data, filters, numbers) => {
   if (filters) {
     dataFinal = data.filter((planet) => planet.name.toUpperCase().includes(filters.toUpperCase()));
   } else if (numbers) {
+    dataFinal = data.filter((planet) => planet.name.toUpperCase().includes(filters.toUpperCase()));
   } else {
     dataFinal = data;
   }
@@ -79,8 +80,11 @@ class Table extends Component {
 
   handleClick(index) {
     const { numeric_values, removePlanetFilters } = this.props;
+    console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
+    console.log(numeric_values);
+    console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
     const newNode = [...numeric_values].splice(index, 1);
-    // const column = numeric_values[index].column;
+
     removePlanetFilters(newNode);
   }
 
@@ -104,14 +108,14 @@ class Table extends Component {
             <li key={`value is ${value} for ${index}`}>
               {mapOfObject(value)}
 
-              <button onClick={() => this.handleClick(numeric_values, index)}>X</button>
+              <button onClick={() => this.handleClick(index)}>X</button>
             </li>
           ))}
         </ul>
         <br />
         <table>
           <thead>{headColumns()}</thead>
-          <tbody>{data && switchOfTable(data, inputValue)}</tbody>
+          <tbody>{data && switchOfTable(data, inputValue, numeric_values)}</tbody>
         </table>
       </div>
     );
