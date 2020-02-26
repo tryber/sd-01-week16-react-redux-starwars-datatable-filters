@@ -8,6 +8,10 @@ function App() {
   return (
     <div className="App">
       <Header />
+      <p>
+        Fazer a pesquisa no input em
+        <strong> Caixa Baixa</strong>
+      </p>
       <Table />
     </div>
   );

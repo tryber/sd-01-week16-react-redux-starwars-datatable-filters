@@ -2,6 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import FilterName from './FilterName';
+
+const filterPlanetByName = (data, textInput) => {
+  if (textInput) {
+    return data.filter(({ name }) => name.toLowerCase().includes(textInput));
+  }
+  return data;
+};
+
 const tableStarWars = (data) => {
   if (!data) return <div>Loading...</div>;
   return (
@@ -44,25 +53,33 @@ const tableStarWars = (data) => {
   );
 };
 
-const Table = ({ data }) => (
-  <div>
-    {tableStarWars(data)}
-  </div>
-);
+const Table = ({ data, filters }) => {
+  const planetsFiltered = filters
+    ? tableStarWars(filterPlanetByName(data, filters))
+    : tableStarWars(data);
+  return (
+    <div>
+      <FilterName />
+      {planetsFiltered}
+    </div>
+  );
+};
 
-
-const mapStateToProps = ({ data: { data } }) => ({
+const mapStateToProps = ({ data: { data }, filterName: { filters } }) => ({
   data,
+  filters,
 });
 
 Table.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
   })),
+  filters: PropTypes.string,
 };
 
 Table.defaultProps = {
   data: [],
+  filters: '',
 };
 
 export default connect(mapStateToProps)(Table);
