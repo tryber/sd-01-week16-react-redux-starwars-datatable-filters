@@ -47,7 +47,9 @@ const switchOfTable = (data, filters, numbers) => {
   if (filters) {
     dataFinal = data.filter((planet) => planet.name.toUpperCase().includes(filters.toUpperCase()));
   } else if (numbers) {
-    dataFinal = data.filter((planet) => planet.name.toUpperCase().includes(filters.toUpperCase()));
+
+    // dataFinal = data.filter((planet) => planet.name.toUpperCase().includes(filters.toUpperCase()));
+
   } else {
     dataFinal = data;
   }
@@ -90,32 +92,13 @@ class Table extends Component {
     const { getPlanetFetch } = this.props;
     getPlanetFetch();
   }
-
-  // handleClick() {
-  //   const { numeric_values, removePlanetFilters } = this.props;
-  //   // console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
-  //   // console.log(numeric_values);
-  //   // console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
-  //   // numeric_values.splice(index, 1);
-  //   // numeric_values.pop();
-  //   // const finalTeste = teste.pop();
-  //   // const finalTeste2 = finalTeste.pop();
-  //   // numeric_values.pop();
-  //   // console.log('+++++++++++++++++++++++');
-  //   // console.log(teste);
-  //   // console.log('+++++++++++++++++++++++');
-  //   // console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
-  //   // console.log(numeric_values);
-  //   // console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
-  //   removePlanetFilters(numeric_values);
-  // }
-
+  
   render() {
     const {
       data, inputValue, isFetching, numeric_values, removePlanetFilters,
     } = this.props;
     console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
-    console.log(numeric_values.map((select) => console.log(select)));
+    console.log(numeric_values);
     console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
     if (isFetching) return <Loading />;
     return (
