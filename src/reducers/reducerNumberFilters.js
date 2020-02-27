@@ -1,4 +1,3 @@
-import { Select } from 'rbx';
 import { FILTER_IS_ADD, FILTER_IS_REMOVED } from '../actions/actionNumberFilter';
 
 const intialState = {

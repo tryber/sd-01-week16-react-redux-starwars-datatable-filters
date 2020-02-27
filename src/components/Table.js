@@ -81,10 +81,10 @@ const headColumns = () => {
 
 const mapOfObject = (object) => Object.keys(object).map((key) => <span>{` → ${object[key]} ← `}</span>);
 class Table extends Component {
-  constructor(props) {
-    super(props);
-    // this.handleClick = this.handleClick.bind(this);
-  }
+  // constructor(props) {
+  //   super(props);
+  //   // this.handleClick = this.handleClick.bind(this);
+  // }
 
   componentDidMount() {
     const { getPlanetFetch } = this.props;
