@@ -4,13 +4,14 @@ import PropTypes from 'prop-types';
 
 import { filterName } from '../store/actions/filterName';
 
-const FilterName = ({ filterNameTable, filters }) => (
+const FilterName = ({ filterNameTable, name }) => (
   <div>
     <input
       type="text"
-      value={filters}
+      value={name}
       onChange={(event) => filterNameTable(event.target.value)}
     />
+    Pesquise através do nome do Planeta
   </div>
 );
 
@@ -18,17 +19,17 @@ const mapDispatchToProps = (dispatch) => ({
   filterNameTable: (text) => dispatch(filterName(text)),
 });
 
-const mapStateToProps = ({ filterName: { filters } }) => ({
-  filters,
+const mapStateToProps = ({ filters: { name } }) => ({
+  name,
 });
 
 FilterName.propTypes = {
   filterNameTable: PropTypes.func.isRequired,
-  filters: PropTypes.string,
+  name: PropTypes.string,
 };
 
 FilterName.defaultProps = {
-  filters: '',
+  name: '',
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilterName);

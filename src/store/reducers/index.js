@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
 import data from './starWarsAPI';
-import filterName from './filterName';
+import filters from './filter';
+import sort from './buttonSort';
 
 const rootReducers = combineReducers({
   data,
-  filterName,
+  filters,
+  sort,
 });
 
 export default rootReducers;

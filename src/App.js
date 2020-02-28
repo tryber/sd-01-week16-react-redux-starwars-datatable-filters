@@ -8,10 +8,7 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <p>
-        Fazer a pesquisa no input em
-        <strong> Caixa Baixa</strong>
-      </p>
+      <p>Clique nos botões para ordenar a coluna por ordem crescente ou decrescente</p>
       <Table />
     </div>
   );

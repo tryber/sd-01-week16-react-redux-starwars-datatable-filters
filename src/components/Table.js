@@ -1,20 +1,21 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import FilterName from './FilterName';
+import ButtonSort from './ButtonSort';
 
-const filterPlanetByName = (data, textInput) => {
-  if (textInput) {
-    return data.filter(({ name }) => name.toLowerCase().includes(textInput));
-  }
-  return data;
-};
+class Table extends Component {
+  filterPlanetByName = (data, textInput) => {
+    if (textInput) {
+      return data.filter(({ name }) => name.toLowerCase().includes(textInput.toLowerCase()));
+    }
+    return data;
+  };
 
-const tableStarWars = (data) => {
-  if (!data) return <div>Loading...</div>;
-  return (
-    <table>
+  tableStarWars = (data) => {
+    if (!data) return <div>Loading...</div>;
+    return (
       <tbody>
         <tr className="title">
           <td>Planet Name</td>
@@ -49,37 +50,91 @@ const tableStarWars = (data) => {
           </tr>
         ))}
       </tbody>
-    </table>
-  );
-};
+    );
+  };
 
-const Table = ({ data, filters }) => {
-  const planetsFiltered = filters
-    ? tableStarWars(filterPlanetByName(data, filters))
-    : tableStarWars(data);
-  return (
-    <div>
-      <FilterName />
-      {planetsFiltered}
-    </div>
-  );
-};
+  sortAscending = (planetsData, isNumeric) => {
+    const { sortTable: { column } } = this.props;
+    if (!isNumeric) {
+      return planetsData.sort((a, b) => {
+        if (a[column] > b[column]) return 1;
+        if (b[column] > a[column]) return -1;
+        return 0;
+      });
+    }
+    return planetsData.sort((a, b) => {
+      if (a[column] === 'unknown') return 1;
+      if (b[column] === 'unknown') return -1;
+      return Number(a[column]) - Number(b[column]);
+    });
+  }
 
-const mapStateToProps = ({ data: { data }, filterName: { filters } }) => ({
+  sortDescending = (planetsData, isNumeric) => {
+    const { sortTable: { column } } = this.props;
+    if (!isNumeric) {
+      return planetsData.sort((a, b) => {
+        if (a[column] > b[column]) return -1;
+        if (b[column] > a[column]) return 1;
+        return 0;
+      });
+    }
+    return planetsData.sort((a, b) => {
+      if (a[column] === 'unknown') return -1;
+      if (b[column] === 'unknown') return 1;
+      return Number(b[column]) - Number(a[column]);
+    });
+  }
+
+  changeColumnOrder = (planetsData) => {
+    const { sortTable: { column, order } } = this.props;
+    const numericColumns = [
+      'population',
+      'orbital_period',
+      'diameter',
+      'rotation_period',
+      'surface_water',
+    ];
+    const isNumeric = numericColumns.includes(column);
+
+    if (!column) return planetsData;
+
+    if (order === 'ASC') return this.sortAscending(planetsData, isNumeric);
+    return this.sortDescending(planetsData, isNumeric);
+  }
+
+  render() {
+    const { data, name } = this.props;
+    const planetsFiltered = name ? this.filterPlanetByName(data, name) : data;
+    const sortedPlanets = this.changeColumnOrder(planetsFiltered);
+    return (
+      <section>
+        <FilterName />
+        <table>
+          <ButtonSort />
+          {data && this.tableStarWars(sortedPlanets)}
+        </table>
+      </section>
+    );
+  }
+}
+
+
+const mapStateToProps = ({ data: { data }, filters: { name }, sort: { sortTable } }) => ({
   data,
-  filters,
+  name,
+  sortTable,
 });
 
 Table.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
   })),
-  filters: PropTypes.string,
+  name: PropTypes.string,
 };
 
 Table.defaultProps = {
   data: [],
-  filters: '',
+  name: '',
 };
 
 export default connect(mapStateToProps)(Table);
