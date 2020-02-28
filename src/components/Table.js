@@ -7,19 +7,6 @@ import Filter from './Filter';
 import Loading from './Loading';
 import NumberInputDropDown from './NumberInputDropDown';
 
-// const comparison = (condition) => {
-//   switch (condition) {
-//     case 'greater':
-//       return 'maior que';
-//     case 'less':
-//       return 'menor que';
-//     case 'iqual':
-//       return 'igual a';
-//     default:
-//       return null;
-//   }
-// }
-
 const bodyTableRow = (planets) => (
   <tr key={planets.name}>
     <td>{planets.name}</td>
@@ -42,19 +29,40 @@ const bodyTableRow = (planets) => (
   </tr>
 );
 
-const switchOfTable = (data, filters, numbers) => {
-  let dataFinal = null;
-  if (filters) {
-    dataFinal = data.filter((planet) => planet.name.toUpperCase().includes(filters.toUpperCase()));
-  } else if (numbers) {
-
-    // dataFinal = data.filter((planet) => planet.name.toUpperCase().includes(filters.toUpperCase()));
-
-  } else {
-    dataFinal = data;
+const conditionForNameFilter = (data, filter) => {
+  if (filter) {
+    return data.filter((planet) => planet.name.toUpperCase().includes(filter.toUpperCase()));
   }
-  return dataFinal.map((date) => bodyTableRow(date));
+  return data;
 };
+
+const filterTotFinal = (planetsData, listDescision) => {
+  if (listDescision.length !== 0) {
+    console.log('que merda ', comparisonCase(listDescision, planetsData));
+    return comparisonCase(listDescision, planetsData);
+  }
+  return planetsData;
+};
+
+const chooseBiggest = (planets, filterOfForm) => planets.filter((data) => Number(data[filterOfForm.column]) > filterOfForm.value);
+
+const chooseSmallest = (planets, filterOfForm) => planets.filter((data) => Number(data[filterOfForm.column]) < filterOfForm.value);
+
+const chooseEqual = (planets, filterOfForm) => planets.filter((data) => data[filterOfForm.column] === filterOfForm.value);
+
+const comparisonCase = (filters, data) => filters.reduce((previous, filter, index) => {
+  const dataComparison = index === 0 ? data : previous;
+  switch (filter.comparison) {
+    case 'bigger':
+      return chooseBiggest(dataComparison, filter);
+    case 'less':
+      return chooseSmallest(dataComparison, filter);
+    case 'equal':
+      return chooseEqual(dataComparison, filter);
+    default:
+      return [];
+  }
+}, []);
 
 const headColumns = () => {
   const textColumns = [
@@ -83,23 +91,19 @@ const headColumns = () => {
 
 const mapOfObject = (object) => Object.keys(object).map((key) => <span>{` → ${object[key]} ← `}</span>);
 class Table extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   // this.handleClick = this.handleClick.bind(this);
-  // }
-
   componentDidMount() {
     const { getPlanetFetch } = this.props;
     getPlanetFetch();
   }
-  
+
   render() {
     const {
       data, inputValue, isFetching, numeric_values, removePlanetFilters,
     } = this.props;
-    console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
-    console.log(numeric_values);
-    console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
+    const finalData = data
+      ? filterTotFinal(conditionForNameFilter(data, inputValue), numeric_values)
+      : false;
+
     if (isFetching) return <Loading />;
     return (
       <div>
@@ -120,7 +124,7 @@ class Table extends Component {
         <br />
         <table>
           <thead>{headColumns()}</thead>
-          <tbody>{data && switchOfTable(data, inputValue, numeric_values)}</tbody>
+          <tbody>{data && finalData.map((data) => bodyTableRow(data))}</tbody>
         </table>
       </div>
     );
