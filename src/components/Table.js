@@ -53,6 +53,18 @@ class Table extends Component {
     );
   };
 
+  static comparisonCase(filters, data) {
+    return filters.reduce((previousList, filter, index) => {
+      const planetList = (index === 0) ? data : previousList;
+      const obj = {
+        bigger: planetList.filter((planet) => Number(planet[filter.column]) > filter.value),
+        less: planetList.filter((planet) => Number(planet[filter.column]) < filter.value),
+        equal: planetList.filter((planet) => planet[filter.column] === filter.value),
+      };
+      return obj[filter.comparison];
+    }, []);
+  }
+
   sortAscending = (planetsData, isNumeric) => {
     const { sortTable: { column } } = this.props;
     if (!isNumeric) {
@@ -102,27 +114,41 @@ class Table extends Component {
     return this.sortDescending(planetsData, isNumeric);
   }
 
+  filterNumericNumber(planetsData) {
+    const { numeric_values } = this.props;
+    if (numeric_values.length !== 0) {
+      return Table.comparisonCase(numeric_values, planetsData);
+    }
+    return planetsData;
+  }
+
   render() {
     const { data, name } = this.props;
     const planetsFiltered = name ? this.filterPlanetByName(data, name) : data;
-    const sortedPlanets = this.changeColumnOrder(planetsFiltered);
-    return (
-      <section>
-        <FilterName />
-        <table>
-          <ButtonSort />
-          {data && this.tableStarWars(sortedPlanets)}
-        </table>
-      </section>
-    );
+    console.log(planetsFiltered)
+    if (planetsFiltered.length === 0) {
+      return <div>Loading</div>
+    } else {
+      const filterNumber = this.filterNumericNumber(planetsFiltered)
+      const sortedPlanets = filterNumber ? this.changeColumnOrder(filterNumber) : this.changeColumnOrder(planetsFiltered);
+      return (
+        <section>
+          <FilterName />
+          <table>
+            <ButtonSort />
+            {data && this.tableStarWars(sortedPlanets)}
+          </table>
+        </section>
+      );
+    }
   }
 }
 
-
-const mapStateToProps = ({ data: { data }, filters: { name }, sort: { sortTable } }) => ({
+const mapStateToProps = ({ data: { data }, filters: { name, numeric_values }, sort: { sortTable } }) => ({
   data,
   name,
   sortTable,
+  numeric_values,
 });
 
 Table.propTypes = {
