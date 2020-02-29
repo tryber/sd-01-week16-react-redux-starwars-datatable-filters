@@ -39,7 +39,6 @@ const conditionForNameFilter = (data, filter) => {
 
 const filterTotFinal = (planetsData, listDescision) => {
   if (listDescision.length !== 0) {
-    console.log('que merda ', comparisonCase(listDescision, planetsData));
     return comparisonCase(listDescision, planetsData);
   }
   return planetsData;
@@ -99,8 +98,25 @@ class Table extends Component {
 
   render() {
     const {
-      data, inputValue, isFetching, numeric_values, removePlanetFilters,
+      data,
+      inputValue,
+      isFetching,
+      numeric_values,
+      removePlanetFilters,
+      column,
+      order,
     } = this.props;
+
+    const teste = (frutas) => {
+      const newArray = frutas
+        ? frutas.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0))
+        : null;
+      console.log('******************************1');
+      console.log(newArray);
+      console.log('******************************1');
+      return newArray;
+    };
+
     const finalData = data
       ? filterTotFinal(conditionForNameFilter(data, inputValue), numeric_values)
       : false;
@@ -108,6 +124,9 @@ class Table extends Component {
     if (isFetching) return <Loading />;
     return (
       <div>
+        <br />
+        <button onClick={teste(data)}>fazer um teste</button>
+        <br />
         <h1>StarWars Datatable with Filters</h1>
         <br />
         <Filter />
@@ -138,12 +157,15 @@ const mapStateToProps = ({
   allPlanetWar: { isFetching, data, error },
   filterName: { name },
   filters: { numeric_values },
+  filtersOrder: { column, order },
 }) => ({
   isFetching,
   data,
   error,
   inputValue: name,
   numeric_values,
+  column,
+  order,
 });
 const mapDispatchToProps = (dispatch) => ({
   getPlanetFetch: () => dispatch(fetchPlanets()),

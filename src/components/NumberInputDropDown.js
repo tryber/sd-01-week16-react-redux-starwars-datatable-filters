@@ -29,15 +29,6 @@ class NumberInputDropDown extends Component {
     event.preventDefault();
   }
 
-  // sendValues() {
-  //   const { column, comparison, value } = this.state;
-  //   const { addPlanetFilters } = this.props;
-  //   addPlanetFilters({ column, comparison, value });
-  //   this.setState({
-  //     column: '',
-  //   });
-  // }
-
   sendValueForStore() {
     const { column, comparison, value } = this.state;
     const { addPlanetFilters } = this.props;
@@ -50,10 +41,7 @@ class NumberInputDropDown extends Component {
   render() {
     const { column, comparison, value } = this.state;
     const { numeric_values } = this.props;
-    // console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
-    // console.log(numeric_values);
-    // console.log('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→');
-    // positionsOfList.find((filterObj) => filterObj === value)
+
     const selectIsTrueOrFalse = (filters, value) => {
       const exists = filters.numeric_values.find((filterObj) => filterObj.column === value);
       if (exists) return false;
