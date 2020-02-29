@@ -6,14 +6,23 @@ import FilterName from './FilterName';
 import ButtonSort from './ButtonSort';
 
 class Table extends Component {
-  filterPlanetByName = (data, textInput) => {
+  constructor(props) {
+    super(props);
+    this.filterNumericNumber = this.filterNumericNumber.bind(this);
+    this.changeColumnOrder = this.changeColumnOrder.bind(this);
+    this.sortAscending = this.sortAscending.bind(this);
+    this.sortDescending = this.sortDescending.bind(this);
+    this.tableStarWars = this.tableStarWars.bind(this);
+  }
+
+  filterPlanetByName(data, textInput) {
     if (textInput) {
       return data.filter(({ name }) => name.toLowerCase().includes(textInput.toLowerCase()));
     }
     return data;
   };
 
-  tableStarWars = (data) => {
+  tableStarWars(data) {
     if (!data) return <div>Loading...</div>;
     return (
       <tbody>
@@ -65,7 +74,7 @@ class Table extends Component {
     }, []);
   }
 
-  sortAscending = (planetsData, isNumeric) => {
+  sortAscending(planetsData, isNumeric) {
     const { sortTable: { column } } = this.props;
     if (!isNumeric) {
       return planetsData.sort((a, b) => {
@@ -81,7 +90,7 @@ class Table extends Component {
     });
   }
 
-  sortDescending = (planetsData, isNumeric) => {
+  sortDescending(planetsData, isNumeric) {
     const { sortTable: { column } } = this.props;
     if (!isNumeric) {
       return planetsData.sort((a, b) => {
@@ -97,7 +106,7 @@ class Table extends Component {
     });
   }
 
-  changeColumnOrder = (planetsData) => {
+  changeColumnOrder(planetsData) {
     const { sortTable: { column, order } } = this.props;
     const numericColumns = [
       'population',
@@ -125,7 +134,6 @@ class Table extends Component {
   render() {
     const { data, name } = this.props;
     const planetsFiltered = name ? this.filterPlanetByName(data, name) : data;
-    console.log(planetsFiltered)
     if (planetsFiltered.length === 0) {
       return <div>Loading</div>
     } else {
