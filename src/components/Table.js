@@ -6,6 +6,7 @@ import { removeFilters } from '../actions/actionNumberFilter';
 import Filter from './Filter';
 import Loading from './Loading';
 import NumberInputDropDown from './NumberInputDropDown';
+import OrderTable from './OrderTable';
 
 const bodyTableRow = (planets) => (
   <tr key={planets.name}>
@@ -110,6 +111,9 @@ class Table extends Component {
         <h1>StarWars Datatable with Filters</h1>
         <br />
         <Filter />
+        <br />
+        <br />
+        <OrderTable />
         <br />
         <NumberInputDropDown />
         <ul>
