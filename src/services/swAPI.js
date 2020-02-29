@@ -1,7 +1,7 @@
-export const START_WARS_PLANETS_API = 'https://swapi.co/api/planets/';
+const SW_BASE_API = 'https://swapi.co/api/planets/';
 
 const getPlanets = () => (
-  fetch(START_WARS_PLANETS_API)
+  fetch(SW_BASE_API)
     .then((response) => (
       response
         .json()
