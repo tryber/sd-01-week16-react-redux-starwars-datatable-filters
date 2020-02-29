@@ -103,13 +103,13 @@ class Table extends Component {
       isFetching,
       numeric_values,
       removePlanetFilters,
-      column,
-      order,
+      // column,
+      // order,
     } = this.props;
 
-    const teste = (frutas) => {
-      const newArray = frutas
-        ? frutas.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0))
+    const ascendingAlphabeticalOrder = (planets) => {
+      const newArray = planets
+        ? planets.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0))
         : null;
       console.log('******************************1');
       console.log(newArray);
@@ -125,7 +125,7 @@ class Table extends Component {
     return (
       <div>
         <br />
-        <button onClick={teste(data)}>fazer um teste</button>
+        <button onClick={ascendingAlphabeticalOrder(data)}>fazer um teste</button>
         <br />
         <h1>StarWars Datatable with Filters</h1>
         <br />
