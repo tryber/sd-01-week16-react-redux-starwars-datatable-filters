@@ -6,6 +6,18 @@ import FilterName from './FilterName';
 import ButtonSort from './ButtonSort';
 
 class Table extends Component {
+  static comparisonCase(filters, data) {
+    return filters.reduce((previousList, filter, index) => {
+      const planetList = (index === 0) ? data : previousList;
+      const obj = {
+        bigger: planetList.filter((planet) => Number(planet[filter.column]) > filter.value),
+        less: planetList.filter((planet) => Number(planet[filter.column]) < filter.value),
+        equal: planetList.filter((planet) => planet[filter.column] === filter.value),
+      };
+      return obj[filter.comparison];
+    }, []);
+  }
+
   constructor(props) {
     super(props);
     this.filterNumericNumber = this.filterNumericNumber.bind(this);
@@ -20,27 +32,12 @@ class Table extends Component {
       return data.filter(({ name }) => name.toLowerCase().includes(textInput.toLowerCase()));
     }
     return data;
-  };
+  }
 
   tableStarWars(data) {
     if (!data) return <div>Loading...</div>;
     return (
       <tbody>
-        <tr className="title">
-          <td>Planet Name</td>
-          <td>rotation_period</td>
-          <td>orbital_period</td>
-          <td>diameter</td>
-          <td>climate</td>
-          <td>gravity</td>
-          <td>terrain</td>
-          <td>surface_water</td>
-          <td>population</td>
-          <td>films</td>
-          <td>created</td>
-          <td>edited</td>
-          <td>url</td>
-        </tr>
         {data.map((planets) => (
           <tr key={`Planeta: ${planets.name}`}>
             <td key={planets.name}>{planets.name}</td>
@@ -60,18 +57,6 @@ class Table extends Component {
         ))}
       </tbody>
     );
-  };
-
-  static comparisonCase(filters, data) {
-    return filters.reduce((previousList, filter, index) => {
-      const planetList = (index === 0) ? data : previousList;
-      const obj = {
-        bigger: planetList.filter((planet) => Number(planet[filter.column]) > filter.value),
-        less: planetList.filter((planet) => Number(planet[filter.column]) < filter.value),
-        equal: planetList.filter((planet) => planet[filter.column] === filter.value),
-      };
-      return obj[filter.comparison];
-    }, []);
   }
 
   sortAscending(planetsData, isNumeric) {
@@ -134,25 +119,25 @@ class Table extends Component {
   render() {
     const { data, name } = this.props;
     const planetsFiltered = name ? this.filterPlanetByName(data, name) : data;
-    if (planetsFiltered.length === 0) {
-      return <div>Loading</div>
-    } else {
-      const filterNumber = this.filterNumericNumber(planetsFiltered)
-      const sortedPlanets = filterNumber ? this.changeColumnOrder(filterNumber) : this.changeColumnOrder(planetsFiltered);
-      return (
-        <section>
-          <FilterName />
-          <table>
-            <ButtonSort />
-            {data && this.tableStarWars(sortedPlanets)}
-          </table>
-        </section>
-      );
-    }
+    const filterNumber = this.filterNumericNumber(planetsFiltered);
+    const sortedPlanets = filterNumber ? this.changeColumnOrder(filterNumber) : this.changeColumnOrder(planetsFiltered);
+    return (
+      <section>
+        <FilterName />
+        <table>
+          <ButtonSort />
+          {data && this.tableStarWars(sortedPlanets)}
+        </table>
+      </section>
+    );
   }
 }
 
-const mapStateToProps = ({ data: { data }, filters: { name, numeric_values }, sort: { sortTable } }) => ({
+const mapStateToProps = ({
+  data: { data },
+  filters: { name, numeric_values },
+  sort: { sortTable },
+}) => ({
   data,
   name,
   sortTable,
@@ -164,11 +149,17 @@ Table.propTypes = {
     name: PropTypes.string.isRequired,
   })),
   name: PropTypes.string,
+  numeric_values: PropTypes.arrayOf(PropTypes.shape({})),
+  sortTable: PropTypes.shape({
+    column: PropTypes.string.isRequired,
+    order: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 Table.defaultProps = {
   data: [],
   name: '',
+  numeric_values: [],
 };
 
 export default connect(mapStateToProps)(Table);
