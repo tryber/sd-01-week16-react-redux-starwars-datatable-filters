@@ -18,23 +18,7 @@ class Table extends Component {
     }, []);
   }
 
-  constructor(props) {
-    super(props);
-    this.filterNumericNumber = this.filterNumericNumber.bind(this);
-    this.changeColumnOrder = this.changeColumnOrder.bind(this);
-    this.sortAscending = this.sortAscending.bind(this);
-    this.sortDescending = this.sortDescending.bind(this);
-    this.tableStarWars = this.tableStarWars.bind(this);
-  }
-
-  filterPlanetByName(data, textInput) {
-    if (textInput) {
-      return data.filter(({ name }) => name.toLowerCase().includes(textInput.toLowerCase()));
-    }
-    return data;
-  }
-
-  tableStarWars(data) {
+  static tableStarWars(data) {
     if (!data) return <div>Loading...</div>;
     return (
       <tbody>
@@ -57,6 +41,21 @@ class Table extends Component {
         ))}
       </tbody>
     );
+  }
+
+  static filterPlanetByName(data, textInput) {
+    if (textInput) {
+      return data.filter(({ name }) => name.toLowerCase().includes(textInput.toLowerCase()));
+    }
+    return data;
+  }
+
+  constructor(props) {
+    super(props);
+    this.filterNumericNumber = this.filterNumericNumber.bind(this);
+    this.changeColumnOrder = this.changeColumnOrder.bind(this);
+    this.sortAscending = this.sortAscending.bind(this);
+    this.sortDescending = this.sortDescending.bind(this);
   }
 
   sortAscending(planetsData, isNumeric) {
@@ -118,15 +117,15 @@ class Table extends Component {
 
   render() {
     const { data, name } = this.props;
-    const planetsFiltered = name ? this.filterPlanetByName(data, name) : data;
+    const planetsFiltered = name ? Table.filterPlanetByName(data, name) : data;
     const filterNumber = this.filterNumericNumber(planetsFiltered);
-    const sortedPlanets = filterNumber ? this.changeColumnOrder(filterNumber) : this.changeColumnOrder(planetsFiltered);
+    const sortedPlanets = this.changeColumnOrder(filterNumber);
     return (
       <section>
         <FilterName />
         <table>
           <ButtonSort />
-          {data && this.tableStarWars(sortedPlanets)}
+          {data && Table.tableStarWars(sortedPlanets)}
         </table>
       </section>
     );
