@@ -59,7 +59,7 @@ class OrderTable extends Component {
           </label>
           {
             <label htmlFor="input">
-              <input type="submit" onClick={this.sendValueForStore} id="input"/>
+              <input type="submit" onClick={this.sendValueForStore} id="input" />
               Enviar Filtro
             </label>
           }
@@ -79,7 +79,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 OrderTable.propTypes = {
-  addPlanetFilters : PropTypes.func.isRequired,
+  addPlanetFilters: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderTable);

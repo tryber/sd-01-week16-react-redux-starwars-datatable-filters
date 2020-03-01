@@ -47,6 +47,15 @@ const conditionForNameFilter = (data, filter) => {
   return data;
 };
 
+const chooseBiggest = (planets, filterOfForm) => (
+  planets.filter((data) => Number(data[filterOfForm.column]) > filterOfForm.value));
+
+const chooseSmallest = (planets, filterOfForm) => (
+  planets.filter((data) => Number(data[filterOfForm.column]) < filterOfForm.value));
+
+const chooseEqual = (planets, filterOfForm) => (
+  planets.filter((data) => data[filterOfForm.column] === filterOfForm.value));
+
 const comparisonCase = (filters, data) => filters.reduce((previous, filter, index) => {
   const dataComparison = index === 0 ? data : previous;
   switch (filter.comparison) {
@@ -67,15 +76,6 @@ const filterTotFinal = (planetsData, listDescision) => {
   }
   return planetsData;
 };
-
-const chooseBiggest = (planets, filterOfForm) => (
-  planets.filter((data) => Number(data[filterOfForm.column]) > filterOfForm.value));
-
-const chooseSmallest = (planets, filterOfForm) => (
-  planets.filter((data) => Number(data[filterOfForm.column]) < filterOfForm.value));
-
-const chooseEqual = (planets, filterOfForm) => (
-  planets.filter((data) => data[filterOfForm.column] === filterOfForm.value));
 
 const headColumns = () => {
   const textColumns = [
@@ -111,8 +111,7 @@ class Table extends Component {
 
   render() {
     const { data, inputValue, isFetching,
-      numeric_values, removePlanetFilters, column, order } = this.props;
-    const numericValues = numeric_values
+      numericValues, removePlanetFilters, column, order } = this.props;
     const Data = data
       ? filterTotFinal(conditionForNameFilter(data, inputValue), numericValues) : [];
     if (isFetching) return <Loading />;
@@ -134,7 +133,7 @@ class Table extends Component {
         <br />
         <table>
           <thead>{headColumns()}</thead>
-          <tbody>{data && finalData.map((data) => bodyTableRow(data))}</tbody>
+          <tbody>{data && finalData.map((select) => bodyTableRow(select))}</tbody>
         </table>
       </div>
     );
@@ -144,14 +143,14 @@ class Table extends Component {
 const mapStateToProps = ({
   allPlanetWar: { isFetching, data, error },
   filterName: { name },
-  filters: { numeric_values },
+  filters: { numeric_values: numericValues },
   filtersOrder: { column, order },
 }) => ({
   isFetching,
   data,
   error,
   inputValue: name,
-  numeric_values,
+  numericValues,
   column,
   order,
 });
