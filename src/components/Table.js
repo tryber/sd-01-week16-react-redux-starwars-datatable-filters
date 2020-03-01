@@ -55,29 +55,6 @@ const bodyTableRow = (planets) => (
   </tr>
 );
 
-const ascOrDescTable = (planets, condition, key) => {
-  switch (condition) {
-    case 'ASC':
-      return sortAsc(planets, key);
-    default:
-      return sortDesc(planets, key);
-  }
-};
-
-const conditionForNameFilter = (data, filter) => {
-  if (filter) {
-    return data.filter((planet) => planet.name.toUpperCase().includes(filter.toUpperCase()));
-  }
-  return data;
-};
-
-const filterFinal = (planetsData, listDescision) => {
-  if (listDescision.length !== 0) {
-    return comparisonCase(listDescision, planetsData);
-  }
-  return planetsData;
-};
-
 const chooseBiggest = (planets, filterOfForm) => (
   planets.filter((data) => Number(data[filterOfForm.column]) > filterOfForm.value));
 
@@ -86,6 +63,8 @@ const chooseSmallest = (planets, filterOfForm) => (
 
 const chooseEqual = (planets, filterOfForm) => (
   planets.filter((data) => data[filterOfForm.column] === filterOfForm.value));
+
+const mapOfObject = (object) => Object.keys(object).map((key) => <span>{` | ${object[key]}`}</span>);
 
 const comparisonCase = (filters, data) => filters.reduce((previous, filter, index) => {
   const dataComparison = index === 0 ? data : previous;
@@ -101,7 +80,28 @@ const comparisonCase = (filters, data) => filters.reduce((previous, filter, inde
   }
 }, []);
 
-const mapOfObject = (object) => Object.keys(object).map((key) => <span>{` | ${object[key]}`}</span>);
+const filterFinal = (planetsData, listDescision) => {
+  if (listDescision.length !== 0) {
+    return comparisonCase(listDescision, planetsData);
+  }
+  return planetsData;
+};
+
+const ascOrDescTable = (planets, condition, key) => {
+  switch (condition) {
+    case 'ASC':
+      return sortAsc(planets, key);
+    default:
+      return sortDesc(planets, key);
+  }
+};
+
+const conditionForNameFilter = (data, filter) => {
+  if (filter) {
+    return data.filter((planet) => planet.name.toUpperCase().includes(filter.toUpperCase()));
+  }
+  return data;
+};
 
 class Table extends Component {
   componentDidMount() {
@@ -126,7 +126,7 @@ class Table extends Component {
         <FormsFilters />
         <ul>
           {numericValues.map((value, index) => (
-            <li key={`value is ${value} for ${index}`}>
+            <li key={`value is ${value}`}>
               {numericValues && mapOfObject(value)}
               <button onClick={() => removePlanetFilters(index)}>X</button>
             </li>
