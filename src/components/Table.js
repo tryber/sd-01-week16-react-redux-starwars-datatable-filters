@@ -166,7 +166,7 @@ Table.propTypes = {
   removePlanetFilters: PropTypes.func.isRequired,
   data: PropTypes.objectOf(PropTypes.string).isRequired,
   inputValue: PropTypes.string.isRequired,
-  numeric_values: PropTypes.arrayOf(PropTypes.shape({})),
+  numericValues: PropTypes.arrayOf(PropTypes.shape({})),
   column: PropTypes.string.isRequired,
   order: PropTypes.string.isRequired,
 };
