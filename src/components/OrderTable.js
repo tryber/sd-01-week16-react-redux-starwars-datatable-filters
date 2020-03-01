@@ -33,6 +33,7 @@ class OrderTable extends Component {
     const { addPlanetFilters } = this.props;
     addPlanetFilters({ column, order });
   }
+  
   creatSelect(list) {
     const { column } = this.state;
     return (

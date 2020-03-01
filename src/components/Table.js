@@ -48,10 +48,10 @@ const conditionForNameFilter = (data, filter) => {
 };
 
 const chooseBiggest = (planets, filterOfForm) => (
-  planets.filter((data) => Number(data[filterOfForm.column]) > filterOfForm.value));
+  planets.filter((data) => parseInt(data[filterOfForm.column]) > filterOfForm.value));
 
 const chooseSmallest = (planets, filterOfForm) => (
-  planets.filter((data) => Number(data[filterOfForm.column]) < filterOfForm.value));
+  planets.filter((data) => parseInt(data[filterOfForm.column]) < filterOfForm.value));
 
 const chooseEqual = (planets, filterOfForm) => (
   planets.filter((data) => data[filterOfForm.column] === filterOfForm.value));
