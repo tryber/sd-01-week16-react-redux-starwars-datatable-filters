@@ -7,11 +7,14 @@ import { inputNameUpdate } from '../actions/inputNameUpdate';
 function Filter(props) {
   return (
     <div>
-      <input
-        value={props.inputValue}
-        placeholder="Digite o nome do planeta aqui"
-        onChange={(e) => props.inputChange(e.target.value)}
-      />
+      <label>
+        Pesquise pelo nome do Planeta:
+        <input
+          value={props.inputValue}
+          placeholder="Digite o nome do planeta aqui"
+          onChange={(e) => props.inputChange(e.target.value)}
+        />
+      </label>
     </div>
   );
 }

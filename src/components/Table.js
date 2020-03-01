@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import PropTypes from 'prop-types';
-import { fetchPlanets } from '../actions/SwAPI';
+import { fetchPlanets, sortAsc, sortDesc } from '../actions/SwAPI';
 import Filter from './Filter';
 import FormsFilters from './FormsFilters';
 import { removeFilters } from '../actions/filtersUpdate';
+import OrderTable from './OrderTable';
 
 const headColumns = () => {
   const textColumns = [
@@ -54,6 +55,15 @@ const bodyTableRow = (planets) => (
   </tr>
 );
 
+const ascOrDescTable = (planets, condition, key) => {
+  switch (condition) {
+    case 'ASC':
+      return sortAsc(planets, key);
+    default:
+      return sortDesc(planets, key);
+  }
+};
+
 const conditionForNameFilter = (data, filter) => {
   if (filter) {
     return data.filter((planet) => planet.name.toUpperCase().includes(filter.toUpperCase()));
@@ -101,15 +111,17 @@ class Table extends Component {
 
   render() {
     const {
-      isFetching, data, inputValue, numericValues, removePlanetFilters,
+      isFetching, data, inputValue, numericValues, removePlanetFilters, order, column
     } = this.props;
-    if (isFetching) return <h1>Loading...</h1>;
-    const finalData = data
+    const Data = data
       ? filterFinal(conditionForNameFilter(data, inputValue), numericValues)
       : [];
+      if (isFetching) return <h1>Loading...</h1>;
+    const finalData = ascOrDescTable(Data, order, column);
 
     return (
       <div>
+        <OrderTable />
         <Filter />
         <FormsFilters />
         <ul>
@@ -133,12 +145,15 @@ const mapStateToProps = ({
   allPlanetWar: { isFetching, data, error },
   filterName: { name },
   filtersForm: { numeric_values: numericValues },
+  orderTable: { column, order },
 }) => ({
   data,
   error,
   isFetching,
   inputValue: name,
   numericValues,
+  column,
+  order,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -153,6 +168,8 @@ Table.propTypes = {
   data: PropTypes.objectOf(PropTypes.string).isRequired,
   inputValue: PropTypes.string.isRequired,
   numericValues: PropTypes.arrayOf(PropTypes.shape({})),
+  column: PropTypes.string.isRequired,
+  order: PropTypes.string.isRequired,
 };
 
 Table.defaultProps = {
