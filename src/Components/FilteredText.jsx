@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { changeFilterText } from '../Actions/actions';
 import '../Style/FilteredText.css';
 
 class FilteredText extends Component {
 
   render() {
-    const { changeFilterText } = this.props;
+    const { changeFilterName } = this.props;
 
     return (
       <div>
         <input
           className="input-text"
           type="text"
-          onChange={(e) => changeFilterText(e.target.value)}
+          onChange={(e) => changeFilterName(e.target.value)}
           placeholder="Pesquise aqui"
         />
       </div>
@@ -21,8 +22,13 @@ class FilteredText extends Component {
   }
 }
 
+FilteredText.propTypes = {
+  changeFilterName: PropTypes.func.isRequired,
+};
+
+
 const mapDispatchToProps = (dispatch) => ({
-  changeFilterText: (value) => dispatch(changeFilterText(value)),
+  changeFilterName: (value) => dispatch(changeFilterText(value)),
 });
 
 

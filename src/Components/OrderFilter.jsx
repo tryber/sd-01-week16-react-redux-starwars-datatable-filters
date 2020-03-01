@@ -37,7 +37,7 @@ function TableHeader({ ordernedColumn }) {
 }
 
 TableHeader.propTypes = {
-  orderColumn: PropTypes.func.isRequired,
+  ordernedColumn: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({

@@ -6,8 +6,6 @@ import FilteredText from './Components/FilteredText';
 import FilteredNumber from './Components/FilteredNumber';
 import store from './Store/store';
 
-
-
 function App() {
   return (
     <Provider store={store}>

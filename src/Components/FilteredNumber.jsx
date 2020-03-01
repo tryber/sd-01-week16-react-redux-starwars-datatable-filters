@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { changeFilter, removeFilter } from '../Actions/actions';
 import '../Style/FilteredNumber.css';
 
@@ -35,18 +36,16 @@ class FilteredNumber extends Component {
 
   filterValue() {
     const { numeric_values, removeFilterPlanets } = this.props;
-    return numeric_values.map((value) => {
-      return (
-        <ul key={value}>
-          {Object.values(value).map((tag) => (
-            <ol key={tag}>
-              {tag}
-            </ol>
-          ))}
-          <button type="button" onClick={() => removeFilterPlanets(value)}>x</button>
-        </ul>
-      );
-    });
+    return numeric_values.map((value) => (
+      <ul key={value}>
+        {Object.values(value).map((tag) => (
+          <ol key={tag}>
+            {tag}
+          </ol>
+        ))}
+        <button type="button" onClick={() => removeFilterPlanets(value)}>x</button>
+      </ul>
+    ));
   }
 
   verifyFilter(column) {
@@ -105,13 +104,25 @@ class FilteredNumber extends Component {
             onChange={(e) => this.changeState(e, 'value')}
             placeholder="Coloque a quantidade aquii"
           />
-          {select && value && comparison && <button className="btn" type="button" onClick={(event) => this.valueStore(event)}>filtrar </button>}
+          {select
+          && value
+          && comparison
+          && <button className="btn" type="button" onClick={(event) => this.valueStore(event)}>filtrar </button>}
         </div>
         <div>{this.filterValue()}</div>
       </div>
     );
   }
 }
+
+FilteredNumber.propTypes = {
+  filter: PropTypes.func.isRequired,
+  removeFilterPlanets: PropTypes.func.isRequired,
+  numeric_values: PropTypes.arrayOf(PropTypes.shape({})),
+};
+FilteredNumber.defaultProps = {
+  numeric_values: [],
+};
 const mapStateToProps = ({ filters: { numeric_values } }) => ({ numeric_values });
 
 const mapDispatchToProps = (dispatch) => ({
