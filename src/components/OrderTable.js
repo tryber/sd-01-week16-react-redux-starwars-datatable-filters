@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { newFilters } from '../actions/newFiltersTheAction';
 
 const textColumns = [
@@ -18,7 +19,7 @@ class OrderTable extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.sendValueForStore = this.sendValueForStore.bind(this);
   }
-  
+
   handleColumn(event) {
     this.setState({ column: event.target.value });
   }
@@ -39,8 +40,8 @@ class OrderTable extends Component {
         <option value="name" selected>
           name
         </option>
-        {list.map((textName, index) => (
-          <option key={`${textName} ${index}`}>{textName}</option>
+        {list.map((textName) => (
+          <option key={`${textName}`}>{textName}</option>
         ))}
       </select>
     );
@@ -52,13 +53,13 @@ class OrderTable extends Component {
         <fieldset>
           <legend>Escolha para ordenar</legend>
           {this.creatSelect(textColumns)}
-          <label onChange={this.handleClick}>
+          <label onChange={this.handleClick} htmlFor="order" >
             <input type="radio" name="order" value="ASC" defaultChecked /> Ordem Crescente
             <input type="radio" name="order" value="DESC" /> Ordem Decrescente
           </label>
           {
-            <label>
-              <input type="submit" onClick={this.sendValueForStore} />
+            <label htmlFor="input">
+              <input type="submit" onClick={this.sendValueForStore} id="input"/>
               Enviar Filtro
             </label>
           }
@@ -76,5 +77,9 @@ const mapStateToProps = ({ filtersOrder: { column, order } }) => ({
 const mapDispatchToProps = (dispatch) => ({
   addPlanetFilters: (value) => dispatch(newFilters(value)),
 });
+
+OrderTable.propTypes = {
+  addPlanetFilters : PropTypes.func.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderTable);

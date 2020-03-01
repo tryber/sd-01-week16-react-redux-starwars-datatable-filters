@@ -52,7 +52,8 @@ class NumberInputDropDown extends Component {
         name="comparison"
         value={comparison}
         onChange={this.handleComparison}
-        required>
+        required
+      >
         <option value="" disabled> SELECIONE </option>
         <option value="bigger">MAIOR QUE</option>
         <option value="smaller">MENOR QUE</option>
