@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import { addFilters } from '../actions/filtersUpdate';
 
 class FormsFilters extends Component {
@@ -103,5 +105,14 @@ const mapStateToProps = ({ filtersForm: { numeric_values } }) => ({
 const mapDispatchToProps = (dispatch) => ({
   addPlanetFilters: (value) => dispatch(addFilters(value)),
 });
+
+FormsFilters.propTypes = {
+  addPlanetFilters: PropTypes.func.isRequired,
+  numeric_values: PropTypes.arrayOf(PropTypes.shape({})),
+};
+
+FormsFilters.defaultProps = {
+  numeric_values: [],
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormsFilters);

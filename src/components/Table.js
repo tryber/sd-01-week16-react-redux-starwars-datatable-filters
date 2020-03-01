@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-
 import { connect } from 'react-redux';
+
+import PropTypes from 'prop-types';
 import { fetchPlanets } from '../actions/SwAPI';
 import Filter from './Filter';
 import FormsFilters from './FormsFilters';
@@ -67,11 +68,14 @@ const filterFinal = (planetsData, listDescision) => {
   return planetsData;
 };
 
-const chooseBiggest = (planets, filterOfForm) => planets.filter((data) => Number(data[filterOfForm.column]) > filterOfForm.value);
+const chooseBiggest = (planets, filterOfForm) => (
+  planets.filter((data) => Number(data[filterOfForm.column]) > filterOfForm.value));
 
-const chooseSmallest = (planets, filterOfForm) => planets.filter((data) => Number(data[filterOfForm.column]) < filterOfForm.value);
+const chooseSmallest = (planets, filterOfForm) => (
+  planets.filter((data) => Number(data[filterOfForm.column]) < filterOfForm.value));
 
-const chooseEqual = (planets, filterOfForm) => planets.filter((data) => data[filterOfForm.column] === filterOfForm.value);
+const chooseEqual = (planets, filterOfForm) => (
+  planets.filter((data) => data[filterOfForm.column] === filterOfForm.value));
 
 const comparisonCase = (filters, data) => filters.reduce((previous, filter, index) => {
   const dataComparison = index === 0 ? data : previous;
@@ -87,7 +91,8 @@ const comparisonCase = (filters, data) => filters.reduce((previous, filter, inde
   }
 }, []);
 
-const mapOfObject = (object) => Object.keys(object).map((key) => <span>{` → ${object[key]} ← `}</span>);
+const mapOfObject = (object) => Object.keys(object).map((key) => <span>{` | ${object[key]}`}</span>);
+
 class Table extends Component {
   componentDidMount() {
     const { planetFetch } = this.props;
@@ -96,11 +101,11 @@ class Table extends Component {
 
   render() {
     const {
-      isFetching, data, inputValue, numeric_values, removePlanetFilters,
+      isFetching, data, inputValue, numericValues, removePlanetFilters,
     } = this.props;
     if (isFetching) return <h1>Loading...</h1>;
     const finalData = data
-      ? filterFinal(conditionForNameFilter(data, inputValue), numeric_values)
+      ? filterFinal(conditionForNameFilter(data, inputValue), numericValues)
       : [];
 
     return (
@@ -108,9 +113,9 @@ class Table extends Component {
         <Filter />
         <FormsFilters />
         <ul>
-          {numeric_values.map((value, index) => (
+          {numericValues.map((value, index) => (
             <li key={`value is ${value} for ${index}`}>
-              {numeric_values && mapOfObject(value)}
+              {numericValues && mapOfObject(value)}
               <button onClick={() => removePlanetFilters(index)}>X</button>
             </li>
           ))}
@@ -127,18 +132,32 @@ class Table extends Component {
 const mapStateToProps = ({
   allPlanetWar: { isFetching, data, error },
   filterName: { name },
-  filtersForm: { numeric_values },
+  filtersForm: { numeric_values: numericValues },
 }) => ({
   data,
   error,
   isFetching,
   inputValue: name,
-  numeric_values,
+  numericValues,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   planetFetch: () => dispatch(fetchPlanets()),
   removePlanetFilters: (value) => dispatch(removeFilters(value)),
 });
+
+Table.propTypes = {
+  isFetching: PropTypes.bool.isRequired,
+  planetFetch: PropTypes.func.isRequired,
+  removePlanetFilters: PropTypes.func.isRequired,
+  data: PropTypes.objectOf(PropTypes.string).isRequired,
+  inputValue: PropTypes.string.isRequired,
+  numericValues: PropTypes.arrayOf(PropTypes.shape({})),
+};
+
+Table.defaultProps = {
+  data: [],
+  numericValues: [],
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
