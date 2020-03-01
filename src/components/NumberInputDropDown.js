@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { addFilters } from '../actions/actionNumberFilter';
 
 class NumberInputDropDown extends Component {
@@ -51,47 +52,28 @@ class NumberInputDropDown extends Component {
       <form>
         <fieldset>
           <legend>Campos de Filtro</legend>
-
           <select name="column" value={column} onChange={this.handleColumn} required>
-            <option value="" disabled>
-              Selecionar Opção
-            </option>
+            <option value="" disabled> Selecionar Opção </option>
             {selectIsTrueOrFalse(numeric_values, 'population') && (
-              <option value="population">População</option>
-            )}
+              <option value="population">População</option> )}
             {selectIsTrueOrFalse(numeric_values, 'orbital_period') && (
-              <option value="orbital_period">Duração Orbital</option>
-            )}
+              <option value="orbital_period">Duração Orbital</option> )}
             {selectIsTrueOrFalse(numeric_values, 'diameter') && (
-              <option value="diameter">Diâmetro</option>
-            )}
+              <option value="diameter">Diâmetro</option> )}
             {selectIsTrueOrFalse(numeric_values, 'rotation_period') && (
-              <option value="rotation_period">Duração da Rotação</option>
-            )}
+              <option value="rotation_period">Duração da Rotação</option> )}
             {selectIsTrueOrFalse(numeric_values, 'surface_water') && (
-              <option value="surface_water">Superfície da Água</option>
-            )}
+              <option value="surface_water">Superfície da Água</option> )}
           </select>
           <select name="comparison" value={comparison} onChange={this.handleComparison} required>
-            <option value="" disabled>
-              SELECIONE
-            </option>
+            <option value="" disabled> SELECIONE </option>
             <option value="bigger">MAIOR QUE</option>
             <option value="smaller">MENOR QUE</option>
             <option value="equal">IGUAL Á</option>
           </select>
-          <input
-            type="number"
-            value={value}
-            placeholder="Valor numérico"
-            onChange={this.handleInput}
-            required
-          />
+          <input type="number" value={value} placeholder="Valor numérico" onChange={this.handleInput} />
           {column && comparison && value && (
-            <button type="submit" onClick={() => this.sendValueForStore()}>
-              Enviar Filtro
-            </button>
-          )}
+            <button type="submit" onClick={() => this.sendValueForStore()}> Enviar Filtro </button> )}
         </fieldset>
       </form>
     );
@@ -106,4 +88,12 @@ const mapDispatchToProps = (dispatch) => ({
   addPlanetFilters: (value) => dispatch(addFilters(value)),
 });
 
+NumberInputDropDown.propTypes = {
+  addPlanetFilters: PropTypes.func.isRequired,
+  numeric_values: PropTypes.arrayOf(PropTypes.shape({})),
+};
+
+NumberInputDropDown.defaultProps = {
+  numeric_values: [],
+};
 export default connect(mapStateToProps, mapDispatchToProps)(NumberInputDropDown);

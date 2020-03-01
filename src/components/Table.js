@@ -128,9 +128,6 @@ class Table extends Component {
     if (isFetching) return <Loading />;
 
     const finalData = ascOrDescAlphabeticalOrder(Data, order, column);
-    console.log('*****************************');
-    console.log(finalData);
-    console.log('*****************************');
 
     return (
       <div className="content-table">
@@ -146,7 +143,6 @@ class Table extends Component {
           {numeric_values.map((value, index) => (
             <li key={`value is ${value} for ${index}`}>
               {numeric_values && mapOfObject(value)}
-
               <button onClick={() => removePlanetFilters(index)}>X</button>
             </li>
           ))}
