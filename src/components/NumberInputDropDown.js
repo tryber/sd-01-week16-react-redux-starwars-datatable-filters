@@ -15,6 +15,7 @@ class NumberInputDropDown extends Component {
     this.handleComparison = this.handleComparison.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.sendValueForStore = this.sendValueForStore.bind(this);
+    this.selectOfComparison = this.selectOfComparison.bind(this);
   }
 
   handleColumn(event) {
@@ -39,6 +40,18 @@ class NumberInputDropDown extends Component {
     });
   }
 
+  selectOfComparison() {
+    const { comparison } = this.state;
+    return (
+      <select name="comparison" value={comparison} onChange={this.handleComparison} required>
+        <option value="" disabled> SELECIONE </option>
+        <option value="bigger">MAIOR QUE</option>
+        <option value="smaller">MENOR QUE</option>
+        <option value="equal">IGUAL Á</option>
+      </select>
+    );
+  }
+
   render() {
     const { column, comparison, value } = this.state;
     const { numeric_values } = this.props;
@@ -53,27 +66,41 @@ class NumberInputDropDown extends Component {
         <fieldset>
           <legend>Campos de Filtro</legend>
           <select name="column" value={column} onChange={this.handleColumn} required>
-            <option value="" disabled> Selecionar Opção </option>
+            <option value="" disabled>
+              {' '}
+              Selecionar Opção
+              {' '}
+            </option>
             {selectIsTrueOrFalse(numeric_values, 'population') && (
-              <option value="population">População</option> )}
+              <option value="population">População</option>
+            )}
             {selectIsTrueOrFalse(numeric_values, 'orbital_period') && (
-              <option value="orbital_period">Duração Orbital</option> )}
+              <option value="orbital_period">Duração Orbital</option>
+            )}
             {selectIsTrueOrFalse(numeric_values, 'diameter') && (
-              <option value="diameter">Diâmetro</option> )}
+              <option value="diameter">Diâmetro</option>
+            )}
             {selectIsTrueOrFalse(numeric_values, 'rotation_period') && (
-              <option value="rotation_period">Duração da Rotação</option> )}
+              <option value="rotation_period">Duração da Rotação</option>
+            )}
             {selectIsTrueOrFalse(numeric_values, 'surface_water') && (
-              <option value="surface_water">Superfície da Água</option> )}
+              <option value="surface_water">Superfície da Água</option>
+            )}
           </select>
-          <select name="comparison" value={comparison} onChange={this.handleComparison} required>
-            <option value="" disabled> SELECIONE </option>
-            <option value="bigger">MAIOR QUE</option>
-            <option value="smaller">MENOR QUE</option>
-            <option value="equal">IGUAL Á</option>
-          </select>
-          <input type="number" value={value} placeholder="Valor numérico" onChange={this.handleInput} />
+          {this.selectOfComparison()}
+          <input
+            type="number"
+            value={value}
+            placeholder="Valor numérico"
+            onChange={this.handleInput}
+          />
           {column && comparison && value && (
-            <button type="submit" onClick={() => this.sendValueForStore()}> Enviar Filtro </button> )}
+            <button type="submit" onClick={() => this.sendValueForStore()}>
+              {' '}
+              Enviar Filtro
+              {' '}
+            </button>
+          )}
         </fieldset>
       </form>
     );
