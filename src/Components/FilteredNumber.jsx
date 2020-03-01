@@ -13,32 +13,11 @@ class FilteredNumber extends Component {
       value: '',
     };
     this.valueStore = this.valueStore.bind(this);
+    this.changeState = this.changeState.bind(this);
+    this.filterValue = this.filterValue.bind(this);
+    this.verifyFilter = this.verifyFilter.bind(this);
+    this.radioGenerator = this.radioGenerator.bind(this);
   }
-
-  // filterMain() {
-  //   const { numeric_values } = this.props;
-  //   const { select, comparison, value } = this.state;
-
-  //   if (comparison === '' || value === '' || select === '') {
-  //     return alert('tá faltando dado aí!');
-  //   }
-  //   switch (comparison) {
-  //     case 'Maior que':
-  //       return numeric_values.filter((planet) => {
-  //         return planet[select] > value && planet[select] !== 'unknown';
-  //       });
-  //     case 'Menor que':
-  //       return numeric_values.filter((planet) => {
-  //         return planet[select] < Number(value) && planet[select] !== 'unknown';
-  //       });
-  //     case 'Igual a':
-  //       return numeric_values.filter((planet) => {
-  //         return planet[select] === value && planet[select] !== 'unknown';
-  //       });
-  //     default:
-  //       break;
-  //   }
-  // }
 
   valueStore(event) {
     event.preventDefault();
@@ -56,8 +35,6 @@ class FilteredNumber extends Component {
 
   filterValue() {
     const { numeric_values, removeFilterPlanets } = this.props;
-
-
     return numeric_values.map((value) => {
       return (
         <ul key={value}>
@@ -77,6 +54,37 @@ class FilteredNumber extends Component {
     return numeric_values.find((filtersActive) => filtersActive.select === column);
   }
 
+  radioGenerator() {
+    return (
+      <div className="radio-comparison">
+        <input
+          data-testid="radio-comparison-maior"
+          type="radio"
+          name="comparison"
+          value="Maior que"
+          onClick={(e) => this.changeState(e, 'comparison')}
+        />
+        Maior que
+        <input
+          data-testid="radio-comparison-menor"
+          type="radio"
+          name="comparison"
+          value="Menor que"
+          onClick={(e) => this.changeState(e, 'comparison')}
+        />
+        Menor que
+        <input
+          data-testid="radio-comparison-igual"
+          type="radio"
+          name="comparison"
+          value="Igual a"
+          onClick={(e) => this.changeState(e, 'comparison')}
+        />
+        Igual a
+      </div>
+    );
+  }
+
   render() {
     const { select, comparison, value } = this.state;
     return (
@@ -90,32 +98,7 @@ class FilteredNumber extends Component {
             {!this.verifyFilter('rotation_period') && <option value="rotation_period">Rotation_period</option>}
             {!this.verifyFilter('surface_water') && <option value="surface_water">Surface_water</option>}
           </select>
-          <div className="radio-coparison">
-            <input
-              data-testid="radio-comparison-maior"
-              type="radio"
-              name="comparison"
-              value="Maior que"
-              onClick={(e) => this.changeState(e, 'comparison')}
-            />
-            Maior que
-            <input
-              data-testid="radio-comparison-menor"
-              type="radio"
-              name="comparison"
-              value="Menor que"
-              onClick={(e) => this.changeState(e, 'comparison')}
-            />
-            Menor que
-            <input
-              data-testid="radio-comparison-igual"
-              type="radio"
-              name="comparison"
-              value="Igual a"
-              onClick={(e) => this.changeState(e, 'comparison')}
-            />
-            Igual a
-          </div>
+          {this.radioGenerator()}
           <input
             className="input-number-comparison"
             type="text"
