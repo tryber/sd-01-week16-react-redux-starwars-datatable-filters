@@ -56,8 +56,7 @@ class NumberInputDropDown extends Component {
     const { column, comparison, value } = this.state;
     const { numeric_values } = this.props;
     const selectIsTrueOrFalse = (filters, value) => {
-      const exists = filters.numeric_values.find((filterObj) => filterObj.column === value);
-      if (exists) return false;
+      if (filters.numeric_values.find((filterObj) => filterObj.column === value)) return false;
       return true;
     };
     return (

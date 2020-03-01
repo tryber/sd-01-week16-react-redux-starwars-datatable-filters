@@ -30,6 +30,19 @@ const bodyTableRow = (planets) => (
   </tr>
 );
 
+const ascOrDescAlphabeticalOrder = (planets, condition, key) => {
+  switch (condition) {
+    case 'ASC':
+      return planets
+        ? planets.sort((a, b) => (a[key] > b[key] ? 1 : b[key] > a[key] ? -1 : 0))
+        : null;
+    default:
+      return planets
+        ? planets.sort((a, b) => (a[key] < b[key] ? 1 : b[key] < a[key] ? -1 : 0))
+        : null;
+  }
+};
+
 const conditionForNameFilter = (data, filter) => {
   if (filter) {
     return data.filter((planet) => planet.name.toUpperCase().includes(filter.toUpperCase()));
@@ -106,38 +119,15 @@ class Table extends Component {
       column,
       order,
     } = this.props;
-
-    const ascOrDescAlphabeticalOrder = (planets, condition, key) => {
-      console.log('***', key);
-      switch (condition) {
-        case 'ASC':
-          return planets
-            ? planets.sort((a, b) => (a[key] > b[key] ? 1 : b[key] > a[key] ? -1 : 0))
-            : null;
-        default:
-          return planets
-            ? planets.sort((a, b) => (a[key] < b[key] ? 1 : b[key] < a[key] ? -1 : 0))
-            : null;
-      }
-    };
-
     const Data = data
-      ? filterTotFinal(conditionForNameFilter(data, inputValue), numeric_values)
-      : [];
-
+      ? filterTotFinal(conditionForNameFilter(data, inputValue), numeric_values) : [];
     if (isFetching) return <Loading />;
-
     const finalData = ascOrDescAlphabeticalOrder(Data, order, column);
-
     return (
       <div className="content-table">
         <h1>StarWars Datatable with Filters</h1>
-        <br />
-        <Filter />
-        <br />
-        <br />
-        <OrderTable />
-        <br />
+        <Filter /> <br />
+        <OrderTable /> <br />
         <NumberInputDropDown />
         <ul>
           {numeric_values.map((value, index) => (
@@ -156,6 +146,7 @@ class Table extends Component {
     );
   }
 }
+
 const mapStateToProps = ({
   allPlanetWar: { isFetching, data, error },
   filterName: { name },
@@ -170,12 +161,11 @@ const mapStateToProps = ({
   column,
   order,
 });
+
 const mapDispatchToProps = (dispatch) => ({
   getPlanetFetch: () => dispatch(fetchPlanets()),
   removePlanetFilters: (value) => dispatch(removeFilters(value)),
 });
-
-export default connect(mapStateToProps, mapDispatchToProps)(Table);
 
 Table.propTypes = {
   isFetching: PropTypes.bool.isRequired,
@@ -183,3 +173,5 @@ Table.propTypes = {
   data: PropTypes.objectOf(PropTypes.string).isRequired,
   inputValue: PropTypes.string.isRequired,
 };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Table);
