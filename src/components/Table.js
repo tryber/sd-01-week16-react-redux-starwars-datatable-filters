@@ -7,6 +7,7 @@ import Filter from './Filter';
 import Loading from './Loading';
 import NumberInputDropDown from './NumberInputDropDown';
 import OrderTable from './OrderTable';
+import {sortAsc, sortDesc} from '../service/functions'
 
 const bodyTableRow = (planets) => (
   <tr key={planets.name}>
@@ -30,8 +31,38 @@ const bodyTableRow = (planets) => (
   </tr>
 );
 
-const sortAsc = (data, key) => data.sort((a, b) => (a[key] > b[key] ? 1 : b[key] > a[key] ? -1 : 0))
-const sortDesc = (data, key) => data.sort((a, b) => (a[key] < b[key] ? 1 : b[key] < a[key] ? -1 : 0))
+// const sortAsc = (data, key) => {
+//   const compare = (a, b, key) => {
+//     if (a[key] > b[key])
+//        return 1;
+//     if (b[key] > a[key])
+//       return -1;
+//     return 0;
+//   }
+// return data.sort(compare, key) 
+// }
+ 
+// const sortDesc = (data, key) => {
+//   const compare = (a, b, key) => {
+//     if (a[key] < b[key])
+//        return 1;
+//     if (b[key] < a[key])
+//       return -1;
+//     return 0;
+//   }
+// return data.sort(compare, key) 
+// }
+
+// const compare = (a, b) => {
+//   if (a[key] < b[key])
+//      return -1;
+//   if (a[key] > b[key])
+//     return 1;
+//   return 0;
+// }
+
+// const sortAsc = (data, key) => data.sort((a, b) => (a[key] > b[key] ? 1 : b[key] > a[key] ? -1 : 0))
+// const sortDesc = (data, key) => data.sort((a, b) => (a[key] < b[key] ? 1 : b[key] < a[key] ? -1 : 0))
 
 const ascOrDescAlphabeticalOrder = (planets, condition, key) => {
   switch (condition) {
