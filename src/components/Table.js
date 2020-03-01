@@ -52,6 +52,40 @@ const bodyTableRow = (planets) => (
   </tr>
 );
 
+const conditionForNameFilter = (data, filter) => {
+  if (filter) {
+    return data.filter((planet) => planet.name.toUpperCase().includes(filter.toUpperCase()));
+  }
+  return data;
+};
+
+const filterFinal = (planetsData, listDescision) => {
+  if (listDescision.length !== 0) {
+    return comparisonCase(listDescision, planetsData);
+  }
+  return planetsData;
+};
+
+const chooseBiggest = (planets, filterOfForm) => planets.filter((data) => Number(data[filterOfForm.column]) > filterOfForm.value);
+
+const chooseSmallest = (planets, filterOfForm) => planets.filter((data) => Number(data[filterOfForm.column]) < filterOfForm.value);
+
+const chooseEqual = (planets, filterOfForm) => planets.filter((data) => data[filterOfForm.column] === filterOfForm.value);
+
+const comparisonCase = (filters, data) => filters.reduce((previous, filter, index) => {
+  const dataComparison = index === 0 ? data : previous;
+  switch (filter.comparison) {
+    case 'bigger':
+      return chooseBiggest(dataComparison, filter);
+    case 'less':
+      return chooseSmallest(dataComparison, filter);
+    case 'equal':
+      return chooseEqual(dataComparison, filter);
+    default:
+      return [];
+  }
+}, []);
+
 class Table extends Component {
   componentDidMount() {
     const { planetFetch } = this.props;
@@ -59,11 +93,11 @@ class Table extends Component {
   }
 
   render() {
-    const { isFetching, data, numeric_values } = this.props;
+    const {
+      isFetching, data, inputValue, numeric_values,
+    } = this.props;
     if (isFetching) return <h1>Loading...</h1>;
-    const finalData = data;
-    console.log('pizza', numeric_values);
-
+    const finalData = data ? filterFinal(conditionForNameFilter(data, inputValue), numeric_values) : [];
     return (
       <div>
         <Filter />
@@ -85,7 +119,7 @@ const mapStateToProps = ({
   data,
   error,
   isFetching,
-  name,
+  inputValue: name,
   numeric_values,
 });
 
