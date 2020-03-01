@@ -11,7 +11,7 @@ function Filter(props) {
         Pesquise pelo nome do Planeta:
         <input
           value={props.inputValue}
-          placeholder="Digite o nome do planeta aqui"
+          placeholder="Nome do Planeta"
           onChange={(e) => props.inputChange(e.target.value)}
         />
       </label>

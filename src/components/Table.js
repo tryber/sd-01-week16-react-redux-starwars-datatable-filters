@@ -116,7 +116,7 @@ class Table extends Component {
     const Data = data
       ? filterFinal(conditionForNameFilter(data, inputValue), numericValues)
       : [];
-      if (isFetching) return <h1>Loading...</h1>;
+    if (isFetching) return <h1>Loading...</h1>;
     const finalData = ascOrDescTable(Data, order, column);
 
     return (
