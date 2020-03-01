@@ -30,16 +30,15 @@ const bodyTableRow = (planets) => (
   </tr>
 );
 
+const sortAsc = (data, key) => data.sort((a, b) => (a[key] > b[key] ? 1 : b[key] > a[key] ? -1 : 0))
+const sortDesc = (data, key) => data.sort((a, b) => (a[key] < b[key] ? 1 : b[key] < a[key] ? -1 : 0))
+
 const ascOrDescAlphabeticalOrder = (planets, condition, key) => {
   switch (condition) {
     case 'ASC':
-      return planets
-        ? planets.sort((a, b) => (a[key] > b[key] ? 1 : b[key] > a[key] ? -1 : 0))
-        : null;
+      return sortAsc(planets, key)
     default:
-      return planets
-        ? planets.sort((a, b) => (a[key] < b[key] ? 1 : b[key] < a[key] ? -1 : 0))
-        : null;
+      return sortDesc(planets, key)
   }
 };
 
@@ -110,15 +109,7 @@ class Table extends Component {
   }
 
   render() {
-    const {
-      data,
-      inputValue,
-      isFetching,
-      numeric_values,
-      removePlanetFilters,
-      column,
-      order,
-    } = this.props;
+    const { data, inputValue, isFetching, numeric_values, removePlanetFilters, column, order } = this.props;
     const Data = data
       ? filterTotFinal(conditionForNameFilter(data, inputValue), numeric_values) : [];
     if (isFetching) return <Loading />;
