@@ -1,11 +1,11 @@
 import {
   STAR_WAR_REQUEST,
   PLANET_OF_STAR_WAR_FAILURE,
-  PLANET_OF_STAR_WAR_SUCCESS
-} from "../actions/SwAPI";
+  PLANET_OF_STAR_WAR_SUCCESS,
+} from '../actions/SwAPI';
 
 const INITIAL_STATE_PLANETS = {
-  isFetching: false
+  isFetching: false,
 };
 
 const allPlanetWar = (state = INITIAL_STATE_PLANETS, action) => {
@@ -13,19 +13,19 @@ const allPlanetWar = (state = INITIAL_STATE_PLANETS, action) => {
     case STAR_WAR_REQUEST:
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
       };
     case PLANET_OF_STAR_WAR_FAILURE:
       return {
         ...state,
         error: action.error,
-        isFetching: false
+        isFetching: false,
       };
     case PLANET_OF_STAR_WAR_SUCCESS:
       return {
         ...state,
         data: action.data,
-        isFetching: false
+        isFetching: false,
       };
     default:
       return state;

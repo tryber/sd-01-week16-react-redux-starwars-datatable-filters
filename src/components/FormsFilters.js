@@ -41,7 +41,7 @@ class FormsFilters extends Component {
   render() {
     const { column, comparison, value } = this.state;
     const { numeric_values } = this.props;
-    const selectIsTrueOrFalse = (value) => {     
+    const selectIsTrueOrFalse = (value) => {
       const exists = numeric_values.find((filterObj) => filterObj.column === value);
       if (exists) return false;
       return true;
@@ -96,7 +96,7 @@ class FormsFilters extends Component {
   }
 }
 
-const mapStateToProps = ({ filtersForm: { numeric_values } })  => ({
+const mapStateToProps = ({ filtersForm: { numeric_values } }) => ({
   numeric_values,
 });
 
