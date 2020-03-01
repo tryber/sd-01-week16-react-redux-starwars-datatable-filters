@@ -104,10 +104,14 @@ class FilteredNumber extends Component {
             onChange={(e) => this.changeState(e, 'value')}
             placeholder="Coloque a quantidade aquii"
           />
-          {select
+          { select
           && value
           && comparison
-          && <button className="btn" type="button" onClick={(event) => this.valueStore(event)}>filtrar </button>}
+          && (
+            <button className="btn" type="button" onClick={(event) => this.valueStore(event)}>
+              filtrar
+            </button>
+          )}
         </div>
         <div>{this.filterValue()}</div>
       </div>
