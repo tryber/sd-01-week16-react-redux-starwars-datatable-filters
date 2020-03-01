@@ -103,30 +103,37 @@ class Table extends Component {
       isFetching,
       numeric_values,
       removePlanetFilters,
-      // column,
-      // order,
+      column,
+      order,
     } = this.props;
 
-    const ascendingAlphabeticalOrder = (planets) => {
-      const newArray = planets
-        ? planets.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0))
-        : null;
-      console.log('******************************1');
-      console.log(newArray);
-      console.log('******************************1');
-      return newArray;
+    const ascOrDescAlphabeticalOrder = (planets, condition, key) => {
+      console.log('***', key);
+      switch (condition) {
+        case 'ASC':
+          return planets
+            ? planets.sort((a, b) => (a[key] > b[key] ? 1 : b[key] > a[key] ? -1 : 0))
+            : null;
+        default:
+          return planets
+            ? planets.sort((a, b) => (a[key] < b[key] ? 1 : b[key] < a[key] ? -1 : 0))
+            : null;
+      }
     };
 
-    const finalData = data
+    const Data = data
       ? filterTotFinal(conditionForNameFilter(data, inputValue), numeric_values)
-      : false;
+      : [];
 
     if (isFetching) return <Loading />;
+
+    const finalData = ascOrDescAlphabeticalOrder(Data, order, column);
+    console.log('*****************************');
+    console.log(finalData);
+    console.log('*****************************');
+
     return (
-      <div>
-        <br />
-        <button onClick={ascendingAlphabeticalOrder(data)}>fazer um teste</button>
-        <br />
+      <div className="content-table">
         <h1>StarWars Datatable with Filters</h1>
         <br />
         <Filter />

@@ -24,10 +24,16 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-  
+
 }
 
-table, th, td {
+.content-table {
+  width: 100%
+}
+
+table,
+th,
+td {
   border: 1px solid whitesmoke;
   padding: 3px;
   border-radius: 3px;

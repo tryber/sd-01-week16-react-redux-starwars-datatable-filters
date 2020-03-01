@@ -5,25 +5,18 @@ import { newFilters } from '../actions/newFiltersTheAction';
 class OrderTable extends Component {
   constructor(props) {
     super(props);
-    this.state = { column: 'NOME', order: 'ASC' };
+    this.state = { column: 'name', order: 'ASC' };
     this.handleColumn = this.handleColumn.bind(this);
     this.creatSelect = this.creatSelect.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.sendValueForStore = this.sendValueForStore.bind(this);
   }
   static textColumns = [
-    'POPULAÇÃO',
-    'DURAÇÃO DA ORBITA',
-    'DIÂMENTRO',
-    'CLIMA',
-    'GRAVIDADE',
-    'SOLO',
-    'DURAÇÃO DA ROTAÇÃO',
-    'SUPERFÍCIE DE ÁGUA',
-    'FILMES',
-    'CRIADO',
-    'EDITADO',
-    'URL',
+    'population',
+    'rotation_period',
+    'diameter',
+    'orbital_period',
+    'surface_water',
   ];
 
   handleColumn(event) {
@@ -43,8 +36,8 @@ class OrderTable extends Component {
     const { column } = this.state;
     return (
       <select name="column" value={column} onChange={this.handleColumn}>
-        <option value="NOME" selected>
-          NOME
+        <option value="name" selected>
+          name
         </option>
         {list.map((textName, index) => (
           <option key={`${textName} ${index}`}>{textName}</option>
