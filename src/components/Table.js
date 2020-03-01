@@ -1,5 +1,19 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-const Table = () => <div>StarWars Datatable with Filters</div>;
+const Table = ({ table }) => {
+  return (
+    <div>
+      <div>StarWars Datatable with Filters</div>
+      <div>
+        { table.map((planet) => planet.name) }
+      </div>
+    </div>
+  );
+}
 
-export default Table;
+const mapStateToProps = (state) => ({
+  table: state.data,
+});
+
+export default connect(mapStateToProps)(Table);
