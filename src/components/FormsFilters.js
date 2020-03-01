@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addFilters } from '../actions/actionNumberFilter';
+import { addFilters } from '../actions/filtersUpdate';
 
 class FormsFilters extends Component {
   constructor(props) {
@@ -41,8 +41,8 @@ class FormsFilters extends Component {
   render() {
     const { column, comparison, value } = this.state;
     const { numeric_values } = this.props;
-    const selectIsTrueOrFalse = (filters, value) => {
-      const exists = filters.numeric_values.find((filterObj) => filterObj.column === value);
+    const selectIsTrueOrFalse = (value) => {     
+      const exists = numeric_values.find((filterObj) => filterObj.column === value);
       if (exists) return false;
       return true;
     };
@@ -54,19 +54,19 @@ class FormsFilters extends Component {
             <option value="" disabled>
               Selecionar Opção
             </option>
-            {selectIsTrueOrFalse(numeric_values, 'population') && (
+            {selectIsTrueOrFalse('population') && (
               <option value="population">População</option>
             )}
-            {selectIsTrueOrFalse(numeric_values, 'orbital_period') && (
+            {selectIsTrueOrFalse('orbital_period') && (
               <option value="orbital_period">Duração Orbital</option>
             )}
-            {selectIsTrueOrFalse(numeric_values, 'diameter') && (
+            {selectIsTrueOrFalse('diameter') && (
               <option value="diameter">Diâmetro</option>
             )}
-            {selectIsTrueOrFalse(numeric_values, 'rotation_period') && (
+            {selectIsTrueOrFalse('rotation_period') && (
               <option value="rotation_period">Duração da Rotação</option>
             )}
-            {selectIsTrueOrFalse(numeric_values, 'surface_water') && (
+            {selectIsTrueOrFalse('surface_water') && (
               <option value="surface_water">Superfície da Água</option>
             )}
           </select>
@@ -87,7 +87,7 @@ class FormsFilters extends Component {
           />
           {column && comparison && value && (
             <button type="submit" onClick={() => this.sendValueForStore()}>
-              Enviar Filtro
+              Filtrar
             </button>
           )}
         </fieldset>
@@ -95,10 +95,13 @@ class FormsFilters extends Component {
     );
   }
 }
-const mapStateToProps = ({ filters }) => ({
-  numeric_values: filters,
+
+const mapStateToProps = ({ filtersForm: { numeric_values } })  => ({
+  numeric_values,
 });
+
 const mapDispatchToProps = (dispatch) => ({
   addPlanetFilters: (value) => dispatch(addFilters(value)),
 });
+
 export default connect(mapStateToProps, mapDispatchToProps)(FormsFilters);

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchPlanets } from '../actions/SwAPI';
 import Filter from './Filter';
+import FormsFilters from './FormsFilters';
 
 const headColumns = () => {
   const textColumns = [
@@ -58,14 +59,15 @@ class Table extends Component {
   }
 
   render() {
-    const { isFetching, data, error } = this.props;
+    const { isFetching, data, numeric_values } = this.props;
     if (isFetching) return <h1>Loading...</h1>;
-
     const finalData = data;
+    console.log('pizza', numeric_values);
 
     return (
       <div>
         <Filter />
+        <FormsFilters />
         <table>
           <thead>{headColumns()}</thead>
           <tbody>{data && finalData.map((data) => bodyTableRow(data))}</tbody>
@@ -75,11 +77,16 @@ class Table extends Component {
   }
 }
 
-const mapStateToProps = ({ allPlanetWar: { isFetching, data, error }, filterName: { name } }) => ({
+const mapStateToProps = ({
+  allPlanetWar: { isFetching, data, error },
+  filterName: { name },
+  filtersForm: { numeric_values },
+}) => ({
   data,
   error,
   isFetching,
   name,
+  numeric_values,
 });
 
 const mapDispatchToProps = (dispatch) => ({
