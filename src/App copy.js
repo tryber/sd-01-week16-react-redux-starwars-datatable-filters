@@ -1,20 +1,19 @@
 import React from 'react';
-import { Provider } from 'react-redux';
 import './App.css';
+import StarWarsProvider from './Provider/StarWarsProvider';
 import Table from './Components/Table';
 import FilteredText from './Components/FilteredText';
 import FilteredNumber from './Components/FilteredNumber';
-import store from './Store/store';
 
 function App() {
   return (
-    <Provider store={store}>
+    <StarWarsProvider>
       <header className="content-header">
         <FilteredText />
         <FilteredNumber />
       </header>
       <Table />
-    </Provider>
+    </StarWarsProvider>
   );
 }
 

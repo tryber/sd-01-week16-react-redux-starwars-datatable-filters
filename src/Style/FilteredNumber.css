@@ -1,0 +1,24 @@
+.content-filter {
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+  padding-left: 10px;
+  width: 100%;
+}
+
+.select-comparison {
+  width: 20%;
+}
+
+.radio-coparison {
+  width: 30%;
+}
+
+.input-number-comparison {
+  width: 20%;
+}
+
+.btn {
+  height: 34px;
+  width: 10%;
+}
