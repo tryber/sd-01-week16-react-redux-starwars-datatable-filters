@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 
 import { addFilters } from '../actions/filtersUpdate';
 
-const selectIsTrueOrFalse = (numeric_values, value) => {
-  const exists = numeric_values.find((filterObj) => filterObj.column === value);
+const selectIsTrueOrFalse = (numericValues, value) => {
+  const exists = numericValues.find((filterObj) => filterObj.column === value);
   if (exists) return false;
   return true;
 };
@@ -22,6 +22,8 @@ class FormsFilters extends Component {
     this.handleComparison = this.handleComparison.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.sendValueForStore = this.sendValueForStore.bind(this);
+    this.selectOfComparison = this.selectOfComparison.bind(this);
+    this.selectOfColunm = this.selectOfColunm.bind(this);
   }
 
   handleColumn(event) {

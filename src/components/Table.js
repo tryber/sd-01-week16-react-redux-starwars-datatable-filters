@@ -111,7 +111,7 @@ class Table extends Component {
 
   render() {
     const {
-      isFetching, data, inputValue, numericValues, removePlanetFilters, order, column
+      isFetching, data, inputValue, numericValues, removePlanetFilters, order, column,
     } = this.props;
     const Data = data
       ? filterFinal(conditionForNameFilter(data, inputValue), numericValues)

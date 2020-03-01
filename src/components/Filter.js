@@ -7,9 +7,10 @@ import { inputNameUpdate } from '../actions/inputNameUpdate';
 function Filter(props) {
   return (
     <div>
-      <label>
+      <label htmlFor="planet-name">
         Pesquise pelo nome do Planeta:
         <input
+          id="planet-name"
           value={props.inputValue}
           placeholder="Nome do Planeta"
           onChange={(e) => props.inputChange(e.target.value)}
