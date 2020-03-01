@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { newFilters } from '../actions/newFiltersTheAction';
 
+const textColumns = [
+  'population',
+  'rotation_period',
+  'diameter',
+  'orbital_period',
+  'surface_water',
+];
 class OrderTable extends Component {
   constructor(props) {
     super(props);
@@ -11,14 +18,7 @@ class OrderTable extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.sendValueForStore = this.sendValueForStore.bind(this);
   }
-  static textColumns = [
-    'population',
-    'rotation_period',
-    'diameter',
-    'orbital_period',
-    'surface_water',
-  ];
-
+  
   handleColumn(event) {
     this.setState({ column: event.target.value });
   }
@@ -51,7 +51,7 @@ class OrderTable extends Component {
       <form>
         <fieldset>
           <legend>Escolha para ordenar</legend>
-          {this.creatSelect(OrderTable.textColumns)}
+          {this.creatSelect(textColumns)}
           <label onChange={this.handleClick}>
             <input type="radio" name="order" value="ASC" defaultChecked /> Ordem Crescente
             <input type="radio" name="order" value="DESC" /> Ordem Decrescente

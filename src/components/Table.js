@@ -7,7 +7,7 @@ import Filter from './Filter';
 import Loading from './Loading';
 import NumberInputDropDown from './NumberInputDropDown';
 import OrderTable from './OrderTable';
-import {sortAsc, sortDesc} from '../service/functions'
+import {sortAsc, sortDesc } from '../service/functions';
 
 const bodyTableRow = (planets) => (
   <tr key={planets.name}>
@@ -31,45 +31,12 @@ const bodyTableRow = (planets) => (
   </tr>
 );
 
-// const sortAsc = (data, key) => {
-//   const compare = (a, b, key) => {
-//     if (a[key] > b[key])
-//        return 1;
-//     if (b[key] > a[key])
-//       return -1;
-//     return 0;
-//   }
-// return data.sort(compare, key) 
-// }
- 
-// const sortDesc = (data, key) => {
-//   const compare = (a, b, key) => {
-//     if (a[key] < b[key])
-//        return 1;
-//     if (b[key] < a[key])
-//       return -1;
-//     return 0;
-//   }
-// return data.sort(compare, key) 
-// }
-
-// const compare = (a, b) => {
-//   if (a[key] < b[key])
-//      return -1;
-//   if (a[key] > b[key])
-//     return 1;
-//   return 0;
-// }
-
-// const sortAsc = (data, key) => data.sort((a, b) => (a[key] > b[key] ? 1 : b[key] > a[key] ? -1 : 0))
-// const sortDesc = (data, key) => data.sort((a, b) => (a[key] < b[key] ? 1 : b[key] < a[key] ? -1 : 0))
-
 const ascOrDescAlphabeticalOrder = (planets, condition, key) => {
   switch (condition) {
     case 'ASC':
-      return sortAsc(planets, key)
+      return sortAsc(planets, key);
     default:
-      return sortDesc(planets, key)
+      return sortDesc(planets, key);
   }
 };
 
@@ -87,11 +54,14 @@ const filterTotFinal = (planetsData, listDescision) => {
   return planetsData;
 };
 
-const chooseBiggest = (planets, filterOfForm) => planets.filter((data) => Number(data[filterOfForm.column]) > filterOfForm.value);
+const chooseBiggest = (planets, filterOfForm) => (
+  planets.filter((data) => Number(data[filterOfForm.column]) > filterOfForm.value));
 
-const chooseSmallest = (planets, filterOfForm) => planets.filter((data) => Number(data[filterOfForm.column]) < filterOfForm.value);
+const chooseSmallest = (planets, filterOfForm) => (
+  planets.filter((data) => Number(data[filterOfForm.column]) < filterOfForm.value));
 
-const chooseEqual = (planets, filterOfForm) => planets.filter((data) => data[filterOfForm.column] === filterOfForm.value);
+const chooseEqual = (planets, filterOfForm) => (
+  planets.filter((data) => data[filterOfForm.column] === filterOfForm.value));
 
 const comparisonCase = (filters, data) => filters.reduce((previous, filter, index) => {
   const dataComparison = index === 0 ? data : previous;
@@ -140,7 +110,8 @@ class Table extends Component {
   }
 
   render() {
-    const { data, inputValue, isFetching, numeric_values, removePlanetFilters, column, order } = this.props;
+    const { data, inputValue, isFetching,
+      numeric_values, removePlanetFilters, column, order } = this.props;
     const Data = data
       ? filterTotFinal(conditionForNameFilter(data, inputValue), numeric_values) : [];
     if (isFetching) return <Loading />;
@@ -153,7 +124,7 @@ class Table extends Component {
         <NumberInputDropDown />
         <ul>
           {numeric_values.map((value, index) => (
-            <li key={`value is ${value} for ${index}`}>
+            <li key={`value is ${value} for ${value}`}>
               {numeric_values && mapOfObject(value)}
               <button onClick={() => removePlanetFilters(index)}>X</button>
             </li>
@@ -194,6 +165,14 @@ Table.propTypes = {
   getPlanetFetch: PropTypes.func.isRequired,
   data: PropTypes.objectOf(PropTypes.string).isRequired,
   inputValue: PropTypes.string.isRequired,
+  numeric_values: PropTypes.arrayOf(PropTypes.shape({})),
+  column: PropTypes.string.isRequired,
+  order: PropTypes.string.isRequired,
+};
+
+Table.defaultProps = {
+  data: [],
+  numeric_values: [],
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

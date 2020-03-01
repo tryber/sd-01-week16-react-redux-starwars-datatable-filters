@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { updateInput } from '../actions/updateInput';
 
@@ -20,4 +21,9 @@ const mapStateToProps = ({ filterName }) => ({
 const mapDispatchToProps = (dispatch) => ({
   inputChange: (text) => dispatch(updateInput(text)),
 });
+Filter.propTypes = {
+  inputValue: PropTypes.string.isRequired,
+  inputChange: PropTypes.func.isRequired,
+};
+
 export default connect(mapStateToProps, mapDispatchToProps)(Filter);
