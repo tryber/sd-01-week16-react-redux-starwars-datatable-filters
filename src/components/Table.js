@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { fetchPlanets } from '../actions/SwAPI';
 import Filter from './Filter';
 import FormsFilters from './FormsFilters';
+import { removeFilters } from '../actions/filtersUpdate';
 
 const headColumns = () => {
   const textColumns = [
@@ -86,6 +87,7 @@ const comparisonCase = (filters, data) => filters.reduce((previous, filter, inde
   }
 }, []);
 
+const mapOfObject = (object) => Object.keys(object).map((key) => <span>{` → ${object[key]} ← `}</span>);
 class Table extends Component {
   componentDidMount() {
     const { planetFetch } = this.props;
@@ -94,14 +96,25 @@ class Table extends Component {
 
   render() {
     const {
-      isFetching, data, inputValue, numeric_values,
+      isFetching, data, inputValue, numeric_values, removePlanetFilters,
     } = this.props;
     if (isFetching) return <h1>Loading...</h1>;
-    const finalData = data ? filterFinal(conditionForNameFilter(data, inputValue), numeric_values) : [];
+    const finalData = data
+      ? filterFinal(conditionForNameFilter(data, inputValue), numeric_values)
+      : [];
+
     return (
       <div>
         <Filter />
         <FormsFilters />
+        <ul>
+          {numeric_values.map((value, index) => (
+            <li key={`value is ${value} for ${index}`}>
+              {numeric_values && mapOfObject(value)}
+              <button onClick={() => removePlanetFilters(index)}>X</button>
+            </li>
+          ))}
+        </ul>
         <table>
           <thead>{headColumns()}</thead>
           <tbody>{data && finalData.map((data) => bodyTableRow(data))}</tbody>
@@ -125,6 +138,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = (dispatch) => ({
   planetFetch: () => dispatch(fetchPlanets()),
+  removePlanetFilters: (value) => dispatch(removeFilters(value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
