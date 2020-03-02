@@ -4,11 +4,17 @@ import PropTypes from 'prop-types';
 import { newFilters } from '../actions/newFiltersTheAction';
 
 const textColumns = [
-  'population',
   'rotation_period',
-  'diameter',
   'orbital_period',
+  'diameter',
+  'climate',
+  'gravity',
+  'terrain',
   'surface_water',
+  'population',
+  'films',
+  'edited',
+  'url',
 ];
 class OrderTable extends Component {
   constructor(props) {
@@ -23,6 +29,7 @@ class OrderTable extends Component {
   handleColumn(event) {
     this.setState({ column: event.target.value });
   }
+
   handleClick(event) {
     this.setState({ order: event.target.value });
   }
@@ -54,16 +61,18 @@ class OrderTable extends Component {
         <fieldset>
           <legend>Escolha para ordenar</legend>
           {this.creatSelect(textColumns)}
-          <label onChange={this.handleClick} htmlFor="order" >
-            <input type="radio" name="order" value="ASC" defaultChecked /> Ordem Crescente
-            <input type="radio" name="order" value="DESC" /> Ordem Decrescente
+          <label onChange={this.handleClick} htmlFor="order">
+            <input type="radio" name="order" value="ASC" defaultChecked />
+            {' '}
+Ordem Crescente
+            <input type="radio" name="order" value="DESC" />
+            {' '}
+Ordem Decrescente
           </label>
-          {
-            <label htmlFor="input">
-              <input type="submit" onClick={this.sendValueForStore} id="input" />
+          <label htmlFor="input">
+            <input type="submit" onClick={this.sendValueForStore} id="input" />
               Enviar Filtro
-            </label>
-          }
+          </label>
         </fieldset>
       </form>
     );

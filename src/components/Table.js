@@ -116,6 +116,7 @@ class Table extends Component {
       ? filterTotFinal(conditionForNameFilter(data, inputValue), numericValues) : [];
     if (isFetching) return <Loading />;
     const finalData = ascOrDescAlphabeticalOrder(Data, order, column, data);
+    console.log(data);
     return (
       <div className="content-table">
         <h1>StarWars Datatable with Filters</h1>
