@@ -18,7 +18,7 @@ export function sortAsc(data, key, isUnder) {
   if (isUnder) {
     results = isTrue(data, key);
   }
-  return results
+  return results;
 }
 
 const isFalse = (data, key) => {
@@ -35,7 +35,7 @@ export function sortDesc(data, key, isUnder) {
   if (isUnder) {
     results = isFalse(data, key);
   }
-  return results
+  return results;
 }
 
 // function funcSortDesc(a, b,) {
