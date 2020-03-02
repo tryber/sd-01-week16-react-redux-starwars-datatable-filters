@@ -13,9 +13,11 @@ const isTrue = (data, key) => {
   return data;
 };
 
-export const sortAsc = (data, key, isUnder) => {
-  if (isUnder) return isTrue(data, key);
-};
+export function sortAsc(data, key, isUnder) {
+  if (isUnder) {
+    return isTrue(data, key);
+  }
+}
 
 const isFalse = (data, key) => {
   data.sort((a, b) => {
@@ -26,9 +28,11 @@ const isFalse = (data, key) => {
   return data;
 };
 
-export const sortDesc = (data, key, isUnder) => {
-  if (isUnder) return isFalse(data, key);
-};
+export function sortDesc(data, key, isUnder) {
+  if (isUnder) {
+    return isFalse(data, key);
+  }
+}
 
 // function funcSortDesc(a, b,) {
 //     if (a.nome < b.nome)
@@ -38,7 +42,7 @@ export const sortDesc = (data, key, isUnder) => {
 //     return 0;
 //   }
 
-// export const sortDesc = (data, key) => data.sort((a, b) => 
+// export const sortDesc = (data, key) => data.sort((a, b) =>
 // (changeForN(a[key]) < changeForN(b[key])
 //   ? 1
 //   : changeForN(b[key]) < changeForN(a[key])
