@@ -9,7 +9,7 @@ export default function planetFetcher(state = INITIAL_STATE, {
 }) {
   switch (type) {
     case FETCH_PLANETS:
-      return { data: [...planets] };
+      return { ...state, data: [...planets] };
     default:
       return state;
   }

@@ -3,14 +3,13 @@ import { connect } from 'react-redux';
 
 const filterByNumbers = (planets, column, comparison, value) => {
   const operations = {
-    lesserThan: (x, y) => (x < y),
-    equalsThan: (x, y) => (x === y),
-    higherThan: (x, y) => (x > y),
+    lesserThan: (x, y) => x < y,
+    equalsThan: (x, y) => x === y,
+    higherThan: (x, y) => x > y,
   };
 
   const filteredPlanets = planets
-    .filter((planet) => operations[comparison](planet[column], value));
-  console.log(operations[comparison]);
+    .filter((planet) => operations[comparison](Number(planet[column]), value));
   return filteredPlanets;
 };
 
@@ -21,7 +20,10 @@ const FILTER_BY_NUMBERS = 'FILTER_BY_NUMBER';
 
 class FiltersByNumber extends Component {
   componentDidUpdate() {
-    this.dispatchFilters();
+    const debounce = setTimeout(() =>{
+      this.dispatchFilters();
+      clearTimeout(debounce);
+    }, 800);
   }
 
   dispatchFilters() {
@@ -84,10 +86,18 @@ class FiltersByNumber extends Component {
 }
 
 const mapStateToProps = ({ filterByNumericValue, filterByName, planetFetcher }) => {
-  const { data } = planetFetcher;
+  const { isFilteredByName } = filterByName;
   const { filters: { numeric_values: { column, comparison, value } } } = filterByNumericValue;
+  if (isFilteredByName) {
+    return {
+      data: filterByName.data,
+      column,
+      comparison,
+      value,
+    };
+  }
   return {
-    data,
+    data: planetFetcher.data,
     column,
     comparison,
     value,

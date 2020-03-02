@@ -69,8 +69,10 @@ const Table = ({ table }) => (
 );
 
 const mapStateToProps = ({ planetFetcher, filterByName, filterByNumericValue }) => {
-  const { isFiltered } = filterByNumericValue;
-  if (isFiltered) return { table: filterByNumericValue.data };
+  const { isFilteredByName } = filterByName;
+  const { isFilteredByNumber } = filterByNumericValue;
+  if (isFilteredByName) return { table: filterByName.data };
+  if (isFilteredByNumber) return { table: filterByNumericValue.data };
   return { table: planetFetcher.data };
 };
 

@@ -9,11 +9,14 @@ const filterByName = (table, filterName) => {
 
 const TextInputFilter = ({ dispatch }) => {
   const FILTER_BY_NAME = 'FILTER_BY_NAME';
+  const TOGGLE_FILTER = 'TOGGLE_FILTER';
 
+  const togglePlanets = { type: TOGGLE_FILTER };
   const defaultPlanets = JSON.parse(localStorage.getItem('planets'));
 
   const dispatchNameFilter = (event) => {
     const { target: { value: nameFilter } } = event;
+    if (nameFilter === '') return dispatch(togglePlanets);
     const filteredResults = filterByName(defaultPlanets, nameFilter);
     const actionFilter = () => ({ type: FILTER_BY_NAME, name: nameFilter, filteredResults });
     return dispatch(actionFilter());

@@ -1,6 +1,6 @@
 const INITIAL_STATE = {
   data: [],
-  isFiltered: false,
+  isFilteredByNumber: false,
   filters: {
     numeric_values: {
       column: '',
@@ -21,13 +21,13 @@ export default function filterByNumericValue(state = INITIAL_STATE,
   }) {
   switch (type) {
     case STORE_COLUMN_FILTER:
-      return { ...state, filters: { numeric_values: { column, comparison, value } } };
+      return { ...state, data: [], filters: { numeric_values: { column, comparison, value } } };
     case STORE_COMPARISON_FILTER:
-      return { ...state, filters: { numeric_values: { column, comparison, value } } };
+      return { ...state, data: [], filters: { numeric_values: { column, comparison, value } } };
     case STORE_VALUE_FILTER:
-      return { ...state, filters: { numeric_values: { column, comparison, value } } };
+      return { ...state, data: [], filters: { numeric_values: { column, comparison, value } } };
     case FILTER_BY_NUMBERS:
-      return { ...state, data: filteredPlanets, isFiltered: true };
+      return { ...state, data: [...filteredPlanets], isFilteredByNumber: true };
     default:
       return state;
   }
