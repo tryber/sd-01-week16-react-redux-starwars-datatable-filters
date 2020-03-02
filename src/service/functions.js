@@ -14,9 +14,11 @@ const isTrue = (data, key) => {
 };
 
 export function sortAsc(data, key, isUnder) {
+  let results;
   if (isUnder) {
-    return isTrue(data, key);
+    results = isTrue(data, key);
   }
+  return results
 }
 
 const isFalse = (data, key) => {
@@ -29,9 +31,11 @@ const isFalse = (data, key) => {
 };
 
 export function sortDesc(data, key, isUnder) {
+  let results;
   if (isUnder) {
-    return isFalse(data, key);
+    results = isFalse(data, key);
   }
+  return results
 }
 
 // function funcSortDesc(a, b,) {
