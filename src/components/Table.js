@@ -70,7 +70,7 @@ const Table = ({ table }) => (
 
 const mapStateToProps = ({ planetFetcher, filterByName, filterByNumericValue }) => {
   const { isFilteredByName } = filterByName;
-  const { isFilteredByNumber } = filterByNumericValue;
+  const { isFilteredByNumber, count } = filterByNumericValue;
   if (isFilteredByName) return { table: filterByName.data };
   if (isFilteredByNumber) return { table: filterByNumericValue.data };
   return { table: planetFetcher.data };
