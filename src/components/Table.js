@@ -88,12 +88,12 @@ const filterFinal = (planetsData, listDescision) => {
   return planetsData;
 };
 
-const ascOrDescTable = (planets, condition, key) => {
+const ascOrDescTable = (planets, condition, key, isData) => {
   switch (condition) {
     case 'ASC':
-      return sortAsc(planets, key);
+      return sortAsc(planets, key, isData);
     default:
-      return sortDesc(planets, key);
+      return sortDesc(planets, key, isData);
   }
 };
 
@@ -118,7 +118,7 @@ class Table extends Component {
       ? filterFinal(conditionForNameFilter(data, inputValue), numericValues)
       : [];
     if (isFetching) return <h1>Loading...</h1>;
-    const finalData = ascOrDescTable(Data, order, column);
+    const finalData = ascOrDescTable(Data, order, column, data);
 
     return (
       <div>
@@ -135,7 +135,7 @@ class Table extends Component {
         </ul>
         <table>
           <thead>{headColumns()}</thead>
-          <tbody>{data && finalData.map((data) => bodyTableRow(data))}</tbody>
+          <tbody>{data && finalData.map((isData) => bodyTableRow(isData))}</tbody>
         </table>
       </div>
     );
