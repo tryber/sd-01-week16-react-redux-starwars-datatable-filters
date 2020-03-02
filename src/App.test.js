@@ -1,9 +1,11 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import App from './App';
+import Loading from './components/Loading';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+describe('Test inicial para ver o jest funcionando', () => {
+  test('O componente Loading tem que renderizar com o texto "LOADING..."', () => {
+    const { getByText } = render(<Loading />);
+    const linkElement = getByText(/LOADING.../i);
+    expect(linkElement).toBeInTheDocument();
+  });
 });
