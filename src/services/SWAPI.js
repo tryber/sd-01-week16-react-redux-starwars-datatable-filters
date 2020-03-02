@@ -19,7 +19,10 @@ class SWAPI extends Component {
 
     return fetch(URL)
       .then((response) => response.json())
-      .then(({ results }) => dispatch(receiveMovies(results.flat())));
+      .then(({ results }) => {
+        dispatch(receiveMovies(results.flat()));
+        localStorage.setItem('planets', JSON.stringify(results.flat()));
+      });
   }
 
   render() {

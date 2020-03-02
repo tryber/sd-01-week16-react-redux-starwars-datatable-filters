@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import TextInputFilter from './TextInputFilter';
 import '../style/Table.css';
 
 const tableHeaders = () => (
@@ -20,46 +21,53 @@ const tableHeaders = () => (
   </tr>
 );
 
-const Table = ({ table }) => {
-  return (
+const PlanetRows = ({ table }) => (
+  table.map(({
+    name, rotation_period: rotationPeriod, orbital_period: orbitalPeriod, diameter,
+    climate, gravity, terrain, surface_water: surfaceWater, population, films, created,
+    edited, url,
+  }) => (
+    <tr key={name}>
+      <td>{name}</td>
+      <td>{rotationPeriod}</td>
+      <td>{orbitalPeriod}</td>
+      <td>{diameter}</td>
+      <td>{climate}</td>
+      <td>{gravity}</td>
+      <td>{terrain}</td>
+      <td>{surfaceWater}</td>
+      <td>{population}</td>
+      <td>{films}</td>
+      <td>{created}</td>
+      <td>{edited}</td>
+      <td>{url}</td>
+    </tr>
+  ))
+);
+
+const Table = ({ table, isFiltered, filteredTable }) => (
+  <div>
+    <h1>StarWars Datatable with Filters</h1>
     <div>
-      <h1>StarWars Datatable with Filters</h1>
-      <div className="table-container">
-        <table className="table">
-          <thead>
-            {tableHeaders()}
-          </thead>
-          <tbody>
-            {table.map(({
-              name, rotation_period: rotationPeriod, orbital_period: orbitalPeriod, diameter,
-              climate, gravity, terrain, surface_water: surfaceWater, population, films, created,
-              edited, url,
-            }) => (
-              <tr key={name}>
-                <td>{name}</td>
-                <td>{rotationPeriod}</td>
-                <td>{orbitalPeriod}</td>
-                <td>{diameter}</td>
-                <td>{climate}</td>
-                <td>{gravity}</td>
-                <td>{terrain}</td>
-                <td>{surfaceWater}</td>
-                <td>{population}</td>
-                <td>{films}</td>
-                <td>{created}</td>
-                <td>{edited}</td>
-                <td>{url}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <TextInputFilter />
     </div>
-  );
-};
+    <div className="table-container">
+      <table className="table">
+        <thead>
+          {tableHeaders()}
+        </thead>
+        <tbody>
+          <PlanetRows table={table} />
+        </tbody>
+      </table>
+    </div>
+  </div>
+);
 
 const mapStateToProps = (state) => ({
   table: state.data,
+  // filteredTable: state.filteredPlanets,
+  // isFiltered: state.isFiltered,
 });
 
 export default connect(mapStateToProps)(Table);
