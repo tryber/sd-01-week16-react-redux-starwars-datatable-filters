@@ -20,7 +20,7 @@ const FILTER_BY_NUMBERS = 'FILTER_BY_NUMBER';
 
 class FiltersByNumber extends Component {
   componentDidUpdate() {
-    const debounce = setTimeout(() =>{
+    const debounce = setTimeout(() => {
       this.dispatchFilters();
       clearTimeout(debounce);
     }, 800);
