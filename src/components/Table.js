@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import PropTypes from 'prop-types';
 import { fetchPlanets } from '../actions/SwAPI';
-import { sortAsc, sortDesc } from '../services/asc'
+import { sortAsc, sortDesc } from '../services/asc';
 import Filter from './Filter';
 import FormsFilters from './FormsFilters';
 import { removeFilters } from '../actions/filtersUpdate';
@@ -135,7 +135,7 @@ class Table extends Component {
         </ul>
         <table>
           <thead>{headColumns()}</thead>
-          <tbody>{Data && finalData.map((data) => bodyTableRow(data))}</tbody>
+          <tbody>{data && finalData.map((data) => bodyTableRow(data))}</tbody>
         </table>
       </div>
     );
