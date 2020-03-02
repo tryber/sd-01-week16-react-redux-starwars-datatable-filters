@@ -11,7 +11,7 @@ class SWAPI extends Component {
     const { dispatch } = this.props;
     const LOADING = 'LOADING';
     const FETCH_PLANETS = 'FETCH_PLANETS';
-    const URL = 'https://swapi.co/api/planets/';
+    const URL = 'https://cors-anywhere.herokuapp.com/https://swapi.co/api/planets/';
 
     const requestPlanets = () => ({ type: LOADING });
     const receiveMovies = (planets) => ({ type: FETCH_PLANETS, planets });

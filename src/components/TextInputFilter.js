@@ -9,16 +9,13 @@ const filterByName = (table, filterName) => {
 
 const TextInputFilter = ({ dispatch }) => {
   const FILTER_BY_NAME = 'FILTER_BY_NAME';
-  const RESTORE_DEFAULT = 'RESTORE_DEFAULT';
 
   const defaultPlanets = JSON.parse(localStorage.getItem('planets'));
-  const restoreDefault = () => ({ type: RESTORE_DEFAULT, defaultPlanets });
 
   const dispatchNameFilter = (event) => {
     const { target: { value: nameFilter } } = event;
     const filteredResults = filterByName(defaultPlanets, nameFilter);
     const actionFilter = () => ({ type: FILTER_BY_NAME, name: nameFilter, filteredResults });
-    if (event.target.value === '') return dispatch(restoreDefault());
     return dispatch(actionFilter());
   };
 

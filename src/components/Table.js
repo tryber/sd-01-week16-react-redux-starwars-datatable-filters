@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import TextInputFilter from './TextInputFilter';
+import FiltersByNumber from './FiltersByNumber';
 import '../style/Table.css';
 
 const tableHeaders = () => (
@@ -29,14 +30,14 @@ const PlanetRows = ({ table }) => (
   }) => (
     <tr key={name}>
       <td>{name}</td>
-      <td>{rotationPeriod}</td>
-      <td>{orbitalPeriod}</td>
-      <td>{diameter}</td>
+      <td className="rotation-period">{rotationPeriod}</td>
+      <td className="orbital-period">{orbitalPeriod}</td>
+      <td className="diameter">{diameter}</td>
       <td>{climate}</td>
       <td>{gravity}</td>
       <td>{terrain}</td>
-      <td>{surfaceWater}</td>
-      <td>{population}</td>
+      <td className="surface-water">{surfaceWater}</td>
+      <td className="population">{population}</td>
       <td>{films}</td>
       <td>{created}</td>
       <td>{edited}</td>
@@ -45,11 +46,14 @@ const PlanetRows = ({ table }) => (
   ))
 );
 
-const Table = ({ table, isFiltered, filteredTable }) => (
+const Table = ({ table }) => (
   <div>
     <h1>StarWars Datatable with Filters</h1>
     <div>
       <TextInputFilter />
+    </div>
+    <div>
+      <FiltersByNumber />
     </div>
     <div className="table-container">
       <table className="table">
@@ -64,10 +68,10 @@ const Table = ({ table, isFiltered, filteredTable }) => (
   </div>
 );
 
-const mapStateToProps = (state) => ({
-  table: state.data,
-  // filteredTable: state.filteredPlanets,
-  // isFiltered: state.isFiltered,
-});
+const mapStateToProps = ({ planetFetcher, filterByName, filterByNumericValue }) => {
+  const { isFiltered } = filterByNumericValue;
+  if (isFiltered) return { table: filterByNumericValue.data };
+  return { table: planetFetcher.data };
+};
 
 export default connect(mapStateToProps)(Table);
