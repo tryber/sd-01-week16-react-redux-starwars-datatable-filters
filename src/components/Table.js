@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import PropTypes from 'prop-types';
-import { fetchPlanets, sortAsc, sortDesc } from '../actions/SwAPI';
+import { fetchPlanets } from '../actions/SwAPI';
+import { sortAsc, sortDesc } from '../services/asc'
 import Filter from './Filter';
 import FormsFilters from './FormsFilters';
 import { removeFilters } from '../actions/filtersUpdate';
@@ -134,7 +135,7 @@ class Table extends Component {
         </ul>
         <table>
           <thead>{headColumns()}</thead>
-          <tbody>{data && finalData.map((data) => bodyTableRow(data))}</tbody>
+          <tbody>{Data && finalData.map((data) => bodyTableRow(data))}</tbody>
         </table>
       </div>
     );
