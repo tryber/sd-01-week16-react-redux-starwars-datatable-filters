@@ -4,11 +4,17 @@ import PropTypes from 'prop-types';
 import { newFilters } from '../actions/TableAsc';
 
 const textColumns = [
-  'population',
   'rotation_period',
-  'diameter',
   'orbital_period',
+  'diameter',
+  'climate',
+  'gravity',
+  'terrain',
   'surface_water',
+  'population',
+  'films',
+  'edited',
+  'url',
 ];
 
 class OrderTable extends Component {
