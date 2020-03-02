@@ -10,7 +10,7 @@ const filterByNumbers = (planets, column, comparison, value) => {
 
   const filteredPlanets = planets
     .filter((planet) => operations[comparison](Number(planet[column]), Number(value)));
-  console.log(planets, column, comparison, value)
+  // console.log(planets, column, comparison, value)
   return filteredPlanets;
 };
 
@@ -44,13 +44,16 @@ class FiltersByNumber extends Component {
 
   dispatchFilters() {
     const { dispatch, column, comparison, value, data, selectors } = this.props;
-    const setNumericFilter = (filteredPlanets) => (
-      { type: FILTER_BY_NUMBERS, filteredPlanets, selectors }
-    );
-
     if (column !== '' && comparison !== '' && value !== '') {
       const filteredPlanets = filterByNumbers(data, column, comparison, value);
-      return dispatch(setNumericFilter(filteredPlanets));
+      const filterSelectors = selectors.filter((selector) => {
+        if (selector[0].includes(column)) return false;
+        return true;
+      });
+      const setNumericFilter = () => (
+        { type: FILTER_BY_NUMBERS, filteredPlanets, selectors, filterSelectors }
+      );
+      return dispatch(setNumericFilter());
     }
     return null;
   }
@@ -90,9 +93,11 @@ class FiltersByNumber extends Component {
 
 const mapStateToProps = ({ filterByNumericValue, filterByName, planetFetcher }) => {
   const { isFilteredByName } = filterByName;
-  const { filters: { selectors, numeric_values: { column, comparison, value } } } = filterByNumericValue;
+  const { isFilteredByNumber, filters: { selectors, newSelectors, numeric_values: { column, comparison, value } } } = filterByNumericValue;
   if (isFilteredByName) {
     return {
+      isFilteredByNumber,
+      newSelectors,
       selectors,
       data: filterByName.data,
       column,
@@ -101,6 +106,8 @@ const mapStateToProps = ({ filterByNumericValue, filterByName, planetFetcher }) 
     };
   }
   return {
+    isFilteredByNumber,
+    newSelectors,
     selectors,
     data: planetFetcher.data,
     column,

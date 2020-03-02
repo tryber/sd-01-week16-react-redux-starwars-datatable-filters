@@ -14,6 +14,7 @@ const INITIAL_STATE = {
       comparison: '',
       value: '',
     },
+    newSelectors: [],
   },
 };
 
@@ -24,17 +25,17 @@ const FILTER_BY_NUMBERS = 'FILTER_BY_NUMBER';
 
 export default function filterByNumericValue(state = INITIAL_STATE,
   {
-    type, value, column, comparison, filteredPlanets, selectors,
+    type, value, column, comparison, filteredPlanets, selectors, filterSelectors,
   }) {
   switch (type) {
     case STORE_COLUMN_FILTER:
-      return { ...state, data: [], isFilteredByNumber: false, filters: { selectors, numeric_values: { column, comparison, value } } };
+      return { ...state, data: [], filters: { selectors, numeric_values: { column, comparison, value } } };
     case STORE_COMPARISON_FILTER:
-      return { ...state, data: [], isFilteredByNumber: false, filters: { selectors, numeric_values: { column, comparison, value } } };
+      return { ...state, data: [], filters: { selectors, numeric_values: { column, comparison, value } } };
     case STORE_VALUE_FILTER:
-      return { ...state, data: [], isFilteredByNumber: false, filters: { selectors, numeric_values: { column, comparison, value } } };
+      return { ...state, data: [], filters: { selectors, numeric_values: { column, comparison, value } } };
     case FILTER_BY_NUMBERS:
-      return { ...state, data: [...filteredPlanets], isFilteredByNumber: true };
+      return { ...state, data: [...filteredPlanets], filters: { newSelectors: filterSelectors, selectors, numeric_values: { column: '', comparison: '', value: '' } }, isFilteredByNumber: true };
     default:
       return state;
   }
