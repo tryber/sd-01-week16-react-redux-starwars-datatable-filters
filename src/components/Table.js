@@ -31,12 +31,12 @@ const bodyTableRow = (planets) => (
   </tr>
 );
 
-const ascOrDescAlphabeticalOrder = (planets, condition, key) => {
+const ascOrDescAlphabeticalOrder = (planets, condition, key, isTrust) => {
   switch (condition) {
     case 'ASC':
-      return sortAsc(planets, key);
+      return sortAsc(planets, key, isTrust);
     default:
-      return sortDesc(planets, key);
+      return sortDesc(planets, key, isTrust);
   }
 };
 
@@ -115,7 +115,8 @@ class Table extends Component {
     const Data = data
       ? filterTotFinal(conditionForNameFilter(data, inputValue), numericValues) : [];
     if (isFetching) return <Loading />;
-    const finalData = ascOrDescAlphabeticalOrder(Data, order, column);
+    const finalData = ascOrDescAlphabeticalOrder(Data, order, column, data);
+    console.log(finalData);
     return (
       <div className="content-table">
         <h1>StarWars Datatable with Filters</h1>
